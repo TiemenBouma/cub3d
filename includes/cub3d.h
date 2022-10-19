@@ -1,6 +1,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#include "MLX42/include/MLX42/MLX42.h"
+
 typedef struct s_cube
 {
 	int		window_x;
@@ -11,7 +13,7 @@ typedef struct s_cube
 	char	*so;
 	char	*we;
 	char	*ea;
-	char	*s;
+	//char	*s;
 	int		floor_rgb[3];
 	int		ceilling_rgb[3];
 
@@ -19,7 +21,14 @@ typedef struct s_cube
 	mlx_image_t	*g_img_ceilling;
 	mlx_image_t	*g_img_demo;
 
+	mlx_texture_t	*no_wall;
+	mlx_texture_t	*ea_wall;
+	mlx_texture_t	*so_wall;
+	mlx_texture_t	*we_wall;
+
 	char	**map;
+	char	**argv;
+	char	*file_name;
 }	t_cube;
 
 typedef struct s_vars
@@ -27,6 +36,9 @@ typedef struct s_vars
 	t_cube			*cube;
 	mlx_t			*mlx;
 }	t_vars;
+
+//Parsing
+int	parsing(t_vars *vars);
 
 //UTILS
 void	*ft_memset32(void *str, int32_t c, int32_t len);

@@ -2,6 +2,11 @@
 #include "../includes/cub3d.h"
 #include <stdlib.h>
 
+int init_walls(t_vars *vars)
+{
+	vars->cube->no_wall = mlx_load_png(vars->cube->no);
+	return 0;
+}
 
 int	init_struct(t_vars *vars)
 {
