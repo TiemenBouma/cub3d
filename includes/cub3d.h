@@ -15,6 +15,10 @@ typedef struct s_cube
 	int		floor_rgb[3];
 	int		ceilling_rgb[3];
 
+	mlx_image_t	*g_img_floor;
+	mlx_image_t	*g_img_ceilling;
+	mlx_image_t	*g_img_demo;
+
 	char	**map;
 }	t_cube;
 
