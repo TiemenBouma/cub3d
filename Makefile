@@ -1,6 +1,9 @@
 NAME := cube
 OBJ :=	obj/main.o \
-		obj/parser.o
+		obj/parser.o \
+		obj/utils.o \
+		obj/mlx_loop.o \
+		obj/mlx_init.o
 CFLAGS := -Werror -Wextra -Wall
 DEBUG := -fsanitize=address -g3
 CC := gcc
@@ -21,7 +24,7 @@ $(LIBMLX):
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(HEADERS) -o $(NAME) 
 
-obj/%.o: %.c
+obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 

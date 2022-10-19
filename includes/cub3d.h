@@ -28,4 +28,14 @@ typedef struct s_vars
 	mlx_t			*mlx;
 }	t_vars;
 
+//UTILS
+void	*ft_memset32(void *str, int32_t c, int32_t len);
+int get_rgba(int r, int g, int b, int a);
+
+//MLX LOOP
+int	game_loop_mlx(t_vars *vars);
+
+//INIT MLX
+int	init_struct(t_vars *vars);
+
 #endif
