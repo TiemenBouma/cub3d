@@ -1,19 +1,19 @@
 NAME := cube
-OBJ :=
-		obj/main.o \
+OBJ :=	obj/main.o \
 		obj/parser.o
 CFLAGS := -Werror -Wextra -Wall
 DEBUG := -fsanitize=address -g3
 CC := gcc
 LIBFT := includes/libft/libft.a
 LIBMLX := includes/MLX42/libmlx42.a
-MLXFLAGS := includes/MLX42/libmlx42.a -I -ldl -lglfw3 -pthread -lm
+MLXFLAGS := includes/MLX42/libmlx42.a -I include -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+#MLXFLAGS := includes/MLX42/libmlx42.a -I -ldl -lglfw3 -pthread -lm
 # -ldl -lglfw (or -lglfw3) -pthread -lm
 
-all: $(LIBFT) $(NAME) $(LIBMLX)
+all: $(LIBFT) $(LIBMLX) $(NAME)
 
 $(LIBFT): 
-	make -c ./includes/libft
+	make -C ./includes/libft
 
 $(LIBMLX):
 	make -C ./includes/MLX42
@@ -21,7 +21,7 @@ $(LIBMLX):
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(HEADERS) -o $(NAME) 
 
-obj/%.o: src/%.c
+obj/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
