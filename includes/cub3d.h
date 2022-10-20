@@ -44,17 +44,18 @@ typedef struct s_vars
 	char			**argv;
 }	t_vars;
 
-//Parsing
-int	parsing(t_vars *vars);
+//PARSING
+int	parsing(t_cube *cube, t_file *file);
 
 //UTILS
 void	*ft_memset32(void *str, int32_t c, int32_t len);
 int get_rgba(int r, int g, int b, int a);
+int	error_msg_exit(char * msg, int exit_code);
 
 //MLX LOOP
 int	game_loop_mlx(t_vars *vars);
 
 //INIT MLX
-int	init_struct(t_vars *vars);
+mlx_t	*init_struct(t_cube *cube);
 
 #endif

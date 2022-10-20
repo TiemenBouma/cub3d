@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "../includes/libft/libft.h"
 
 
 void	*ft_memset32(void *str, int32_t c, int32_t len)
@@ -19,4 +20,10 @@ void	*ft_memset32(void *str, int32_t c, int32_t len)
 int get_rgba(int r, int g, int b, int a)
 {
     return (r << 24 | g << 16 | b << 8 | a);
+}
+
+int	error_msg_exit(char * msg, int exit_code)
+{
+	ft_putstr_fd(msg, 2);
+	exit (exit_code);
 }

@@ -4,17 +4,18 @@
 
 #include <stdio.h>
 
-int init_walls(t_vars *vars)
+int init_walls(t_cube *cube, mlx_t *mlx)
 {
-	printf("DEBUG: no wall = |%s|\n", vars->cube->no);
-	vars->cube->texture_no_wall = mlx_load_png(vars->cube->no);//("pics/greystone.png");//
-	vars->cube->g_img_wall_demo = mlx_texture_to_image(vars->mlx, vars->cube->texture_no_wall);
-	mlx_image_to_window(vars->mlx, vars->cube->g_img_wall_demo, 0, 500);
+	printf("DEBUG: no wall = |%s|\n", cube->no);
+	cube->texture_no_wall = mlx_load_png(cube->no);//("pics/greystone.png");//
+	cube->g_img_wall_demo = mlx_texture_to_image(mlx, cube->texture_no_wall);
+	mlx_image_to_window(mlx, cube->g_img_wall_demo, 0, 500);
 	return 0;
 }
 
-int	init_struct(t_vars *vars)
+mlx_t	*init_struct(t_cube *cube)
 {
+	mlx_t	*mlx;
 	// cube->ceilling_rgb[0] = 1;
 	// cube->ceilling_rgb[1] = 1;
 	// cube->ceilling_rgb[2] = 1;
@@ -27,20 +28,20 @@ int	init_struct(t_vars *vars)
 	ceilling_c = 0xffdb9f5a;
 	int32_t green;
 	green = 0xff00ff00;
-	vars->mlx = mlx_init(vars->cube->window_x, vars->cube->window_y, "MLX42", true);
-	vars->cube->g_img_floor = mlx_new_image(vars->mlx, 1000, 500);
-	vars->cube->g_img_ceilling = mlx_new_image(vars->mlx, 1000, 500);
+	mlx = mlx_init(cube->window_x, cube->window_y, "MLX42", true);
+	cube->g_img_floor = mlx_new_image(mlx, 1000, 500);
+	cube->g_img_ceilling = mlx_new_image(mlx, 1000, 500);
 	
-	vars->cube->g_img_demo = mlx_new_image(vars->mlx, 100, 100);
-	ft_memset32(vars->cube->g_img_demo->pixels, green , vars->cube->g_img_demo->width * vars->cube->g_img_demo->height);
+	cube->g_img_demo = mlx_new_image(mlx, 100, 100);
+	ft_memset32(cube->g_img_demo->pixels, green , cube->g_img_demo->width * cube->g_img_demo->height);
 	
-	ft_memset32(vars->cube->g_img_floor->pixels, floor , vars->cube->g_img_floor->width * vars->cube->g_img_floor->height);
-	ft_memset32(vars->cube->g_img_ceilling->pixels, ceilling_c , vars->cube->g_img_ceilling->width * vars->cube->g_img_ceilling->height);
+	ft_memset32(cube->g_img_floor->pixels, floor , cube->g_img_floor->width * cube->g_img_floor->height);
+	ft_memset32(cube->g_img_ceilling->pixels, ceilling_c , cube->g_img_ceilling->width * cube->g_img_ceilling->height);
 	
 	
-	mlx_image_to_window(vars->mlx, vars->cube->g_img_ceilling, 0, 0);
-	mlx_image_to_window(vars->mlx, vars->cube->g_img_floor, 0, 500);
-	mlx_image_to_window(vars->mlx, vars->cube->g_img_demo, 0, 0);
-	init_walls(vars);
-	return (0);
+	mlx_image_to_window(mlx, cube->g_img_ceilling, 0, 0);
+	mlx_image_to_window(mlx, cube->g_img_floor, 0, 500);
+	mlx_image_to_window(mlx, cube->g_img_demo, 0, 0);
+	init_walls(cube, mlx);
+	return (mlx);
 }
