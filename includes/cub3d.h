@@ -20,21 +20,28 @@ typedef struct s_cube
 	mlx_image_t	*g_img_floor;
 	mlx_image_t	*g_img_ceilling;
 	mlx_image_t	*g_img_demo;
+	mlx_image_t	*g_img_wall_demo;
 
-	mlx_texture_t	*no_wall;
-	mlx_texture_t	*ea_wall;
-	mlx_texture_t	*so_wall;
-	mlx_texture_t	*we_wall;
+	mlx_texture_t	*texture_no_wall;
+	mlx_texture_t	*texture_ea_wall;
+	mlx_texture_t	*texture_so_wall;
+	mlx_texture_t	*texture_we_wall;
 
 	char	**map;
-	char	**argv;
-	char	*file_name;
 }	t_cube;
+
+typedef struct s_file
+{
+	int		file_fd;
+	char	*file_name;
+}	t_file;
 
 typedef struct s_vars
 {
 	t_cube			*cube;
 	mlx_t			*mlx;
+	t_file			*file;
+	char			**argv;
 }	t_vars;
 
 //Parsing

@@ -2,6 +2,8 @@
 #include "../includes/cub3d.h"
 #include <stdlib.h>
 
+#include <stdio.h>
+
 void	hook(void *param)
 {
 	t_vars	*vars;

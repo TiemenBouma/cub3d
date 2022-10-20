@@ -6,7 +6,7 @@
 /*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:35:36 by tbouma            #+#    #+#             */
-/*   Updated: 2022/02/09 13:47:37 by tbouma           ###   ########.fr       */
+/*   Updated: 2022/10/20 07:36:58 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dest_size)
 	return (len_src);
 }
 
-char	*ft_strdup(const char *s1, int len_s1)
+char	*ft_strdup_gnl(const char *s1, int len_s1)
 {
 	char	*ptr;
 	int		i;
@@ -89,7 +89,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (s1 == NULL)
 	{
-		str = ft_strdup(s2, ft_strlen(s2));
+		str = ft_strdup_gnl(s2, ft_strlen(s2));
 		return (str);
 	}
 	if (s2 == NULL)

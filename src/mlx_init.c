@@ -2,9 +2,14 @@
 #include "../includes/cub3d.h"
 #include <stdlib.h>
 
+#include <stdio.h>
+
 int init_walls(t_vars *vars)
 {
-	vars->cube->no_wall = mlx_load_png(vars->cube->no);
+	printf("DEBUG: no wall = |%s|\n", vars->cube->no);
+	vars->cube->texture_no_wall = mlx_load_png(vars->cube->no);//("pics/greystone.png");//
+	vars->cube->g_img_wall_demo = mlx_texture_to_image(vars->mlx, vars->cube->texture_no_wall);
+	mlx_image_to_window(vars->mlx, vars->cube->g_img_wall_demo, 0, 500);
 	return 0;
 }
 
@@ -36,5 +41,6 @@ int	init_struct(t_vars *vars)
 	mlx_image_to_window(vars->mlx, vars->cube->g_img_ceilling, 0, 0);
 	mlx_image_to_window(vars->mlx, vars->cube->g_img_floor, 0, 500);
 	mlx_image_to_window(vars->mlx, vars->cube->g_img_demo, 0, 0);
+	init_walls(vars);
 	return (0);
 }
