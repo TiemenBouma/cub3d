@@ -4,8 +4,8 @@
 
 void	init_cube_struct(t_cube *cube)
 {
-	cube->ceilling_rgb = NULL;
-	cube->floor_rgb = NULL;
+	// cube->ceilling_rgb = NULL;
+	// cube->floor_rgb = NULL;
 	cube->g_img_ceilling = NULL;
 	cube->g_img_demo = NULL;
 	cube->g_img_floor = NULL;
@@ -25,15 +25,15 @@ void	init_cube_struct(t_cube *cube)
 	cube->window_y = 1000;
 }
 
-void	init_file_struct(t_file *file)
+void	init_file_struct(t_file *file, char **argv)
 {
 	file->file_fd = 0;
-	file->file_name = NULL;
+	file->file_name = argv[1];
 	file->start_line_map = 0;
 }
 
-void	init_structs(t_vars *vars)
+void	init_structs(t_vars *vars, char **argv)
 {
 	init_cube_struct(vars->cube);
-	init_file_struct(vars->file);
+	init_file_struct(vars->file, argv);
 }

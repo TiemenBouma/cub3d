@@ -28,6 +28,7 @@ typedef struct s_cube
 	mlx_texture_t	*texture_we_wall;
 
 	char	**map;
+	char	**cpy_map;
 	int		map_width;
 	int		map_length;
 }	t_cube;
@@ -44,7 +45,6 @@ typedef struct s_vars
 	t_cube			*cube;
 	mlx_t			*mlx;
 	t_file			*file;
-	char			**argv;
 }	t_vars;
 
 //PARSING
@@ -65,6 +65,6 @@ int	game_loop_mlx(t_vars *vars);
 mlx_t	*init_mlx_stuff(t_cube *cube);
 
 //INIT STRUCTS
-void	init_structs(t_vars *vars);
+void	init_structs(t_vars *vars, char **argv);
 
 #endif

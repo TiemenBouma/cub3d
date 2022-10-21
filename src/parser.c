@@ -106,7 +106,6 @@ int	parse_cub_file_lines(t_cube *cube, t_file *file)
 {
 	parse_elements(cube, file);
 	parse_map_element(cube, file);
-	printf("DEBUG: PArse cub file lines\n");
 	return (0);
 }
 
@@ -116,6 +115,7 @@ int	parsing(t_cube *cube, t_file *file)
 	i = 0;
 
 	validate_file_name(file);
+
 	open_cub_file(file);
 	parse_cub_file_lines(cube, file);
 	return 0;

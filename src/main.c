@@ -19,14 +19,11 @@ int main(int argc, char **argv)
 		ft_putstr_fd("Error: No file or more than 1 file specified.\n", 2);
 		exit (1);
 	}
-	file.file_name = argv[1];
-	vars.argv = argv;
 	vars.cube = &cube;
 	vars.file = &file;
-	init_structs(&vars);
-	cube.window_x = 1000;
-	cube.window_y = 1000;
+	init_structs(&vars, argv);
 	parsing(&cube, &file);
+	
 	mlx = init_mlx_stuff(&cube);
 	vars.mlx = mlx;
 	game_loop_mlx(&vars);

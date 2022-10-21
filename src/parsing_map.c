@@ -1,5 +1,7 @@
 #include "../includes/cub3d.h"
 #include "../includes/libft/libft.h"
+#include "../includes/get_next_line/get_next_line.h"
+#include <unistd.h>
 
 #include <stdio.h>
 
@@ -26,14 +28,12 @@ char	*empty_line_read(t_file *file)
 	return (line);
 }
 
-int	calculate_map_length(t_cube *cube, t_file *file)
+int	calculate_map_length(t_cube *cube, t_file *file, char *line)
 {
 	int		temp_width;
-	char	*line;
 
 	while (1)
 	{
-		printf("%s\n", line);
 		if (line == NULL)
 			break ;
 		if (line[0] == '\0')
@@ -46,8 +46,68 @@ int	calculate_map_length(t_cube *cube, t_file *file)
 		line = get_line(file);
 	}
 	if (cube->map_width < 3 || cube->map_length < 3)
-		error_msg_exit("Error: Map lenths not correct.\n");
+		error_msg_exit("Error: Map lenths not correct.\n", 1);
 	return (0);
+}
+
+void map_malloc(t_cube *cube, char ***map)
+{
+	int i;
+
+	i = 0;
+	*map = malloc(sizeof(char *) * (cube->map_length + 1));
+	if (*map == NULL)
+		error_msg_exit("Error: Malloc error", 1);
+	(*map)[cube->map_length] = NULL;
+	while (i < cube->map_length)
+	{
+		(*map)[i] = ft_calloc(cube->map_width + 1, sizeof(char));
+		if ((*map)[i] == NULL)
+			error_msg_exit("Error: Malloc error", 1);
+		//(*map)[i][cube->map_width] = '\0';
+		i++;
+	}
+}
+
+void	set_map_array(t_cube *cube, t_file *file)
+{
+	int	i;
+	char	*line;
+
+	i = 0;
+	map_malloc(cube, &cube->map);
+	map_malloc(cube, &cube->cpy_map);
+	while (i < file->start_line_map - 1)
+	{
+		line = get_next_line(file->file_fd);
+		free(line);
+		i++;
+	}
+	i = 0;
+		// printf("DEBUG\n");
+		// printf("DEBUG: %d\n", cube->map_length);
+
+	while (i < cube->map_length)
+	{
+		line = get_line(file);
+		ft_memcpy(cube->map[i], line, cube->map_width);
+		//ft_memcpy(cube->cpy_map[i], line, cube->map_width);
+		//printf("memcpy = %s\n", cube->map[i]);
+		i++;
+	}
+		printf("DEBUG\n");
+}
+
+void printmap(t_cube *cube)
+{
+	int i;
+
+	i = 0;
+	while (i < cube->map_length)
+	{
+		printf("%s\n", cube->cpy_map[i]);
+		i++;
+	}
 }
 
 int	parse_map_element(t_cube *cube, t_file *file)
@@ -55,9 +115,14 @@ int	parse_map_element(t_cube *cube, t_file *file)
 	char	*line;
 
 	line = empty_line_read(file);
-	calculate_map_length(cube, file);
+	calculate_map_length(cube, file, line);
 	close(file->file_fd);
 	open_cub_file(file);
+
+	set_map_array(cube, file);
+
+	//validate_map(cube->map);
+	printmap(cube);
 
 	return 0;
 }
