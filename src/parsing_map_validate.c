@@ -1,6 +1,8 @@
 #include "../includes/cub3d.h"
 #include "../includes/libft/libft.h"
 
+#include <stdio.h>
+
 int	recursive_map_check(char **map, int x, int y);
 
 void	start_location(char **map, int *cordinates)
@@ -11,15 +13,20 @@ void	start_location(char **map, int *cordinates)
 	y = 0;
 	while (map[y])
 	{
-		x = 0;
+		x = 1;
 		while (map[y][x])
 		{
 			if (map[y][x] == '0')
-				break ;
+			{
+				cordinates[0] = y;
+				cordinates[1] = x;
+				return ;
+				// break ;
+			}
 			x++;
 		}
-		if (map[y][x] == '0')
-			break ;
+		// if (map[y][x] == '0')
+		// 	break ;
 		y++;
 	}
 	cordinates[0] = y;
@@ -47,6 +54,7 @@ void check_tile(char **map, int x, int y)
 
 int	recursive_map_check(char **map, int x, int y)
 {
+	printf("DEBUG x = %d, y = %d\n", x, y);
 	map[x][y] = '1';
 	check_tile(map, x, y - 1);
 	check_tile(map, x, y + 1);
@@ -61,5 +69,6 @@ void validate_map(char **map)
 
 	start_location(map, cordinates);
 	recursive_map_check(map, cordinates[1], cordinates[0]);
+	
 
 }

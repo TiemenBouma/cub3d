@@ -52,6 +52,9 @@ int	open_cub_file(t_file *file);
 int	parsing(t_cube *cube, t_file *file);
 int	parse_map_element(t_cube *cube, t_file *file);
 
+//PARSING VALIDATE MAP
+void validate_map(char **map);
+
 //UTILS
 void	*ft_memset32(void *str, int32_t c, int32_t len);
 int get_rgba(int r, int g, int b, int a);
