@@ -5,7 +5,9 @@ OBJ :=	obj/main.o \
 		obj/mlx_loop.o \
 		obj/mlx_init.o \
 		obj/get_next_line.o \
-		obj/get_next_line_utils.o
+		obj/get_next_line_utils.o \
+		obj/parsing_validation.o \
+		obj/parsing_map.o
 CFLAGS := -Werror -Wextra -Wall
 DEBUG := -fsanitize=address -g3
 CC := gcc

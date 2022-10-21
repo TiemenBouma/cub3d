@@ -23,9 +23,7 @@ int main(int argc, char **argv)
 	vars.file = &file;
 	cube.window_x = 1000;
 	cube.window_y = 1000;
-	printf("DEBUG\n");
 	parsing(&cube, &file);
-	printf("DEBUG3\n");
 	mlx = init_struct(&cube);
 	vars.mlx = mlx;
 	game_loop_mlx(&vars);

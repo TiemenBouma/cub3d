@@ -46,6 +46,7 @@ typedef struct s_vars
 
 //PARSING
 int	parsing(t_cube *cube, t_file *file);
+int	parse_map_element(t_cube *cube, t_file *file)
 
 //UTILS
 void	*ft_memset32(void *str, int32_t c, int32_t len);

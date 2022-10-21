@@ -35,7 +35,6 @@ int	game_loop_mlx(t_vars *vars)
 	//vars->mlx = mlx_init(vars->cube->window_x, vars->cube->window_y, "MLX42", true);
 	if (!vars->mlx)
 		exit(EXIT_FAILURE);
-	printf("DEBUG LOOP\n");
 	//init_mlx_map(vars);
 	//mlx_key_hook(vars->mlx, key_hook, vars);
 	mlx_loop_hook(vars->mlx, &hook, vars);
