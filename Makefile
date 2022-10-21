@@ -7,7 +7,8 @@ OBJ :=	obj/main.o \
 		obj/get_next_line.o \
 		obj/get_next_line_utils.o \
 		obj/parsing_validation.o \
-		obj/parsing_map.o
+		obj/parsing_map.o \
+		obj/init_structs.o
 CFLAGS := -Werror -Wextra -Wall
 DEBUG := -fsanitize=address -g3
 CC := gcc

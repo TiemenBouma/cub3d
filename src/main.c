@@ -5,6 +5,8 @@
 
 #include <stdio.h>
 
+
+
 int main(int argc, char **argv)
 {
 	t_vars	vars;
@@ -21,10 +23,11 @@ int main(int argc, char **argv)
 	vars.argv = argv;
 	vars.cube = &cube;
 	vars.file = &file;
+	init_structs(&vars);
 	cube.window_x = 1000;
 	cube.window_y = 1000;
 	parsing(&cube, &file);
-	mlx = init_struct(&cube);
+	mlx = init_mlx_stuff(&cube);
 	vars.mlx = mlx;
 	game_loop_mlx(&vars);
 

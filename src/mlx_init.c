@@ -32,7 +32,7 @@ int init_walls(t_cube *cube, mlx_t *mlx)
 	return 0;
 }
 
-mlx_t	*init_struct(t_cube *cube)
+mlx_t	*init_mlx_stuff(t_cube *cube)
 {
 	mlx_t	*mlx;
 	// cube->ceilling_rgb[0] = 1;

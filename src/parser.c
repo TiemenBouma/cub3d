@@ -36,22 +36,6 @@ int validate_file_name(t_file *file)
 	return (0);
 }
 
-char	*get_line(t_file *file)
-{
-	char	*line;
-	char	*temp;
-	int		i;
-
-	i = 0;
-	line = get_next_line(file->file_fd);
-	while (line[i] != '\0'  && line[i] != '\n')
-		i++;
-	temp = ft_substr(line, 0, i);
-	free(line);
-	line = temp;
-	return (line);
-}
-
 int	set_rgb(char *str, int rgb[])
 {
 	char	**split;
@@ -86,6 +70,9 @@ int	parse_elements(t_cube *cube, t_file *file)
 	while (i < ELEMENTS_COUNT)
 	{
 		line = get_line(file);
+		file->start_line_map++;
+		if (line == NULL)
+			error_msg_exit("Error: Initialisation file not correct.\n", 1);
 		if (line[0] == '\0')
 			continue ;
 		split = ft_split(line, ' ');
@@ -118,7 +105,8 @@ int	parse_elements(t_cube *cube, t_file *file)
 int	parse_cub_file_lines(t_cube *cube, t_file *file)
 {
 	parse_elements(cube, file);
-	//parse_map_element(cube, file);
+	parse_map_element(cube, file);
+	printf("DEBUG: PArse cub file lines\n");
 	return (0);
 }
 
