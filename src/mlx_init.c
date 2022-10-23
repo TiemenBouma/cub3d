@@ -32,6 +32,11 @@ int init_walls(t_cube *cube, mlx_t *mlx)
 	return 0;
 }
 
+int	make_floor_ceilling(t_cube *cube)
+{
+	
+}
+
 mlx_t	*init_mlx_stuff(t_cube *cube)
 {
 	mlx_t	*mlx;
@@ -42,7 +47,8 @@ mlx_t	*init_mlx_stuff(t_cube *cube)
 	// cube->floor_rgb[1] = 255;
 	// cube->floor_rgb[2] = 255;
 	int32_t floor;
-	floor = 0xff5db812;
+	floor = get_rgba(cube->floor_rgb[0] ,cube->floor_rgb[1] , cube->floor_rgb[2] ,255);
+	//floor = 0xff5db812;
 	int32_t ceilling_c;
 	ceilling_c = 0xffdb9f5a;
 	int32_t green;
@@ -50,13 +56,14 @@ mlx_t	*init_mlx_stuff(t_cube *cube)
 	mlx = mlx_init(cube->window_x, cube->window_y, "MLX42", true);
 	cube->g_img_floor = mlx_new_image(mlx, 1000, 500);
 	cube->g_img_ceilling = mlx_new_image(mlx, 1000, 500);
-	
 	cube->g_img_demo = mlx_new_image(mlx, 100, 100);
+
+	make_floor_ceilling(cube);
 	ft_memset32(cube->g_img_demo->pixels, green , cube->g_img_demo->width * cube->g_img_demo->height);
 	
 	ft_memset32(cube->g_img_floor->pixels, floor , cube->g_img_floor->width * cube->g_img_floor->height);
 	ft_memset32(cube->g_img_ceilling->pixels, ceilling_c , cube->g_img_ceilling->width * cube->g_img_ceilling->height);
-	
+
 	
 	mlx_image_to_window(mlx, cube->g_img_ceilling, 0, 0);
 	mlx_image_to_window(mlx, cube->g_img_floor, 0, 500);

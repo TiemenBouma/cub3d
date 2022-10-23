@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-int	recursive_map_check(char **map, int x, int y);
+int	recursive_map_check(t_cube *cube, int x, int y);
 
 void	start_location(char **map, int *cordinates)
 {
@@ -34,41 +34,41 @@ void	start_location(char **map, int *cordinates)
 }
 
 
-void check_tile(char **map, int x, int y)
+void check_tile(t_cube *cube, int x, int y)
 {
-	if (map[y][x] == '\0')
+	if (cube->cpy_map[y][x] == '\0')
 		error_msg_exit("Error:  Invalid map.\n", 1);
-	if (map[y][x] == '0')
-		recursive_map_check(map, x, y);
-	if (map[y][x] == '1')
+	if (cube->cpy_map[y][x] == '0')
+		recursive_map_check(cube, x, y);
+	if (cube->cpy_map[y][x] == '1')
 		return ;
-	if (map[y][x] == 'N')
-		recursive_map_check(map, x, y);
-	if (map[y][x] == 'E')
-		recursive_map_check(map, x, y);
-	if (map[y][x] == 'S')
-		recursive_map_check(map, x, y);
-	if (map[y][x] == 'W')
-		recursive_map_check(map, x, y);
+	if (cube->cpy_map[y][x] == 'N' || cube->cpy_map[y][x] == 'E' || cube->cpy_map[y][x] == 'S' || cube->cpy_map[y][x] == 'W')
+	{
+		cube->player_count++;
+		cube->player_x = x;
+		cube->player_y = y;
+		recursive_map_check(cube, x, y);
+	}
 }
 
-int	recursive_map_check(char **map, int x, int y)
+int	recursive_map_check(t_cube *cube, int x, int y)
 {
-	printf("DEBUG x = %d, y = %d\n", x, y);
-	map[x][y] = '1';
-	check_tile(map, x, y - 1);
-	check_tile(map, x, y + 1);
-	check_tile(map, x - 1, y);
-	check_tile(map, x + 1, y);
+	cube->cpy_map[y][x] = '1';
+	check_tile(cube, x, y - 1);
+	check_tile(cube, x, y + 1);
+	check_tile(cube, x - 1, y);
+	check_tile(cube, x + 1, y);
 	return (0);
 }
 
-void validate_map(char **map)
+void validate_map(t_cube *cube)
 {
 	int	cordinates[2];
 
-	start_location(map, cordinates);
-	recursive_map_check(map, cordinates[1], cordinates[0]);
-	
-
+	start_location(cube->cpy_map, cordinates);
+	//printmap(cube->cpy_map);
+	recursive_map_check(cube, cordinates[1], cordinates[0]);
+	if (cube->player_count != 1)
+		error_msg_exit("Error: Wrong player count.\n", 1);
+	//printmap(cube->cpy_map);
 }

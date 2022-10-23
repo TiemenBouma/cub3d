@@ -9,7 +9,8 @@ OBJ :=	obj/main.o \
 		obj/parsing_validation.o \
 		obj/parsing_map.o \
 		obj/init_structs.o \
-		obj/parsing_map_validate.o
+		obj/parsing_map_validate.o \
+		obj/testing.o
 CFLAGS := -Werror -Wextra -Wall
 DEBUG := -fsanitize=address -g3
 CC := gcc

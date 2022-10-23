@@ -23,6 +23,9 @@ void	init_cube_struct(t_cube *cube)
 	cube->map_width = 0;
 	cube->window_x = 1000;
 	cube->window_y = 1000;
+	cube->player_count = 0;
+	cube->player_x = 0;
+	cube->player_y = 0;
 }
 
 void	init_file_struct(t_file *file, char **argv)

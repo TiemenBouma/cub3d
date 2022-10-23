@@ -31,6 +31,9 @@ typedef struct s_cube
 	char	**cpy_map;
 	int		map_width;
 	int		map_length;
+	int		player_count;
+	int		player_x;
+	int		player_y;
 }	t_cube;
 
 typedef struct s_file
@@ -53,7 +56,7 @@ int	parsing(t_cube *cube, t_file *file);
 int	parse_map_element(t_cube *cube, t_file *file);
 
 //PARSING VALIDATE MAP
-void validate_map(char **map);
+void validate_map(t_cube *cube);
 
 //UTILS
 void	*ft_memset32(void *str, int32_t c, int32_t len);
@@ -69,5 +72,8 @@ mlx_t	*init_mlx_stuff(t_cube *cube);
 
 //INIT STRUCTS
 void	init_structs(t_vars *vars, char **argv);
+
+//TESTING
+void printmap(char **map);
 
 #endif
