@@ -3,6 +3,9 @@
 
 #include "MLX42/include/MLX42/MLX42.h"
 
+#define SCREEN_X 1920
+#define SCREEN_Y 1080
+
 typedef struct s_cube
 {
 	int		window_x;
@@ -19,8 +22,10 @@ typedef struct s_cube
 
 	mlx_image_t	*g_img_floor;
 	mlx_image_t	*g_img_ceilling;
-	mlx_image_t	*g_img_demo;
-	mlx_image_t	*g_img_wall_demo;
+	mlx_image_t	*g_img_wall_no;
+	mlx_image_t	*g_img_wall_ea;
+	mlx_image_t	*g_img_wall_so;
+	mlx_image_t	*g_img_wall_we;
 
 	mlx_texture_t	*texture_no_wall;
 	mlx_texture_t	*texture_ea_wall;

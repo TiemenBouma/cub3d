@@ -22,9 +22,7 @@ int main(int argc, char **argv)
 	vars.cube = &cube;
 	vars.file = &file;
 	init_structs(&vars, argv);
-	//printf("DEBUGDEBUG: mpa length: %d\n", cube.map_length);
 	parsing(&cube, &file);
-	//printf("DEBUG\n");
 	mlx = init_mlx_stuff(&cube);
 	vars.mlx = mlx;
 	game_loop_mlx(&vars);

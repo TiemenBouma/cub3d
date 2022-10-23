@@ -12,13 +12,13 @@ void	hook(void *param)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
-		vars->cube->g_img_demo->instances[0].y -= 5;
+		vars->cube->g_img_wall_no->instances[0].y -= 5;
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
-		vars->cube->g_img_demo->instances[0].y += 5;
+		vars->cube->g_img_wall_no->instances[0].y += 5;
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
-		vars->cube->g_img_demo->instances[0].x -= 5;
+		vars->cube->g_img_wall_no->instances[0].x -= 5;
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
-		vars->cube->g_img_demo->instances[0].x += 5;
+		vars->cube->g_img_wall_no->instances[0].x += 5;
 }
 
 // void	key_hook(mlx_key_data_t keydata, void *param)

@@ -21,8 +21,8 @@ void	init_cube_struct(t_cube *cube)
 	cube->map = NULL;
 	cube->map_length = 0;
 	cube->map_width = 0;
-	cube->window_x = 1000;
-	cube->window_y = 1000;
+	cube->window_x = SCREEN_X;
+	cube->window_y = SCREEN_Y;
 	cube->player_count = 0;
 	cube->player_x = 0;
 	cube->player_y = 0;
