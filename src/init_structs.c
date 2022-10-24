@@ -7,9 +7,7 @@ void	init_cube_struct(t_cube *cube)
 	// cube->ceilling_rgb = NULL;
 	// cube->floor_rgb = NULL;
 	cube->g_img_ceilling = NULL;
-	cube->g_img_demo = NULL;
 	cube->g_img_floor = NULL;
-	cube->g_img_wall_demo = NULL;
 	cube->no = NULL;
 	cube->ea = NULL;
 	cube->so = NULL;

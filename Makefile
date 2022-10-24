@@ -29,7 +29,7 @@ $(LIBMLX):
 	make -C ./includes/MLX42
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(HEADERS) -o $(NAME) 
+	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(\) -o $(NAME) 
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)

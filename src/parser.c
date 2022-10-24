@@ -111,8 +111,6 @@ int	parse_cub_file_lines(t_cube *cube, t_file *file)
 
 int	parsing(t_cube *cube, t_file *file)
 {
-	int i;
-	i = 0;
 
 	validate_file_name(file);
 	open_cub_file(file);
