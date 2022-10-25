@@ -126,7 +126,6 @@ int	parse_map_element(t_cube *cube, t_file *file)
 	calculate_map_length(cube, file, line);
 	close(file->file_fd);
 	open_cub_file(file);
-
 	set_map_array(cube, file);
 	//printf("DEBUG1\n");
 	//printmap(cube->map);

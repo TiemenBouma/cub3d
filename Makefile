@@ -1,5 +1,5 @@
 NAME := cube
-OBJ :=	obj/main.o \
+OBJFILES :=	obj/main.o \
 		obj/parser.o \
 		obj/utils.o \
 		obj/mlx_loop.o \
@@ -11,8 +11,8 @@ OBJ :=	obj/main.o \
 		obj/init_structs.o \
 		obj/parsing_map_validate.o \
 		obj/testing.o
-CFLAGS := -Werror -Wextra -Wall
-DEBUG := -fsanitize=address -g3
+CFLAGS := -Werror -Wextra -Wall -fsanitize=address -g3
+DEBUG := 
 CC := gcc
 LIBFT := includes/libft/libft.a
 LIBMLX := includes/MLX42/libmlx42.a
@@ -28,8 +28,8 @@ $(LIBFT):
 $(LIBMLX):
 	make -C ./includes/MLX42
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(\) -o $(NAME) 
+$(NAME): $(OBJFILES)
+	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJFILES) $(LIBFT) $(LIBMLX) $(\) -o $(NAME) 
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)

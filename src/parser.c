@@ -114,6 +114,7 @@ int	parsing(t_cube *cube, t_file *file)
 
 	validate_file_name(file);
 	open_cub_file(file);
+	// printf("DEBUG:player count parsing %d\n", cube->player_count);
 	parse_cub_file_lines(cube, file);
 	return 0;
 }

@@ -29,3 +29,13 @@ int main(int argc, char **argv)
 
 	return (0);
 }
+
+// #include "../includes/MLX42/include/MLX42/MLX42.h"
+// #include "../includes/cub3d.h"
+
+//  //dest_pixel [x,y] = src_pixel [x * x_scale_factor, y * y_scale_factor]
+ 
+// int    scaling(mlx_texture_t *texture, mlx_image_t *img, double scale)
+// {
+//        texture->
+// }

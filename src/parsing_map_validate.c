@@ -69,6 +69,8 @@ void validate_map(t_cube *cube)
 	//printmap(cube->cpy_map);
 	recursive_map_check(cube, cordinates[1], cordinates[0]);
 	if (cube->player_count != 1)
+	{
 		error_msg_exit("Error: Wrong player count.\n", 1);
+	}
 	//printmap(cube->cpy_map);
 }
