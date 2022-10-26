@@ -44,7 +44,11 @@ int	print_line(mlx_texture_t *texture, mlx_image_t *img, double scale, int vert_
 	middle = texture->height / 2;
 	i = 0;
 
-	while (i < texture->height / 2)
+	int	scaled_pixel_height;
+
+	scaled_pixel_height = texture->height * scale;
+
+	while (i < scaled_pixel_height / 2)//(i < texture->height / 2)
 	{
 		get_color_put_pixel(texture, img, vert_line, middle + i);
 		get_color_put_pixel(texture, img, vert_line, middle - i);
