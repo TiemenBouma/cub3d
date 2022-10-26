@@ -17,29 +17,37 @@ int	calc_middle_offset(int img_length, int screen_y)
 	return offset;
 }
 //get_sub_pixel
-int	gsp(int h, int w, int vert_line)
+int	gsp(int h, int w, int vert_line, int bpp)
 {
-	return ((vert_line + (h * w)) * 4);
+	return ((vert_line + (h * w)) * bpp);
+}
+
+int get_color_put_pixel(mlx_texture_t *texture, mlx_image_t *img, int x, int i)
+{
+	int			bpp;
+	int w ;
+	u_int32_t	color;
+	
+	w = texture->width;
+	bpp = texture->bytes_per_pixel;
+	color = get_rgba(texture->pixels[gsp(i, w, x, bpp)], texture->pixels[gsp(i, w, x, bpp) + 1], texture->pixels[gsp(i, w, x, bpp) + 2], texture->pixels[gsp(i, w, x, bpp) + 3]);
+	mlx_put_pixel(img, x, i, color);
+	return (0);
 }
 
 int	print_line(mlx_texture_t *texture, mlx_image_t *img, double scale, int vert_line)
 {
 	u_int32_t	i;
-	u_int32_t	k;
-	u_int32_t	color;
-
+	u_int32_t	middle;
 	(void)scale;
 
+	middle = texture->height / 2;
 	i = 0;
-	k = 0;
-	int w = texture->width;
-	int x = vert_line;
 
-
-	while (i < texture->height)
+	while (i < texture->height / 2)
 	{
-		color = get_rgba(texture->pixels[gsp(i, w, x)], texture->pixels[gsp(i, w, x) + 1], texture->pixels[gsp(i, w, x) + 2], texture->pixels[gsp(i, w, x) + 3]);
-		mlx_put_pixel(img, vert_line, i, color);
+		get_color_put_pixel(texture, img, vert_line, middle + i);
+		get_color_put_pixel(texture, img, vert_line, middle - i);
 		i++;
 	}
 	return (0);
