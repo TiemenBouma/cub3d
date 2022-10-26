@@ -4,6 +4,8 @@
 #include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 
+#include <stdio.h>
+
 int	calc_middle_offset(int img_length, int screen_y)
 {
 	int offset;
@@ -14,19 +16,31 @@ int	calc_middle_offset(int img_length, int screen_y)
 
 	return offset;
 }
+//get_sub_pixel
+int	gsp(int h, int w, int vert_line)
+{
+	return ((vert_line + (h * w)) * 4);
+}
 
 int	print_line(mlx_texture_t *texture, mlx_image_t *img, double scale, int vert_line)
 {
-	u_int8_t	i;
-	u_int32_t color;
+	u_int32_t	i;
+	u_int32_t	k;
+	u_int32_t	color;
 
 	(void)scale;
+
 	i = 0;
-	while (i < texture->height * 4)
+	k = 0;
+	int w = texture->width;
+	int x = vert_line;
+
+
+	while (i < texture->height)
 	{
-		color = get_rgba(texture->pixels[vert_line * i + 3], texture->pixels[vert_line * i + 2], texture->pixels[vert_line * i + 1], texture->pixels[vert_line * i]);
-		mlx_put_pixel(img, i, vert_line, color);
-		i += 4;
+		color = get_rgba(texture->pixels[gsp(i, w, x)], texture->pixels[gsp(i, w, x) + 1], texture->pixels[gsp(i, w, x) + 2], texture->pixels[gsp(i, w, x) + 3]);
+		mlx_put_pixel(img, vert_line, i, color);
+		i++;
 	}
 	return (0);
 }
@@ -45,15 +59,17 @@ int print_more_lines(mlx_texture_t *texture, mlx_image_t *img, double scale, int
 
 int demo_scaling(mlx_t *mlx, t_cube *cube)
 {
-	int vert_line = 500;
+	//int vert_line = 100;
 
 	cube->texture_DEMO = mlx_load_png("pics/greystone.png");//(cube->no);//
-	cube->g_img_DEMO = mlx_new_image(mlx, cube->texture_DEMO->width, cube->texture_DEMO->height);
-	print_more_lines(cube->texture_DEMO, cube->g_img_DEMO, 1.0, 100);
+	cube->g_img_DEMO = mlx_new_image(mlx, 200, 200);//(mlx, cube->texture_DEMO->width, cube->texture_DEMO->height);
+	print_more_lines(cube->texture_DEMO, cube->g_img_DEMO, 1.0, 10);
 	//cube->g_img_DEMO = mlx_texture_to_image(mlx, cube->texture_DEMO);
-	
-	mlx_image_to_window(mlx, cube->g_img_DEMO, vert_line, calc_middle_offset(cube->texture_DEMO->height, SCREEN_Y));
+	//print_line(cube->texture_DEMO, cube->g_img_DEMO, 1.0, 10);
+	mlx_image_to_window(mlx, cube->g_img_DEMO, SCREEN_X / 2, calc_middle_offset(cube->texture_DEMO->height, SCREEN_Y));
 	return (0);
 }
 
+	// printf("DEBUG\n");`
+	  
 
