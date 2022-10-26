@@ -24,6 +24,7 @@ int main(int argc, char **argv)
 	init_structs(&vars, argv);
 	parsing(&cube, &file);
 	mlx = init_mlx_stuff(&cube);
+	demo_scaling(mlx, &cube);
 	vars.mlx = mlx;
 	game_loop_mlx(&vars);
 

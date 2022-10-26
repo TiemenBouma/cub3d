@@ -26,11 +26,13 @@ typedef struct s_cube
 	mlx_image_t	*g_img_wall_ea;
 	mlx_image_t	*g_img_wall_so;
 	mlx_image_t	*g_img_wall_we;
+	mlx_image_t	*g_img_DEMO;
 
 	mlx_texture_t	*texture_no_wall;
 	mlx_texture_t	*texture_ea_wall;
 	mlx_texture_t	*texture_so_wall;
 	mlx_texture_t	*texture_we_wall;
+	mlx_texture_t	*texture_DEMO;
 
 	char	**map;
 	char	**cpy_map;
@@ -80,5 +82,6 @@ void	init_structs(t_vars *vars, char **argv);
 
 //TESTING
 void printmap(char **map);
+int demo_scaling(mlx_t *mlx, t_cube *cube);
 
 #endif
