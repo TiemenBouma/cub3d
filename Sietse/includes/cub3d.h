@@ -30,4 +30,14 @@ typedef struct s_pov
 	t_axis	ray;
 } 	t_pov;
 
+// prototypes for tester
+bool	check_if_hit(t_axis ray, float angle, char **map);
+
+
+
+
+
+
+
+
 #endif

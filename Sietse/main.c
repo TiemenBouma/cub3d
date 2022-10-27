@@ -43,7 +43,7 @@ t_pov	find_playpos(char** map)
 
 	i = 0;
 	ret.facing = 0.5 * PI;
-	ret.fov = 0.5 * PI;
+	ret.fov = 0.4 * PI;
 	ret.rayangle = ret.facing - (0.5 * ret.fov);
 	while (map[i])
 	{
@@ -63,12 +63,11 @@ t_pov	find_playpos(char** map)
 	return (ret);
 }
 
-
 bool	check_if_hit(t_axis ray, float angle, char **map)
 {
+	printf("checking x: %f, y: %f with angle: %fPi\n", ray.x, ray.y, angle / PI);
 	if (ray.x >= XMAPRES || ray.y >= YMAPRES || ray.x < 0 || ray.y < 0)
 		return (1);
-	printf("checking x: %f, y: %f with angle: %fPi\n", ray.x, ray.y, angle / PI);
 	// printf("data found: %c\n", map[(int)ray.y][(int)ray.x]);
 	if (ft_fmod(ray.x, 0) <= ft_fmod(ray.y, 0) && (angle < 0.5 * PI || angle > 1.5 * PI)
 		&& map[(int)ray.y][(int)ray.x] == '1')
@@ -79,7 +78,7 @@ bool	check_if_hit(t_axis ray, float angle, char **map)
 	if (ft_fmod(ray.y, 0) <= ft_fmod(ray.x, 0) && (angle < PI)
 		&& map[(int)ray.y][(int)ray.x] == '1')
 		return (1);
-	if (ft_fmod(ray.x, 0) <= ft_fmod(ray.x, 0) && (angle >= PI)
+	if (ft_fmod(ray.y, 0) <= ft_fmod(ray.x, 0) && (angle >= PI)
 		&& map[(int)ray.y - 1][(int)ray.x] == '1')
 		return (1);
 	return (0);
@@ -90,7 +89,8 @@ t_axis	x_raycast(t_axis d, t_axis stdd, t_axis pos, float angle, char **map)
 	t_axis	ray;
 
 	ray.x = pos.x + d.x;
-	ray.y = tan(angle) * d.x;
+	ray.y = pos.y + tan(angle) * d.x;
+	printf("x raycaster\n");
 	while (!check_if_hit(ray, angle, map))
 	{
 		ray.y = tan(angle) * stdd.x;
@@ -104,7 +104,8 @@ t_axis	y_raycast(t_axis d, t_axis stdd, t_axis pos, float angle, char **map)
 	t_axis	ray;
 
 	ray.y = pos.y + d.y;
-	ray.x = d.y / tan(angle);
+	ray.x = pos.x + d.y / tan(angle);
+	printf("y raycaster\n");
 	while (!check_if_hit(ray, angle, map))
 	{
 		ray.x = stdd.y / tan(angle);
@@ -135,22 +136,22 @@ t_axis	find_wall(char **map, t_axis pos, float	angle)
 	printf("checking angle for d and stdd: %fPi\n", angle / PI);
 	if (angle > 0.5 * PI && angle < 1.5 * PI)
 	{
-		d.x = -ft_fmod(pos.x, 1);
+		d.y = tan(angle) * -ft_fmod(pos.x, 0);
 		stdd.y = -tan(angle);
 	}
 	else
 	{
-		d.x = 1 - ft_fmod(pos.x, 0);
+		d.y = tan(angle) * (1 - ft_fmod(pos.x, 0));
 		stdd.y = tan(angle);
 	}
 	if (angle > 0 && angle < PI)
 	{
-		d.y = -ft_fmod(pos.y, 1);
+		d.x = tan(angle) * 1 - ft_fmod(pos.y, 0);
 		stdd.x = 1 / tan(angle);
 	}
 	else
 	{
-		d.y = 1 - ft_fmod(pos.y, 0);
+		d.x = tan(angle) * -ft_fmod(pos.y, 0);
 		stdd.x = -1 / tan(angle);
 	}
 	printf("dx: %f, dy: %f, stddx: %f, stddy: %f\n", d.x, d.y, stdd.x, stdd.y);
@@ -167,6 +168,7 @@ void	fill_col(t_pov pov, char **field, int i, t_axis ray)
 	float	valscale;
 	int		j;
 
+	// fill = cos((0.5 * PI) + (pov.rayangle - pov.facing)) * sqrt(pow(ray.y - pov.pos.y, 2) + pow(ray.x - pov.pos.x, 2));
 	fill = sqrt(pow(ray.y - pov.pos.y, 2) + pow(ray.x - pov.pos.x, 2));
 	valscale = (fill / sqrt(25 + 144)) * YRES;
 	printf("fill: %f\n", fill);
@@ -193,7 +195,7 @@ void	cast_rays(char **map, t_pov pov, char **field)
 	pov.ray.y = pov.pos.y;
 	while (pov.rayangle < pov.facing + (0.5 * pov.fov))
 	{
-		printf("\ncasting ray with angle: %fPi\n", pov.rayangle / PI);
+		printf("\ncasting ray with angle: %fPi, column %d\n", pov.rayangle / PI, i);
 		ray = find_wall(map, pov.pos, round_rad(pov.rayangle));
 		printf("found wall on x:%f, y:%f\n", ray.x, ray.y);
 		fill_col(pov, field, i, ray);
@@ -207,8 +209,8 @@ int main()
 {
 	char*	map[] = {	"111111111111",
 						"100000000001",
+						"100000P00001",
 						"100000000001",
-						"10000000P001",
 						"111111111111"};
 	char**	res = malloc((sizeof(char*) * (YRES + 1)));
 	res[YRES] = NULL;
@@ -307,3 +309,5 @@ int main()
 // 		d.y = 1 - ft_fmod(pos.y, 0);
 // 		stdd.y = tan(angle);
 // 	}
+
+
