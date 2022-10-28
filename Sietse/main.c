@@ -93,7 +93,7 @@ t_axis	x_raycast(t_axis d, t_axis stdd, t_axis pos, float angle, char **map)
 	printf("x raycaster\n");
 	while (!check_if_hit(ray, angle, map))
 	{
-		ray.y = tan(angle) * stdd.x;
+		ray.y += tan(angle) * stdd.x;
 		ray.x += stdd.x;
 	}
 	return (ray);
@@ -108,7 +108,7 @@ t_axis	y_raycast(t_axis d, t_axis stdd, t_axis pos, float angle, char **map)
 	printf("y raycaster\n");
 	while (!check_if_hit(ray, angle, map))
 	{
-		ray.x = stdd.y / tan(angle);
+		ray.x += stdd.y / tan(angle);
 		ray.y += stdd.y;
 	}
 	return (ray);
