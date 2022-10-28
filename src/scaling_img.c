@@ -62,7 +62,9 @@ int get_color_put_pixel(mlx_texture_t *texture, mlx_image_t *img, int x, int i, 
 	bpp = texture->bytes_per_pixel;
 	//color = get_rgba(texture->pixels[gp(middle + scaled_i, w, x, bpp)], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 1], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 2], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 3]);
 	color = get_rgba(texture->pixels[gp(texture, x, i, scale)], texture->pixels[gp(texture, x, i, scale) + 1], texture->pixels[gp(texture, x, i, scale) + 2], texture->pixels[gp(texture, x, i, scale) + 3]);
+	
 	mlx_put_pixel(img, x, middle  + i, color);
+	//mlx_put_pixel(img, x, middle  + i, 0x00FF00FF);
 	return (0);
 }
 
@@ -108,7 +110,7 @@ int demo_scaling(mlx_t *mlx, t_cube *cube)
 
 	cube->texture_DEMO = mlx_load_png("pics/greystone.png");//(cube->no);//
 	cube->g_img_DEMO = mlx_new_image(mlx, 500, 500);//(mlx, cube->texture_DEMO->width, cube->texture_DEMO->height);
-	print_more_lines(cube->texture_DEMO, cube->g_img_DEMO, 0.9, 64);
+	print_more_lines(cube->texture_DEMO, cube->g_img_DEMO, 0.9, 10);
 	//cube->g_img_DEMO = mlx_texture_to_image(mlx, cube->texture_DEMO);
 	//print_line(cube->texture_DEMO, cube->g_img_DEMO, 1.0, 10);
 	mlx_image_to_window(mlx, cube->g_img_DEMO, SCREEN_X / 2, calc_middle_offset(cube->texture_DEMO->height, SCREEN_Y));

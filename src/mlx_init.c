@@ -74,6 +74,6 @@ mlx_t	*init_mlx_stuff(t_cube *cube)
 
 	mlx = mlx_init(cube->window_x, cube->window_y, "MLX42", true);
 	make_floor_ceilling(mlx, cube);
-	init_walls(cube, mlx);
+	//init_walls(cube, mlx);
 	return (mlx);
 }

@@ -1,4 +1,10 @@
-#include "includes/cub3d.h"
+#include "../includes/MLX42/include/MLX42/MLX42.h"
+#include "../includes/cub3d.h"
+#include "../includes/libft/libft.h"
+#include <stdlib.h>
+#include <stdbool.h>
+
+#include <stdio.h>
 
 float	round_rad(float rad)
 {
@@ -35,6 +41,24 @@ float ft_fmod(float f, bool exclude_zero)
 	return (f);
 }
 
+bool	is_player(char player)
+{
+	return (player == 'N' || player == 'E' || player == 'S' || player == 'W');
+}
+
+double	calc_facing(char player)
+{
+	if(player == 'N')
+		return (1.5 * PI);
+	if(player == 'E')
+		return (0);
+	if(player == 'S')
+		return (0.5 * PI);
+	if(player == 'W')
+		return (1 * PI);
+	return (1);
+}
+
 t_pov	find_playpos(char** map)
 {
 	int			i;
@@ -42,18 +66,18 @@ t_pov	find_playpos(char** map)
 	t_pov		ret;
 
 	i = 0;
-	ret.facing = 0.5 * PI;
 	ret.fov = 0.4 * PI;
-	ret.rayangle = ret.facing - (0.5 * ret.fov);
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'P')
+			if (is_player(map[i][j]))
 			{
 				ret.pos.x = j + 0.5;
 				ret.pos.y = i + 0.5;
+				ret.facing = calc_facing(map[i][j]);
+				ret.rayangle = ret.facing - (0.5 * ret.fov);
 				return (ret);
 			}
 			j++;
@@ -162,7 +186,7 @@ t_axis	find_wall(char **map, t_axis pos, float	angle)
 	return (yraycast);
 }
 
-void	fill_col(t_pov pov, char **field, int i, t_axis ray)
+void	fill_col(t_cube *cube, t_pov pov, int i, t_axis ray)
 {
 	float	fill;
 	float	valscale;
@@ -170,27 +194,27 @@ void	fill_col(t_pov pov, char **field, int i, t_axis ray)
 
 	// fill = cos((0.5 * PI) + (pov.rayangle - pov.facing)) * sqrt(pow(ray.y - pov.pos.y, 2) + pow(ray.x - pov.pos.x, 2));
 	fill = sqrt(pow(ray.y - pov.pos.y, 2) + pow(ray.x - pov.pos.x, 2));
-	valscale = (fill / sqrt(25 + 144)) * YRES;
+	valscale = (fill / sqrt(25 + 144)) * SCREEN_Y;
 	printf("fill: %f\n", fill);
 	j = 0;
-	while (j < YRES)
+	while (j < SCREEN_Y)
 	{
 		if (j < valscale)
-			field[j][i] = '0';
+			mlx_put_pixel(cube->g_img_DEMO, i, j, 0x444400FF);
 		else
-			field[j][i] = '1';
+			mlx_put_pixel(cube->g_img_DEMO, i, j, 0x004444FF);
 		j++;
 	}
 }
 
-void	cast_rays(char **map, t_pov pov, char **field)
+void	cast_rays(t_cube *cube, char **map, t_pov pov)
 {
 	float	anglestep;
 	int		i;
 	t_axis	ray;
 
 	i = 0;
-	anglestep = pov.fov / XRES;
+	anglestep = pov.fov / SCREEN_X;
 	pov.ray.x = pov.pos.x;
 	pov.ray.y = pov.pos.y;
 	while (pov.rayangle < pov.facing + (0.5 * pov.fov))
@@ -198,31 +222,30 @@ void	cast_rays(char **map, t_pov pov, char **field)
 		printf("\ncasting ray with angle: %fPi, column %d\n", pov.rayangle / PI, i);
 		ray = find_wall(map, pov.pos, round_rad(pov.rayangle));
 		printf("found wall on x:%f, y:%f\n", ray.x, ray.y);
-		fill_col(pov, field, i, ray);
+		fill_col(cube, pov, i, ray);
 		pov.rayangle += anglestep;
 		i++;
 	}
-	print_field(field);
 }
 
-int main()
-{
-	char*	map[] = {	"111111111111",
-						"100000000001",
-						"100000P00001",
-						"100000000001",
-						"111111111111"};
-	char**	res = malloc((sizeof(char*) * (YRES + 1)));
-	res[YRES] = NULL;
-	for (int i = 0; i < YRES; i++)
-	{
-		res[i] = malloc (sizeof(char) * (XRES + 1));
-		res[i][XRES] = '\0';
-	}
-	t_pov pov = find_playpos(map);
-	printf("position: x:%f, y:%f\n", pov.pos.x, pov.pos.y);
-	cast_rays(map, pov, res);
-}
+// int main()
+// {
+// 	char*	map[] = {	"111111111111",
+// 						"100000000001",
+// 						"100000N00001",
+// 						"100000000001",
+// 						"111111111111"};
+// 	char**	res = malloc((sizeof(char*) * (YRES + 1)));
+// 	res[YRES] = NULL;
+// 	for (int i = 0; i < YRES; i++)
+// 	{
+// 		res[i] = malloc (sizeof(char) * (XRES + 1));
+// 		res[i][XRES] = '\0';
+// 	}
+// 	t_pov pov = find_playpos(map);
+// 	cast_rays(map, pov, res);
+// 	printf("position: x:%f, y:%f\n", pov.pos.x, pov.pos.y);
+// }
 
 
 
