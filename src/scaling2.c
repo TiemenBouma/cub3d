@@ -30,12 +30,8 @@ int	calc_middle_offset(int img_length, int screen_y)
 
 	return offset;
 }
-//get_pixel
-// int	gp(int h, int w, int vert_line, int bpp)
-// {
-// 	return ((vert_line + (h * w)) * bpp);
-// }
 
+//get_pixel
 int	gp(mlx_texture_t *texture, int vert_line, int i, double scale)
 {
 	double		temp;
@@ -48,20 +44,13 @@ int	gp(mlx_texture_t *texture, int vert_line, int i, double scale)
 
 int get_color_put_pixel(mlx_texture_t *texture, mlx_image_t *img, int x, int i, double scale)
 {
-	int			bpp;
-	int			w;
 	u_int32_t	color;
-	u_int32_t	scaled_i;
-	double		temp;
 	u_int32_t	middle;
-	middle = texture->height / 2;
+	int			pixel;
 
-	temp = i / scale;
-	scaled_i = round(temp);//i;// i / scale;//
-	w = texture->width;
-	bpp = texture->bytes_per_pixel;
-	//color = get_rgba(texture->pixels[gp(middle + scaled_i, w, x, bpp)], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 1], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 2], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 3]);
-	color = get_rgba(texture->pixels[gp(texture, x, i, scale)], texture->pixels[gp(texture, x, i, scale) + 1], texture->pixels[gp(texture, x, i, scale) + 2], texture->pixels[gp(texture, x, i, scale) + 3]);
+	middle = texture->height / 2;
+	pixel = gp(texture, x, i, scale);
+	color = get_rgba(texture->pixels[pixel], texture->pixels[pixel + 1], texture->pixels[pixel + 2], texture->pixels[pixel + 3]);
 	mlx_put_pixel(img, x, middle  + i, color);
 	return (0);
 }
