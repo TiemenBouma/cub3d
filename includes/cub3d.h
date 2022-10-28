@@ -2,9 +2,14 @@
 # define CUB3D_H
 
 #include "MLX42/include/MLX42/MLX42.h"
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
 
-#define SCREEN_X 1920
-#define SCREEN_Y 1080
+#define SCREEN_X 1000
+#define SCREEN_Y 1000
 
 typedef struct s_cube
 {
@@ -86,11 +91,6 @@ int demo_scaling(mlx_t *mlx, t_cube *cube);
 
 
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <math.h>
-#include <stdbool.h>
 
 #define PI 3.141592653589793
 #define XRES 100
@@ -101,23 +101,33 @@ int demo_scaling(mlx_t *mlx, t_cube *cube);
 #define XMAPRES 12
 #define YMAPRES 5
 
+typedef float rad;
+
 typedef	struct s_axis
 {
 	float	x;
 	float	y;
 }	t_axis;
 
+typedef struct s_ray
+{
+	char	wall_ori;
+	rad		rayangle;
+	float	dist;
+	t_axis	end_pos;
+} 	t_ray;
+
 typedef struct s_pov
 {
 	t_axis	pos;
-	float	facing;
-	float	rayangle;
-	float	fov;
-	t_axis	ray;
+	rad		facing; //RAD
+	rad		fov; //RAD
+	t_ray	*rays;// awalys the screen width
 } 	t_pov;
 
+
 // prototypes for tester
-bool	check_if_hit(t_axis ray, float angle, char **map);
+// bool	check_if_hit(t_axis ray, float angle, char **map);
 
 t_pov	find_playpos(char** map);
 void	cast_rays(t_cube *cube, char **map, t_pov pov);
