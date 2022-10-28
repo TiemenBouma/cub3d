@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 	cube.g_img_DEMO = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
 	cast_rays(&cube, cube.map, pov);
 	mlx_image_to_window(mlx, cube.g_img_DEMO, 0, 0);
-	
+
 	// demo_scaling(mlx, &cube);
 	vars.mlx = mlx;
 	game_loop_mlx(&vars);

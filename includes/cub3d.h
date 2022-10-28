@@ -6,6 +6,30 @@
 #define SCREEN_X 1920
 #define SCREEN_Y 1080
 
+typedef float rad;
+
+typedef	struct s_axis
+{
+	float	x;
+	float	y;
+}	t_axis;
+
+typedef struct s_ray
+{
+	int		wall_ori;
+	rad		rayangle;
+	float	dist;
+	t_axis	end_pos;
+} 	t_ray;
+
+typedef struct s_pov
+{
+	t_axis	pos;
+	rad		facing; //RAD
+	rad		fov; //RAD
+	t_ray	*rays;// awalys the screen width
+} 	t_pov;
+
 typedef struct s_cube
 {
 	int		window_x;
@@ -28,6 +52,7 @@ typedef struct s_cube
 	mlx_image_t	*g_img_wall_we;
 	mlx_image_t	*g_img_DEMO;
 
+	mlx_texture_t	*texture_walls[4];
 	mlx_texture_t	*texture_no_wall;
 	mlx_texture_t	*texture_ea_wall;
 	mlx_texture_t	*texture_so_wall;
@@ -55,6 +80,7 @@ typedef struct s_vars
 	t_cube			*cube;
 	mlx_t			*mlx;
 	t_file			*file;
+	t_pov			*pov;
 }	t_vars;
 
 //PARSING
@@ -101,26 +127,17 @@ int demo_scaling(mlx_t *mlx, t_cube *cube);
 #define XMAPRES 12
 #define YMAPRES 5
 
-typedef	struct s_axis
-{
-	float	x;
-	float	y;
-}	t_axis;
 
-typedef struct s_pov
-{
-	t_axis	pos;
-	float	facing;
-	float	rayangle;
-	float	fov;
-	t_axis	ray;
-} 	t_pov;
+
 
 // prototypes for tester
 bool	check_if_hit(t_axis ray, float angle, char **map);
 
 t_pov	find_playpos(char** map);
 void	cast_rays(t_cube *cube, char **map, t_pov pov);
+
+//MATH
+float ft_fmod(float f, bool exclude_zero);
 
 
 #endif
