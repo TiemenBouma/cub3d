@@ -38,17 +38,19 @@ void check_tile(t_cube *cube, int x, int y)
 {
 	if (cube->cpy_map[y][x] == '\0')
 		error_msg_exit("Error:  Invalid map.\n", 1);
-	if (cube->cpy_map[y][x] == '0')
+	else if (cube->cpy_map[y][x] == '0')
 		recursive_map_check(cube, x, y);
-	if (cube->cpy_map[y][x] == '1')
+	else if (cube->cpy_map[y][x] == '1')
 		return ;
-	if (cube->cpy_map[y][x] == 'N' || cube->cpy_map[y][x] == 'E' || cube->cpy_map[y][x] == 'S' || cube->cpy_map[y][x] == 'W')
+	else if (cube->cpy_map[y][x] == 'N' || cube->cpy_map[y][x] == 'E' || cube->cpy_map[y][x] == 'S' || cube->cpy_map[y][x] == 'W')
 	{
 		cube->player_count++;
 		cube->player_x = x;
 		cube->player_y = y;
 		recursive_map_check(cube, x, y);
 	}
+	else
+		error_msg_exit("Error:  Invalid map.\n", 1);
 }
 
 int	recursive_map_check(t_cube *cube, int x, int y)
