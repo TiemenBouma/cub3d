@@ -4,6 +4,7 @@
 #include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 #include <math.h>
+#include <stdint.h>
 
 #include <stdio.h>
 
@@ -11,7 +12,7 @@ typedef struct s_put_pixel
 {
 	mlx_texture_t	*texture;
 	double			scale;
-	u_int32_t		color;
+	unsigned int		color;
 	int				x;
 	int				y;
 	int				bpp;
@@ -39,7 +40,7 @@ int	calc_middle_offset(int img_length, int screen_y)
 int	gp(mlx_texture_t *texture, int vert_line, int i, double scale)
 {
 	double		temp;
-	u_int32_t	scaled_i;
+	unsigned int	scaled_i;
 
 	temp = i / scale;
 	scaled_i = round(temp);//i;// i / scale;//
@@ -48,18 +49,18 @@ int	gp(mlx_texture_t *texture, int vert_line, int i, double scale)
 
 int get_color_put_pixel(mlx_texture_t *texture, mlx_image_t *img, int x, int i, double scale)
 {
-	int			bpp;
-	int			w;
-	u_int32_t	color;
-	u_int32_t	scaled_i;
-	double		temp;
-	u_int32_t	middle;
+	//int			bpp;
+	//int			w;
+	unsigned int	color;
+	//unsigned int	scaled_i;
+	//double		temp;
+	unsigned int	middle;
 	middle = texture->height / 2;
 
-	temp = i / scale;
-	scaled_i = round(temp);//i;// i / scale;//
-	w = texture->width;
-	bpp = texture->bytes_per_pixel;
+	//temp = i / scale;
+	//scaled_i = round(temp);//i;// i / scale;//
+	//w = texture->width;
+	//bpp = texture->bytes_per_pixel;
 	//color = get_rgba(texture->pixels[gp(middle + scaled_i, w, x, bpp)], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 1], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 2], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 3]);
 	color = get_rgba(texture->pixels[gp(texture, x, i, scale)], texture->pixels[gp(texture, x, i, scale) + 1], texture->pixels[gp(texture, x, i, scale) + 2], texture->pixels[gp(texture, x, i, scale) + 3]);
 	mlx_put_pixel(img, x, middle  + i, color);
@@ -68,14 +69,14 @@ int get_color_put_pixel(mlx_texture_t *texture, mlx_image_t *img, int x, int i, 
 
 int	print_line(mlx_texture_t *texture, mlx_image_t *img, double scale, int vert_line)
 {
-	u_int32_t	i;
-	//u_int32_t	color;
+	unsigned int	i;
+	//unsigned int	color;
 
 	(void)scale;
 
 	i = 0;
 
-	u_int32_t	scaled_pixel_height;
+	unsigned int	scaled_pixel_height;
 
 	scaled_pixel_height = texture->height * scale;
 
