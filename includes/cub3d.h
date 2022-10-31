@@ -134,7 +134,8 @@ int demo_scaling(mlx_t *mlx, t_cube *cube);
 bool	check_if_hit(t_axis ray, float angle, char **map);
 
 t_pov	find_playpos(char** map);
-void	cast_rays(t_cube *cube, char **map, t_pov pov);
+// void	find_playpos(char** map, t_pov *ret);
+void	cast_rays(t_cube *cube, char **map, t_pov *pov);
 
 //MATH
 float ft_fmod(float f, bool exclude_zero);

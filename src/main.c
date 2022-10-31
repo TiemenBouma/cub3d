@@ -13,6 +13,7 @@ int main(int argc, char **argv)
 	t_cube	cube;
 	t_file	file;
 	mlx_t	*mlx;
+	t_pov	pov;
 	
 	if (argc != 2)
 	{
@@ -25,10 +26,10 @@ int main(int argc, char **argv)
 	parsing(&cube, &file);
 	mlx = init_mlx_stuff(&cube);
 
-	t_pov pov = find_playpos(cube.map);
+	find_playpos(cube.map, &pov);
 	cube.texture_DEMO = mlx_load_png("pics/greystone.png");
 	cube.g_img_DEMO = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
-	cast_rays(&cube, cube.map, pov);
+	cast_rays(&cube, cube.map, &pov);
 	mlx_image_to_window(mlx, cube.g_img_DEMO, 0, 0);
 
 	// demo_scaling(mlx, &cube);
