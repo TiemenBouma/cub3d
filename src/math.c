@@ -194,24 +194,28 @@ t_axis	find_wall(char **map, t_pov pov, rad angle)
 	return (yraycast);
 }
 
-void	fill_col(t_cube *cube, t_pov pov, int i, t_axis ray)
+void	fill_col(t_cube *cube, t_pov pov, int i, t_axis ray, rad rayangle)
 {
-	float	fill;
+	float	linelen;
 	float	valscale;
 	int		j;
 
 	// fill = cos((0.5 * PI) + (pov.rayangle - pov.facing)) * sqrt(pow(ray.y - pov.pos.y, 2) + pow(ray.x - pov.pos.x, 2));
-	fill = sqrt(pow(ray.y - pov.pos.y, 2) + pow(ray.x - pov.pos.x, 2));
-	valscale = (fill / sqrt(25 + 144)) * SCREEN_Y;
-	printf("fill: %f\n", fill);
-	j = 0;
-	while (j < SCREEN_Y)
+	linelen = sqrt(pow(ray.y - pov.pos.y, 2) + pow(ray.x - pov.pos.x, 2));
+	// printf("final line length: %f\n", linelen);
+	linelen = sin(0.5 * PI + (rayangle - pov.facing)) * linelen;
+	printf("0.5 * PI + (rayangle - pov.facing): %fPi\n", 0.5 * PI + (rayangle - pov.facing) / PI);
+	valscale = (linelen / sqrt(25 + 144)) * (0.5 * SCREEN_Y);
+	printf("final line length: %f\n", linelen);
+	j = 0.5 * SCREEN_Y;
+	while (j > valscale && j > 0)
 	{
-		if (j < valscale)
-			mlx_put_pixel(cube->g_img_DEMO, i, j, 0x444400FF);
-		else
-			mlx_put_pixel(cube->g_img_DEMO, i, j, 0x004444FF);
-		j++;
+		mlx_put_pixel(cube->g_img_DEMO, i, j, 0x444400FF);
+		mlx_put_pixel(cube->g_img_DEMO, i, (SCREEN_Y - j), 0x444400FF);
+		// if (j < valscale)
+		// else
+		// 	mlx_put_pixel(cube->g_img_DEMO, i, j, 0x004444FF);
+		j--;
 	}
 }
 
@@ -253,7 +257,7 @@ void	cast_rays(t_cube *cube, char **map, t_pov pov)
 		pov.rays->end_pos = find_wall(map, pov, round_rad(rayangle));
 		pov.rays->wall_ori = find_wall_ori(pov.rays->end_pos, map, rayangle);
 		printf("found wall on x:%f, y:%f\n", pov.rays->end_pos.x, pov.rays->end_pos.y);
-		fill_col(cube, pov, i, pov.rays->end_pos);
+		fill_col(cube, pov, i, pov.rays->end_pos, rayangle);
 		rayangle += anglestep;
 		pov.rays++;
 		i++;
