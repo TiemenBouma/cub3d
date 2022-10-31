@@ -66,7 +66,8 @@ t_pov	find_playpos(char** map)
 	t_pov		ret;
 
 	i = 0;
-	ret.fov = 0.4 * PI;
+	ret.fov = 0.6 * PI;
+	map++;
 	while (map[i])
 	{
 		j = 0;
@@ -119,7 +120,10 @@ t_axis	x_raycast(t_axis d, t_axis stdd, t_axis pos, rad angle, char **map)
 	while (!check_if_hit(ray, angle, map))
 	{
 		ray.y += stdd.y;
-		ray.x += 1;
+		if (angle > 0.5 * PI && angle < 1.5 * PI)
+			ray.x -= 1;
+		else
+			ray.x += 1;
 	}
 	return (ray);
 }
@@ -134,7 +138,10 @@ t_axis	y_raycast(t_axis d, t_axis stdd, t_axis pos, rad angle, char **map)
 	while (!check_if_hit(ray, angle, map))
 	{
 		ray.x += stdd.x;
-		ray.y += 1;
+		if (angle > 0 && angle < PI)
+			ray.y += 1;
+		else
+			ray.y -= 1;
 	}
 	return (ray);
 }
@@ -235,12 +242,12 @@ void	cast_rays(t_cube *cube, char **map, t_pov pov)
 
 	i = 0;
 	map++;
-	pov.rays = malloc(sizeof(t_ray) * (SCREEN_Y + 1));
+	pov.rays = malloc(sizeof(t_ray) * (SCREEN_X + 1));
 	if (pov.rays == NULL)
 		error_msg_exit("Error: malloc failure in cast_rays.\n", 1);
 	rayangle = pov.facing - (0.5 * pov.fov);
 	anglestep = pov.fov / SCREEN_X;
-	while (rayangle < pov.facing + (0.5 * pov.fov))
+	while (i < SCREEN_X)
 	{
 		printf("\ncasting ray with angle: %fPi, column: %d, player position: x:%f, y:%f\n", rayangle / PI, i, pov.pos.x, pov.pos.y);
 		pov.rays->end_pos = find_wall(map, pov, round_rad(rayangle));
