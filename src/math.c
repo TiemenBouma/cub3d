@@ -59,38 +59,17 @@ double	calc_facing(char player)
 	return (1);
 }
 
-t_pov	find_playpos(char** map)
+void	find_playpos(t_cube *cube, t_pov *pov)
 {
-	int			i;
-	int			j;
-	t_pov		ret;
-
-	i = 0;
-	ret.fov = 0.6 * PI;
-	map++;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (is_player(map[i][j]))
-			{
-				ret.pos.x = j + 0.5;
-				ret.pos.y = i + 0.5;
-				ret.facing = calc_facing(map[i][j]);
-				// ret.facing = 0.9 * PI;
-				return (ret);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (ret);
+	pov->fov = 0.6 * PI;
+	pov->pos.x = cube->player_x + 0.5;
+	pov->pos.y = cube->player_y + 0.5;
+	pov->facing = calc_facing(cube->map[cube->player_y][ cube->player_x]);
 }
 
 bool	check_if_hit(t_axis ray, rad angle, char **map)
 {
-	printf("checking x: %f, y: %f with angle: %fPi\n", ray.x, ray.y, angle / PI);
+	//printf("checking x: %f, y: %f with angle: %fPi\n", ray.x, ray.y, angle / PI);
 	if (ray.x >= XMAPRES || ray.y >= YMAPRES || ray.x <= 0 || ray.y <= 0)
 		return (1);
 	// printf("data found: %c\n", map[(int)ray.y][(int)ray.x]);
@@ -158,7 +137,7 @@ bool	cmp_rays(t_axis xraycast, t_axis yraycast, t_axis pos)
 	return (Y);
 }
 
-t_axis	find_wall(char **map, t_pov pov, rad angle)
+t_axis	find_wall(char **map, t_pov *pov, rad angle)
 {
 	t_axis	d;
 	t_axis	stdd;
@@ -168,43 +147,53 @@ t_axis	find_wall(char **map, t_pov pov, rad angle)
 	printf("checking angle for d and stdd: %fPi\n", angle / PI);
 	if (angle > 0.5 * PI && angle < 1.5 * PI)
 	{
-		d.x = -ft_fmod(pov.pos.x, 0);
+		d.x = -ft_fmod(pov->pos.x, 0);
 		stdd.y = -tan(angle);
 	}
 	else
 	{
-		d.x = 1 - ft_fmod(pov.pos.x, 0);
+		d.x = 1 - ft_fmod(pov->pos.x, 0);
 		stdd.y = tan(angle);
 	}
 	if (angle > 0 && angle < PI)
 	{
-		d.y = 1 - ft_fmod(pov.pos.y, 0);
+		d.y = 1 - ft_fmod(pov->pos.y, 0);
 		stdd.x = 1 / tan(angle);
 	}
 	else
 	{
-		d.y = -ft_fmod(pov.pos.y, 0);
+		d.y = -ft_fmod(pov->pos.y, 0);
 		stdd.x = -1 / tan(angle);
 	}
 	printf("dx: %f, dy: %f, stddx: %f, stddy: %f\n", d.x, d.y, stdd.x, stdd.y);
-	xraycast = x_raycast(d, stdd, pov.pos, angle, map);
-	yraycast = y_raycast(d, stdd, pov.pos, angle, map);
-	if (cmp_rays(xraycast, yraycast, pov.pos) == X)
+	xraycast = x_raycast(d, stdd, pov->pos, angle, map);
+	yraycast = y_raycast(d, stdd, pov->pos, angle, map);
+	if (cmp_rays(xraycast, yraycast, pov->pos) == X)
 		return (xraycast);
 	return (yraycast);
 }
 
-void	fill_col(t_cube *cube, t_pov pov, int i, t_axis ray, rad rayangle)
+double calc_scale_vert_line(t_pov *pov, t_ray *ray)
+{
+	float	linelen;
+
+	linelen = sqrt(pow(ray->end_pos.y - pov->pos.y, 2) + pow(ray->end_pos.x - pov->pos.x, 2));
+	linelen = linelen / 20;
+	linelen = (linelen - 1) * -1;
+	return (linelen);
+}
+
+void	fill_col(t_cube *cube, t_pov *pov, int i, t_axis ray, rad rayangle)
 {
 	float	linelen;
 	float	valscale;
 	int		j;
 
-	// fill = cos((0.5 * PI) + (pov.rayangle - pov.facing)) * sqrt(pow(ray.y - pov.pos.y, 2) + pow(ray.x - pov.pos.x, 2));
-	linelen = sqrt(pow(ray.y - pov.pos.y, 2) + pow(ray.x - pov.pos.x, 2));
+	// fill = cos((0.5 * PI) + (pov->rayangle - pov->facing)) * sqrt(pow(ray.y - pov->pos.y, 2) + pow(ray.x - pov->pos.x, 2));
+	linelen = sqrt(pow(ray.y - pov->pos.y, 2) + pow(ray.x - pov->pos.x, 2));
 	// printf("final line length: %f\n", linelen);
-	linelen = sin(0.5 * PI + (rayangle - pov.facing)) * linelen;
-	printf("0.5 * PI + (rayangle - pov.facing): %fPi\n", 0.5 * PI + (rayangle - pov.facing) / PI);
+	//linelen = sin(0.5 * PI + (rayangle - pov->facing)) * linelen;
+	printf("0.5 * PI + (rayangle - pov->facing): %fPi\n", 0.5 * PI + (rayangle - pov->facing) / PI);
 	valscale = (linelen / sqrt(25 + 144)) * (0.5 * SCREEN_Y);
 	printf("final line length: %f\n", linelen);
 	j = 0.5 * SCREEN_Y;
@@ -221,8 +210,13 @@ void	fill_col(t_cube *cube, t_pov pov, int i, t_axis ray, rad rayangle)
 
 char	find_wall_ori(t_axis ray, char **map, rad angle)
 {
+	printf("\n\nTESR\n\n");
 	if (ray.x >= XMAPRES || ray.y >= YMAPRES || ray.x < 0 || ray.y < 0)
 		return (0);
+	printf("DEBUG: fmod x %f, y %f\n", ft_fmod(ray.x, 0), ft_fmod(ray.y, 0));
+	printf("DEBUG: wall = %c\n", map[(int)ray.y][(int)ray.x]);
+	printf("DEBUG: wall = %c\n", map[(int)ray.y - 1][(int)ray.x]);
+
 	if (ft_fmod(ray.x, 0) <= ft_fmod(ray.y, 0) && (angle < 0.5 * PI || angle > 1.5 * PI)
 			&& map[(int)ray.y][(int)ray.x] == '1')
 		return ('W');
@@ -235,31 +229,42 @@ char	find_wall_ori(t_axis ray, char **map, rad angle)
 	if (ft_fmod(ray.y, 0) <= ft_fmod(ray.x, 0) && (angle >= PI)
 			&& map[(int)ray.y - 1][(int)ray.x] == '1')
 		return ('N');
+	if(ft_fmod(ray.y, 0) <= ft_fmod(ray.x, 0))
+		printf("DEBUG IF1\n");
+	if((angle >= PI))
+		printf("DEBUG IF2\n");
+	if(map[(int)ray.y - 1][(int)ray.x] == '1')
+		printf("DEBUG IF3\n");
+	printf("DEBUG: ANGLE %f\n", angle);
+	printf("\n\nDEBUG: TEST WALL_ORI\n\n");
 	return (0);
 }
 
-void	cast_rays(t_cube *cube, char **map, t_pov pov)
+void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 {
 	rad		anglestep;
 	rad		rayangle;
+	float	scale;
 	int		i;
 
 	i = 0;
-	map++;
-	pov.rays = malloc(sizeof(t_ray) * (SCREEN_X + 1));
-	if (pov.rays == NULL)
+	//map++;
+	pov->rays = malloc(sizeof(t_ray) * (SCREEN_X + 1));
+	if (pov->rays == NULL)
 		error_msg_exit("Error: malloc failure in cast_rays.\n", 1);
-	rayangle = pov.facing - (0.5 * pov.fov);
-	anglestep = pov.fov / SCREEN_X;
+	rayangle = pov->facing - (0.5 * pov->fov);
+	anglestep = pov->fov / SCREEN_X;
 	while (i < SCREEN_X)
 	{
-		printf("\ncasting ray with angle: %fPi, column: %d, player position: x:%f, y:%f\n", rayangle / PI, i, pov.pos.x, pov.pos.y);
-		pov.rays->end_pos = find_wall(map, pov, round_rad(rayangle));
-		pov.rays->wall_ori = find_wall_ori(pov.rays->end_pos, map, rayangle);
-		printf("found wall on x:%f, y:%f\n", pov.rays->end_pos.x, pov.rays->end_pos.y);
-		fill_col(cube, pov, i, pov.rays->end_pos, rayangle);
+		printf("\ncasting ray with angle: %fPi, column: %d, player position: x:%f, y:%f\n", rayangle / PI, i, pov->pos.x, pov->pos.y);
+		pov->rays->end_pos = find_wall(map, pov, round_rad(rayangle));
+		pov->rays->wall_ori = find_wall_ori(pov->rays->end_pos, map, round_rad(rayangle));
+		printf("found wall on x:%f, y:%f, ori_wall %c\n", pov->rays->end_pos.x, pov->rays->end_pos.y, pov->rays->wall_ori);
+		scale = calc_scale_vert_line(pov, pov->rays);
+		print_line(cube, pov->rays, scale, i);
+		//fill_col(cube, pov, i, pov->rays->end_pos, rayangle);
 		rayangle += anglestep;
-		pov.rays++;
+		pov->rays++;
 		i++;
 	}
 }
@@ -280,7 +285,7 @@ void	cast_rays(t_cube *cube, char **map, t_pov pov)
 // 	}
 // 	t_pov pov = find_playpos(map);
 // 	cast_rays(map, pov, res);
-// 	printf("position: x:%f, y:%f\n", pov.pos.x, pov.pos.y);
+// 	printf("position: x:%f, y:%f\n", pov->pos.x, pov->pos.y);
 // }
 
 
