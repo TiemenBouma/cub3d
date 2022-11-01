@@ -98,6 +98,7 @@ typedef struct s_vars
 	t_cube			*cube;
 	mlx_t			*mlx;
 	t_file			*file;
+	t_pov			*pov;
 }	t_vars;
 
 //PARSING

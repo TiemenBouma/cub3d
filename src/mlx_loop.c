@@ -16,9 +16,15 @@ void	hook(void *param)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
 		vars->cube->g_img_wall_no->instances[0].y += 5;
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
-		vars->cube->g_img_wall_no->instances[0].x -= 5;
+	{
+		cast_rays(vars->cube, vars->cube->map, vars->pov);
+		vars->pov->facing -= 0.1 * PI;
+	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
-		vars->cube->g_img_wall_no->instances[0].x += 5;
+	{
+		cast_rays(vars->cube, vars->cube->map, vars->pov);
+		vars->pov->facing += 0.1 * PI;
+	}
 }
 
 // void	key_hook(mlx_key_data_t keydata, void *param)
