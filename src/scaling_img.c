@@ -27,7 +27,7 @@ int	get_pixel(t_put_line *line, double ratio)
 	int			pixel_y;
 
 	int sum;
-
+	//printf("DEBUG: ratio %f\n", ratio);
 	pixel_y = ratio * line->texture->height;
 	// if (line->scale > 1)
 	// {
@@ -56,14 +56,16 @@ int get_color_put_pixel(t_put_line *line, int pixel_y, int scaled_pixel_height)
 	u_int32_t	color;
 	int			middle;
 	int			pixel_in_tex;
+	double		ratio;
 
+	ratio = (double)pixel_y / (double)scaled_pixel_height;
 	middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);
-	pixel_in_tex = get_pixel(line, pixel_y / scaled_pixel_height);
+	pixel_in_tex = get_pixel(line, ratio);
 	color = get_rgba(line->texture->pixels[pixel_in_tex], line->texture->pixels[pixel_in_tex + 1], line->texture->pixels[pixel_in_tex + 2], line->texture->pixels[pixel_in_tex + 3]);
 	
 	if (middle + pixel_y > 0 && middle + pixel_y < SCREEN_Y)
 		mlx_put_pixel(line->img, line->vert_line, middle  + pixel_y, color);
-	printf("DEBUG: pixel %d vertline= %d\n", pixel_in_tex, line->texture_line);
+	//printf("DEBUG: pixel %d vertline= %d pixel y %d\n", pixel_in_tex, line->texture_line, pixel_y);
 	//mlx_put_pixel(img, x, middle  + i, 0x00FF00FF);
 	return (0);
 }
