@@ -18,28 +18,31 @@ int	calc_middle_offset(int img_length, int screen_y)
 
 	return offset;
 }
-//get_pixel
-// int	gp(int h, int w, int vert_line, int bpp)
-// {
-// 	return ((vert_line + (h * w)) * bpp);
-// }
 
-int	get_pixel(t_put_line *line, int pixel_y)
+int	get_pixel(t_put_line *line, double ratio)
 {
-	double		temp;
-	double		temp_s;
-	u_int32_t	scaled_pixel_y;
+	// double		temp;
+	// double		temp_s;
+	// u_int32_t	scaled_pixel_y;
+	int			pixel_y;
 
 	int sum;
 
-	if (line->scale > 1)
-		temp_s = 1 / line->scale;
-	else
-		temp_s = line->scale;
-	temp = pixel_y * temp_s;
-	scaled_pixel_y = round(temp);//i;// i / scale;//
-	
-	sum = scaled_pixel_y * line->texture->width;
+	pixel_y = ratio * line->texture->height;
+	// if (line->scale > 1)
+	// {
+	// 	temp_s = 1 / line->scale;
+	// 	// printf("DEBUG: temp_s /1 %f\n", temp_s);
+	// }
+	// else
+	// 	temp_s = line->scale;
+	// temp = pixel_y * temp_s;
+	// scaled_pixel_y = round(temp);//i;// i / scale;//
+	// // printf("DEBUG: scaled_y = %d\n", scaled_pixel_y);
+	// // printf("DEBUG: tex width = %d\n", line->texture->width);
+	// // printf("DEBUG: y = %d\n", pixel_y);
+
+	sum = pixel_y * line->texture->width;
 	sum = sum + line->texture_line;
 	sum = sum * line->texture->bytes_per_pixel;
 	return (sum);
@@ -51,13 +54,16 @@ int	get_pixel(t_put_line *line, int pixel_y)
 int get_color_put_pixel(t_put_line *line, int pixel_y, int scaled_pixel_height)
 {
 	u_int32_t	color;
-	u_int32_t	middle;
+	int			middle;
 	int			pixel_in_tex;
-	middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);//SCREEN_Y / 2;//texture->height / 2;
-	pixel_in_tex = get_pixel(line, pixel_y);
+
+	middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);
+	pixel_in_tex = get_pixel(line, pixel_y / scaled_pixel_height);
 	color = get_rgba(line->texture->pixels[pixel_in_tex], line->texture->pixels[pixel_in_tex + 1], line->texture->pixels[pixel_in_tex + 2], line->texture->pixels[pixel_in_tex + 3]);
 	
-	mlx_put_pixel(line->img, line->ver_line, middle  + pixel_y, color);
+	if (middle + pixel_y > 0 && middle + pixel_y < SCREEN_Y)
+		mlx_put_pixel(line->img, line->vert_line, middle  + pixel_y, color);
+	printf("DEBUG: pixel %d vertline= %d\n", pixel_in_tex, line->texture_line);
 	//mlx_put_pixel(img, x, middle  + i, 0x00FF00FF);
 	return (0);
 }
@@ -102,9 +108,9 @@ int	print_line(t_cube *cube, t_ray *ray, double scale, int vert_line)
 	pixel_y = 0;
 	line.img = cube->g_img_DEMO;
 	line.texture = set_texture(cube, ray);
-	line.scale = scale; line.scale *= 4;//TEStING
+	line.scale = scale;
 	printf("DEBUG: scale = %f\n", line.scale);
-	line.ver_line = vert_line;
+	line.vert_line = vert_line;
 	line.texture_line = calc_text_line(line.texture, ray);
 	scaled_pixel_height = line.texture->height * line.scale;
 	while (pixel_y < scaled_pixel_height)//(i < texture->height / 2)

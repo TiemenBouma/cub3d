@@ -19,7 +19,7 @@ typedef struct s_put_line
 	mlx_texture_t	*texture;
 	double			scale;
 	//u_int32_t		color;
-	int				ver_line;
+	int				vert_line;
 	int			texture_line;
 	int				middle;
 	int				bpp;

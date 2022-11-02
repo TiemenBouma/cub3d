@@ -178,8 +178,11 @@ double calc_scale_vert_line(t_pov *pov, t_ray *ray)
 	float	linelen;
 
 	linelen = sqrt(pow(ray->end_pos.y - pov->pos.y, 2) + pow(ray->end_pos.x - pov->pos.x, 2));
-	linelen = linelen / 20;
-	linelen = (linelen - 1) * -1;
+	// if (linelen > 1)
+		linelen = 1 / linelen;
+	//else
+		// linelen = 1;
+	//linelen = (linelen - 1) * -1;
 	return (linelen);
 }
 
