@@ -12,18 +12,26 @@ void	hook(void *param)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
-		vars->cube->g_img_wall_no->instances[0].y -= 5;
+	{
+		vars->pov->pos.x += 0.1 * cos(vars->pov->facing);
+		vars->pov->pos.y += 0.1 * sin(vars->pov->facing);
+		cast_rays(vars->cube, vars->cube->map, vars->pov);
+	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
-		vars->cube->g_img_wall_no->instances[0].y += 5;
+	{
+		vars->pov->pos.x -= 0.1 * cos(vars->pov->facing);
+		vars->pov->pos.y -= 0.1 * sin(vars->pov->facing);
+		cast_rays(vars->cube, vars->cube->map, vars->pov);
+	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 	{
+		vars->pov->facing -= 0.01 * PI;
 		cast_rays(vars->cube, vars->cube->map, vars->pov);
-		vars->pov->facing -= 0.1 * PI;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 	{
+		vars->pov->facing += 0.01 * PI;
 		cast_rays(vars->cube, vars->cube->map, vars->pov);
-		vars->pov->facing += 0.1 * PI;
 	}
 }
 
