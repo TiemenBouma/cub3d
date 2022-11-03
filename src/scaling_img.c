@@ -8,8 +8,6 @@
 
 #include <stdio.h>
 
-<<<<<<< HEAD
-=======
 typedef struct s_put_pixel
 {
 	mlx_texture_t	*texture;
@@ -22,7 +20,6 @@ typedef struct s_put_pixel
 	int				middle;
 
 } t_put_pixel;
->>>>>>> origin/linux
 
 int	calc_middle_offset(int img_length, int screen_y)
 {
@@ -97,6 +94,7 @@ int	gp(mlx_texture_t *texture, int vert_line, int i, double scale)
 int get_color_put_pixel(t_put_line *line, mlx_texture_t *texture, mlx_image_t *img, int x, int i, double scale)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	int			bpp;
 	int			w;
 	u_int32_t	color;
@@ -121,10 +119,23 @@ int get_color_put_pixel(t_put_line *line, mlx_texture_t *texture, mlx_image_t *i
 	unsigned int	middle;
 	middle = texture->height / 2;
 
+=======
+	//int			bpp;
+	//int			w;
+	unsigned int	color;
+	//unsigned int	scaled_i;
+	//double		temp;
+	unsigned int	middle;
+	middle = texture->height / 2;
+
+>>>>>>> origin/linux
 	//temp = i / scale;
 	//scaled_i = round(temp);//i;// i / scale;//
 	//w = texture->width;
 	//bpp = texture->bytes_per_pixel;
+<<<<<<< HEAD
+>>>>>>> origin/linux
+=======
 >>>>>>> origin/linux
 	//color = get_rgba(texture->pixels[gp(middle + scaled_i, w, x, bpp)], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 1], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 2], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 3]);
 	color = get_rgba(texture->pixels[gp(texture, line->texture_line, i, line->scale)], texture->pixels[gp(texture, line->texture_line, i, line->scale) + 1], texture->pixels[gp(texture, line->texture_line, i, line->scale) + 2], texture->pixels[gp(texture, line->texture_line, i, line->scale) + 3]);
@@ -134,6 +145,13 @@ int get_color_put_pixel(t_put_line *line, mlx_texture_t *texture, mlx_image_t *i
 	return (0);
 }
 
+<<<<<<< HEAD
+=======
+int	print_line(mlx_texture_t *texture, mlx_image_t *img, double scale, int vert_line)
+{
+	unsigned int	i;
+	//unsigned int	color;
+>>>>>>> origin/linux
 
 mlx_texture_t *set_texture(t_cube *cube, t_ray *ray)
 {
@@ -156,6 +174,10 @@ mlx_texture_t *set_texture(t_cube *cube, t_ray *ray)
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	unsigned int	scaled_pixel_height;
+>>>>>>> origin/linux
 =======
 	unsigned int	scaled_pixel_height;
 >>>>>>> origin/linux
