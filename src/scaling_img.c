@@ -4,9 +4,25 @@
 #include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 #include <math.h>
+#include <stdint.h>
 
 #include <stdio.h>
 
+<<<<<<< HEAD
+=======
+typedef struct s_put_pixel
+{
+	mlx_texture_t	*texture;
+	double			scale;
+	unsigned int		color;
+	int				x;
+	int				y;
+	int				bpp;
+	int				orginal_y;
+	int				middle;
+
+} t_put_pixel;
+>>>>>>> origin/linux
 
 int	calc_middle_offset(int img_length, int screen_y)
 {
@@ -27,7 +43,7 @@ int	calc_middle_offset(int img_length, int screen_y)
 int	gp(mlx_texture_t *texture, int vert_line, int i, double scale)
 {
 	double		temp;
-	u_int32_t	scaled_i;
+	unsigned int	scaled_i;
 
 	temp = i / scale;
 	scaled_i = round(temp);//i;// i / scale;//
@@ -80,6 +96,7 @@ int	gp(mlx_texture_t *texture, int vert_line, int i, double scale)
 // }
 int get_color_put_pixel(t_put_line *line, mlx_texture_t *texture, mlx_image_t *img, int x, int i, double scale)
 {
+<<<<<<< HEAD
 	int			bpp;
 	int			w;
 	u_int32_t	color;
@@ -95,6 +112,20 @@ int get_color_put_pixel(t_put_line *line, mlx_texture_t *texture, mlx_image_t *i
 	scaled_i = round(temp);//i;// i / scale;//
 	w = texture->width;
 	bpp = texture->bytes_per_pixel;
+=======
+	//int			bpp;
+	//int			w;
+	unsigned int	color;
+	//unsigned int	scaled_i;
+	//double		temp;
+	unsigned int	middle;
+	middle = texture->height / 2;
+
+	//temp = i / scale;
+	//scaled_i = round(temp);//i;// i / scale;//
+	//w = texture->width;
+	//bpp = texture->bytes_per_pixel;
+>>>>>>> origin/linux
 	//color = get_rgba(texture->pixels[gp(middle + scaled_i, w, x, bpp)], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 1], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 2], texture->pixels[gp(middle + scaled_i, w, x, bpp) + 3]);
 	color = get_rgba(texture->pixels[gp(texture, line->texture_line, i, line->scale)], texture->pixels[gp(texture, line->texture_line, i, line->scale) + 1], texture->pixels[gp(texture, line->texture_line, i, line->scale) + 2], texture->pixels[gp(texture, line->texture_line, i, line->scale) + 3]);
 	
@@ -106,6 +137,11 @@ int get_color_put_pixel(t_put_line *line, mlx_texture_t *texture, mlx_image_t *i
 
 mlx_texture_t *set_texture(t_cube *cube, t_ray *ray)
 {
+<<<<<<< HEAD
+=======
+	unsigned int	i;
+	//unsigned int	color;
+>>>>>>> origin/linux
 
 	if (ray->wall_ori == 'N')
 		return (cube->texture_no_wall);
@@ -119,6 +155,10 @@ mlx_texture_t *set_texture(t_cube *cube, t_ray *ray)
 }
 
 
+<<<<<<< HEAD
+=======
+	unsigned int	scaled_pixel_height;
+>>>>>>> origin/linux
 
 int calc_text_line(mlx_texture_t *texture, t_ray *ray)
 {
