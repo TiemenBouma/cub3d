@@ -90,7 +90,7 @@ int	parse_elements(t_cube *cube, t_file *file)
 			cube->so = ft_strdup(split[1]);
 		else if (ft_strncmp(split[0], "WE", 3) == 0)
 			cube->we = ft_strdup(split[1]);
-		else if (ft_strncmp(split[0], "F", 2) == 0)
+		else if (ft_strncmp(split[0], "F", 2) == 0 && cube->floor_rgb[0] == -1)
 			set_rgb(split[1], cube->floor_rgb);
 		else if (ft_strncmp(split[0], "C", 2) == 0)
 			set_rgb(split[1], cube->ceilling_rgb);

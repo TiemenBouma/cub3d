@@ -4,8 +4,8 @@
 
 void	init_cube_struct(t_cube *cube)
 {
-	// cube->ceilling_rgb = NULL;
-	// cube->floor_rgb = NULL;
+	cube->ceilling_rgb[0] = -1;
+	cube->floor_rgb[0] = -1;
 	cube->g_img_ceilling = NULL;
 	cube->g_img_floor = NULL;
 	cube->no = NULL;

@@ -6,7 +6,6 @@ OBJFILES :=	obj/main.o \
 		obj/mlx_init.o \
 		obj/get_next_line.o \
 		obj/get_next_line_utils.o \
-		obj/parsing_validation.o \
 		obj/parsing_map.o \
 		obj/init_structs.o \
 		obj/parsing_map_validate.o \

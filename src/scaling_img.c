@@ -85,7 +85,7 @@ int	print_line(t_cube *cube, t_ray *ray, double scale, int vert_line)
 	line.img = cube->g_img_DEMO;
 	line.texture = set_texture(cube, ray);
 	line.scale = scale;
-	printf("DEBUG: scale = %f\n", line.scale);
+	//printf("DEBUG: scale = %f\n", line.scale);
 	line.vert_line = vert_line;
 	line.texture_line = calc_text_line(line.texture, ray);
 	scaled_pixel_height = line.texture->height * line.scale;
