@@ -17,24 +17,24 @@ void	hook(void *param)
 	{
 		vars->pov->pos.x += 0.1 * cos(vars->pov->facing);
 		vars->pov->pos.y += 0.1 * sin(vars->pov->facing);
-		cast_rays(vars->cube, vars->cube->map, vars->pov);
+		//cast_rays(vars->cube, vars->cube->map, vars->pov);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
 	{
 		vars->pov->pos.x -= 0.1 * cos(vars->pov->facing);
 		vars->pov->pos.y -= 0.1 * sin(vars->pov->facing);
-		cast_rays(vars->cube, vars->cube->map, vars->pov);
+		//cast_rays(vars->cube, vars->cube->map, vars->pov);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 	{
 		vars->pov->facing -= 0.01 * PI;
-		cast_rays(vars->cube, vars->cube->map, vars->pov);
+		//cast_rays(vars->cube, vars->cube->map, vars->pov);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 	{
 		vars->pov->facing += 0.01 * PI;
-		cast_rays(vars->cube, vars->cube->map, vars->pov);
 	}
+	cast_rays(vars->cube, vars->cube->map, vars->pov);
 	mlx_image_to_window(vars->mlx, vars->cube->g_img_DEMO, 0, 0);
 
 }

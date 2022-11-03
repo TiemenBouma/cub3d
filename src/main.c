@@ -25,9 +25,9 @@ int main(int argc, char **argv)
 	mlx = init_mlx_stuff(&cube);
 	find_playpos(&cube, &pov);
 	vars.pov = &pov;
-	cube.g_img_DEMO = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
-	cast_rays(&cube, cube.map, &pov);
-	mlx_image_to_window(mlx, cube.g_img_DEMO, 0, 0);
+	//cube.g_img_DEMO = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
+	//cast_rays(&cube, cube.map, &pov);
+	//mlx_image_to_window(mlx, cube.g_img_DEMO, 0, 0);
 	vars.mlx = mlx;
 	game_loop_mlx(&vars);
 	return (0);
