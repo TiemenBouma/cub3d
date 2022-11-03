@@ -2,9 +2,52 @@
 # define CUB3D_H
 
 #include "MLX42/include/MLX42/MLX42.h"
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
 
 #define SCREEN_X 1920
 #define SCREEN_Y 1080
+
+typedef float rad;
+
+typedef struct s_put_line
+{
+	mlx_image_t 	*img;
+	mlx_texture_t	*texture;
+	double			scale;
+	//u_int32_t		color;
+	int				vert_line;
+	int			texture_line;
+	int				middle;
+	int				bpp;
+	int				orginal_y;
+
+} t_put_line;
+
+typedef	struct s_axis
+{
+	float	x;
+	float	y;
+}	t_axis;
+
+typedef struct s_ray
+{
+	char	wall_ori;
+	rad		rayangle;
+	float	dist;
+	t_axis	end_pos;
+} 	t_ray;
+
+typedef struct s_pov
+{
+	t_axis	pos;
+	rad		facing; //RAD
+	rad		fov; //RAD
+	t_ray	*rays;// awalys the screen width
+} 	t_pov;
 
 typedef struct s_cube
 {
@@ -83,5 +126,31 @@ void	init_structs(t_vars *vars, char **argv);
 //TESTING
 void printmap(char **map);
 int demo_scaling(mlx_t *mlx, t_cube *cube);
+
+int	print_line(t_cube *cube, t_ray *ray, double scale, int vert_line);
+
+
+
+
+#define PI 3.141592653589793
+#define XRES 100
+#define YRES 100
+#define X 0
+#define Y 1
+#define	JUNC 2
+#define XMAPRES 13
+#define YMAPRES 6
+
+
+
+
+
+// prototypes for tester
+// bool	check_if_hit(t_axis ray, float angle, char **map);
+
+void	find_playpos(t_cube *cube, t_pov *pov);
+void	cast_rays(t_cube *cube, char **map, t_pov *pov);
+float	ft_fmod(float f, bool exclude_zero);
+
 
 #endif

@@ -56,7 +56,7 @@ void map_malloc(t_cube *cube, char ***map)
 	int i;
 
 	i = 0;
-	*map = calloc(cube->map_length + 3, sizeof(char *));
+	*map = ft_calloc(cube->map_length + 3, sizeof(char *));
 	if (*map == NULL)
 		error_msg_exit("Error: Malloc error", 1);
 	(*map)[cube->map_length + 2] = NULL;
@@ -109,8 +109,8 @@ void	set_map_array(t_cube *cube, t_file *file)
 	while (i < cube->map_length + 1)
 	{
 		line = get_line(file);
-		ft_memcpy(cube->map[i], line, ft_strlen(line));
-		ft_memcpy(cube->cpy_map[i], line, ft_strlen(line));
+		ft_memcpy(cube->map[i] + 1, line, ft_strlen(line));
+		ft_memcpy(cube->cpy_map[i] + 1, line, ft_strlen(line));
 		//printf("memcpy = %s\n", cube->map[i]);
 		i++;
 	}

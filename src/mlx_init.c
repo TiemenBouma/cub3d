@@ -6,29 +6,30 @@
 
 int init_walls(t_cube *cube, mlx_t *mlx)
 {
+	(void)mlx;
 	cube->texture_no_wall = mlx_load_png(cube->no);//("pics/greystone.png");//
 	if (cube->texture_no_wall == NULL)
 		error_msg_exit("Error: North wall sprite error.\n", 1);
-	cube->g_img_wall_no = mlx_texture_to_image(mlx, cube->texture_no_wall);
-	mlx_image_to_window(mlx, cube->g_img_wall_no, 0, 500);
+	// cube->g_img_wall_no = mlx_texture_to_image(mlx, cube->texture_no_wall);
+	// mlx_image_to_window(mlx, cube->g_img_wall_no, 0, 500);
 
 	cube->texture_ea_wall = mlx_load_png(cube->ea);//("pics/greystone.png");//
 	if (cube->texture_ea_wall == NULL)
 		error_msg_exit("Error: East wall sprite error.\n", 1);
-	cube->g_img_wall_ea = mlx_texture_to_image(mlx, cube->texture_ea_wall);
-	mlx_image_to_window(mlx, cube->g_img_wall_ea, 100, 500);
+	// cube->g_img_wall_ea = mlx_texture_to_image(mlx, cube->texture_ea_wall);
+	// mlx_image_to_window(mlx, cube->g_img_wall_ea, 100, 500);
 
 	cube->texture_so_wall = mlx_load_png(cube->so);//("pics/greystone.png");//
 	if (cube->texture_so_wall == NULL)
 		error_msg_exit("Error: South wall sprite error.\n", 1);
-	cube->g_img_wall_so = mlx_texture_to_image(mlx, cube->texture_so_wall);
-	mlx_image_to_window(mlx, cube->g_img_wall_so, 200, 500);
+	// cube->g_img_wall_so = mlx_texture_to_image(mlx, cube->texture_so_wall);
+	// mlx_image_to_window(mlx, cube->g_img_wall_so, 200, 500);
 
 	cube->texture_we_wall = mlx_load_png(cube->we);//("pics/greystone.png");//
 	if (cube->texture_we_wall == NULL)
 		error_msg_exit("Error: West wall sprite error.\n", 1);
-	cube->g_img_wall_we = mlx_texture_to_image(mlx, cube->texture_we_wall);
-	mlx_image_to_window(mlx, cube->g_img_wall_we, 300, 500);
+	// cube->g_img_wall_we = mlx_texture_to_image(mlx, cube->texture_we_wall);
+	// mlx_image_to_window(mlx, cube->g_img_wall_we, 300, 500);
 	return 0;
 }
 
