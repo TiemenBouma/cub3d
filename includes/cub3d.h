@@ -16,8 +16,8 @@
 #define X 0
 #define Y 1
 #define	JUNC 2
-#define XMAPRES 13
-#define YMAPRES 6
+//#define XMAPRES 13
+//#define YMAPRES 6
 
 typedef float rad;
 
@@ -145,8 +145,10 @@ float	ft_fmod(float f, bool exclude_zero);
 float	round_rad(rad rad);
 
 //Raycastigng checks
-char	find_wall_ori(t_axis ray, char **map, rad angle);
-bool	check_if_hit(t_axis ray, rad angle, char **map);
+//char	find_wall_ori(t_axis ray, char **map, rad angle);
+char	find_wall_ori(t_cube *cube, t_axis ray, char **map, rad angle);
+bool	check_if_hit(t_cube *cube, t_axis ray, rad angle, char **map);
+//bool	check_if_hit(t_axis ray, rad angle, char **map);
 
 
 #endif

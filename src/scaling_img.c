@@ -55,12 +55,13 @@ mlx_texture_t *set_texture(t_cube *cube, t_ray *ray)
 
 	if (ray->wall_ori == 'N')
 		return (cube->texture_no_wall);
-	if (ray->wall_ori == 'E')
+	else if (ray->wall_ori == 'E')
 		return (cube->texture_ea_wall);
-	if (ray->wall_ori == 'S')
+	else if (ray->wall_ori == 'S')
 		return (cube->texture_so_wall);
-	if (ray->wall_ori == 'W')
+	else if (ray->wall_ori == 'W')
 		return (cube->texture_we_wall);
+	printf("DEBUG: set_texture: no texture set\n");
 	return (NULL);
 }
 
