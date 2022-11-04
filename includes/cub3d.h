@@ -8,8 +8,16 @@
 #include <math.h>
 #include <stdbool.h>
 
-#define SCREEN_X 1920
-#define SCREEN_Y 1080
+#define SCREEN_X 1000
+#define SCREEN_Y 500
+#define PI 3.141592653589793
+#define XRES 100
+#define YRES 100
+#define X 0
+#define Y 1
+#define	JUNC 2
+#define XMAPRES 13
+#define YMAPRES 6
 
 typedef float rad;
 
@@ -39,7 +47,7 @@ typedef struct s_ray
 	rad		rayangle;
 	float	dist;
 	t_axis	end_pos;
-} 	t_ray;
+}	t_ray;
 
 typedef struct s_pov
 {
@@ -47,7 +55,7 @@ typedef struct s_pov
 	rad		facing; //RAD
 	rad		fov; //RAD
 	t_ray	*rays;// awalys the screen width
-} 	t_pov;
+}	t_pov;
 
 typedef struct s_cube
 {
@@ -130,28 +138,15 @@ int demo_scaling(mlx_t *mlx, t_cube *cube);
 
 int	print_line(t_cube *cube, t_ray *ray, double scale, int vert_line);
 
-
-
-
-#define PI 3.141592653589793
-#define XRES 100
-#define YRES 100
-#define X 0
-#define Y 1
-#define	JUNC 2
-#define XMAPRES 13
-#define YMAPRES 6
-
-
-
-
-
-// prototypes for tester
-// bool	check_if_hit(t_axis ray, float angle, char **map);
-
+//RAYCASTING
 void	find_playpos(t_cube *cube, t_pov *pov);
 void	cast_rays(t_cube *cube, char **map, t_pov *pov);
 float	ft_fmod(float f, bool exclude_zero);
+float	round_rad(rad rad);
+
+//Raycastigng checks
+char	find_wall_ori(t_axis ray, char **map, rad angle);
+bool	check_if_hit(t_axis ray, rad angle, char **map);
 
 
 #endif
