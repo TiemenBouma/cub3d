@@ -28,7 +28,11 @@ bool	check_if_hit(t_cube *cube, t_axis ray, rad angle, char **map)
 char	find_wall_ori(t_cube *cube, t_axis ray, char **map, rad angle)
 {
 	if (ray.x >= cube->map_width || ray.y >= cube->map_length || ray.x < 0 || ray.y < 0)
+	{
+		printf("DEBUG: ray out of bounds\n");
+		printf("DEBUG: STATS: ray.x %f, cube->width %d, ray.y %f, cube->y %d\n", ray.x, cube->map_width, ray.y, cube->map_length);
 		return (0);
+	}
 	// printf("DEBUG: fmod x %f, y %f\n", ft_fmod(ray.x, 0), ft_fmod(ray.y, 0));
 	// printf("DEBUG: wall = %c\n", map[(int)ray.y][(int)ray.x]);
 	// printf("DEBUG: wall = %c\n", map[(int)ray.y - 1][(int)ray.x]);
@@ -42,13 +46,15 @@ char	find_wall_ori(t_cube *cube, t_axis ray, char **map, rad angle)
 	else if (ft_fmod(ray.y, 0) <= ft_fmod(ray.x, 0) && (angle < PI)
 			&& map[(int)ray.y][(int)ray.x] == '1')
 		return ('S');
+	else if (ft_fmod(ray.y, 0) <= ft_fmod(ray.x, 0) && (angle >= PI)
+			&& map[(int)ray.y - 1][(int)ray.x] == '1')
+		return ('N');
 	else
-		return ('N');	
-	
-	
-	// if (ft_fmod(ray.y, 0) <= ft_fmod(ray.x, 0) && (angle >= PI)
-	// 		&& map[(int)ray.y - 1][(int)ray.x] == '1')
-	// 	return ('N');
+	{
+		printf("DEBUG: no wall found\n");
+		return (0);
+	}
+}
 
 
 	// if(ft_fmod(ray.y, 0) <= ft_fmod(ray.x, 0))
@@ -59,5 +65,4 @@ char	find_wall_ori(t_cube *cube, t_axis ray, char **map, rad angle)
 	// 	printf("DEBUG IF3\n");
 	// printf("DEBUG: ANGLE %f\n", angle);
 	//printf("\n\nDEBUG: TEST WALL_ORI\n\n");
-	return (0);
-}
+

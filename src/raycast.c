@@ -105,26 +105,26 @@ void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 	rad		anglestep;
 	rad		rayangle;
 	float	scale;
-	int		i;
+	int		x;
 
-	i = 0;
+	x = 0;
 	//map++;
 	pov->rays = malloc(sizeof(t_ray) * (SCREEN_X + 1));
 	if (pov->rays == NULL)
 		error_msg_exit("Error: malloc failure in cast_rays.\n", 1);
 	rayangle = pov->facing - (0.5 * pov->fov);
 	anglestep = pov->fov / SCREEN_X;
-	while (i < SCREEN_X)
+	while (x < SCREEN_X)
 	{
 		//printf("\ncasting ray with angle: %fPi, column: %d, player position: x:%f, y:%f\n", rayangle / PI, i, pov->pos.x, pov->pos.y);
 		pov->rays->end_pos = find_wall(cube, map, pov, round_rad(rayangle));
 		pov->rays->wall_ori = find_wall_ori(cube, pov->rays->end_pos, map, round_rad(rayangle));
 		//printf("found wall on x:%f, y:%f, ori_wall |%c|\n", pov->rays->end_pos.x, pov->rays->end_pos.y, pov->rays->wall_ori);
 		scale = calc_scale_vert_line(pov, pov->rays);
-		print_line(cube, pov->rays, scale, i);
+		print_line(cube, pov->rays, scale, x);
 		//fill_col(cube, pov, i, pov->rays->end_pos, rayangle);
 		rayangle += anglestep;
 		pov->rays++;
-		i++;
+		x++;
 	}
 }

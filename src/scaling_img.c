@@ -78,7 +78,7 @@ int calc_text_line(mlx_texture_t *texture, t_ray *ray)
 
 int	print_line(t_cube *cube, t_ray *ray, double scale, int vert_line)
 {
-	t_put_line line;
+	t_put_line	line;
 	u_int32_t	pixel_y;
 	u_int32_t	scaled_pixel_height;
 
@@ -97,5 +97,3 @@ int	print_line(t_cube *cube, t_ray *ray, double scale, int vert_line)
 	}
 	return (0);
 }
-
-

@@ -69,25 +69,6 @@ void map_malloc(t_cube *cube, char ***map)
 	}
 }
 
-// void map_malloc(t_cube *cube)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	cube->map = malloc(sizeof(char *) * (cube->map_length + 1));
-// 	if (cube->map == NULL)
-// 		error_msg_exit("Error: Malloc error", 1);
-// 	cube->map[cube->map_length] = NULL;
-// 	while (i < cube->map_length)
-// 	{
-// 		cube->map[i] = ft_calloc(cube->map_width + 1, sizeof(char));
-// 		if (cube->map[i] == NULL)
-// 			error_msg_exit("Error: Malloc error", 1);
-// 		//(*map)[i][cube->map_width] = '\0';
-// 		i++;
-// 	}
-// }
-
 void	set_map_array(t_cube *cube, t_file *file)
 {
 	int	i;
@@ -127,6 +108,8 @@ int	parse_map_element(t_cube *cube, t_file *file)
 	close(file->file_fd);
 	open_cub_file(file);
 	set_map_array(cube, file);
+	cube->map_length++;
+	cube->map_width++;
 	//printf("DEBUG1\n");
 	//printmap(cube->map);
 	//printmap(cube->cpy_map);

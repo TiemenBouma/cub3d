@@ -35,6 +35,7 @@ void	init_file_struct(t_file *file, char **argv)
 
 void	init_structs(t_vars *vars, char **argv)
 {
+	vars->gamecycle = 0;
 	init_cube_struct(vars->cube);
 	init_file_struct(vars->file, argv);
 }
