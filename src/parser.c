@@ -43,6 +43,8 @@ int	set_rgb(char *str, int rgb[])
 
 	i = 0;
 	split = ft_split(str, ',');
+	if (split == NULL)
+	    error_msg_exit("Error: Split error", 1);
 	while (split[i])
 		i++;
 	if (i != 3)
@@ -50,6 +52,7 @@ int	set_rgb(char *str, int rgb[])
 	rgb[0] = ft_atoi(split[0]);
 	rgb[1] = ft_atoi(split[1]);
 	rgb[2] = ft_atoi(split[2]);
+	free_double_ptr(split);
 	i = 0;
 	while (i < 3)
 	{
@@ -77,7 +80,7 @@ int	parse_elements(t_cube *cube, t_file *file)
 			continue ;
 		split = ft_split(line, ' ');
 		if (split == NULL)
-			exit (1);
+			error_msg_exit("Error: Split error", 1);
 		else if (split[0] == NULL)
 			continue ;
 		else if (split[1] == NULL)
@@ -97,6 +100,8 @@ int	parse_elements(t_cube *cube, t_file *file)
 		else
 			error_msg_exit("Error: No element found.\n", 1);
 		i++;
+		free_double_ptr(split);
+		free(line);
 	}
 	//check if all elements are used
 	return (0);

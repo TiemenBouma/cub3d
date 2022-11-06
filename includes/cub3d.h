@@ -125,6 +125,7 @@ void	*ft_memset32(void *str, int32_t c, int32_t len);
 int get_rgba(int r, int g, int b, int a);
 int	error_msg_exit(char * msg, int exit_code);
 char	*get_line(t_file *file);
+int	free_double_ptr(char **ptr);
 
 //MLX LOOP
 int	game_loop_mlx(t_vars *vars);

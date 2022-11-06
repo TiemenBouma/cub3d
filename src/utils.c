@@ -42,7 +42,22 @@ char	*get_line(t_file *file)
 	while (line[i] != '\0'  && line[i] != '\n')
 		i++;
 	temp = ft_substr(line, 0, i);
+	if (temp == NULL)
+		error_msg_exit("Error: Malloc error", 1);
 	free(line);
-	line = temp;
-	return (line);
+	return (temp);
+}
+
+int	free_double_ptr(char **ptr)
+{
+	int	i;
+
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
+	return (0);
 }

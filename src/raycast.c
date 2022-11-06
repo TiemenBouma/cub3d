@@ -99,7 +99,7 @@ void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 {
 	rad		anglestep;
 	rad		rayangle;
-	//float	scale;
+	t_ray		*ray_ptr;
 	int		x;
 
 	x = 0;
@@ -107,6 +107,7 @@ void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 	pov->rays = malloc(sizeof(t_ray) * (SCREEN_X + 1));
 	if (pov->rays == NULL)
 		error_msg_exit("Error: malloc failure in cast_rays.\n", 1);
+	ray_ptr = pov->rays;
 	rayangle = pov->facing - (0.5 * pov->fov);
 	anglestep = pov->fov / SCREEN_X;
 	while (x < SCREEN_X)
@@ -123,4 +124,5 @@ void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 		pov->rays++;
 		x++;
 	}
+	free(ray_ptr);
 }

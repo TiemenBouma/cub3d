@@ -93,6 +93,7 @@ void	set_map_array(t_cube *cube, t_file *file)
 		ft_memcpy(cube->map[i] + 1, line, ft_strlen(line));
 		ft_memcpy(cube->cpy_map[i] + 1, line, ft_strlen(line));
 		//printf("memcpy = %s\n", cube->map[i]);
+		free(line);
 		i++;
 	}
 		//printf("DEBUG\n");

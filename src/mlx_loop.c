@@ -52,7 +52,12 @@ void	hook( void *param)//mlx_key_data_t keydata,
 			vars->pov->pos.x -= 0.2 * cos(vars->pov->facing);
 			vars->pov->pos.y -= 0.2 * sin(vars->pov->facing);
 		}
-		else{
+		else if (vars->cube->map[y][(int)vars->pov->pos.x] != '1')
+			vars->pov->pos.y -= 0.2 * sin(vars->pov->facing);
+		else if (vars->cube->map[(int)vars->pov->pos.y][x] != '1')
+			vars->pov->pos.x -= 0.2 * cos(vars->pov->facing);
+		else
+		{
 			printf("hit wall\n");
 		}
 	}
