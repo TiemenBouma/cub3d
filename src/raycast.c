@@ -89,22 +89,17 @@ t_axis	find_wall(t_cube *cube, char **map, t_pov *pov, rad angle)
 	return (yraycast);
 }
 
-double calc_scale_vert_line(t_pov *pov, t_ray *ray)
+void calc_scale_vert_line(t_pov *pov, t_ray *ray)
 {
-	float	linelen;
-
-	linelen = sqrt(pow(ray->end_pos.y - pov->pos.y, 2) + pow(ray->end_pos.x - pov->pos.x, 2));
-	// if (linelen > 1)
-		linelen = 1 / linelen;
-
-	return (linelen);
+	ray->dist = sqrt(pow(ray->end_pos.y - pov->pos.y, 2) + pow(ray->end_pos.x - pov->pos.x, 2));
+	ray->scale = 1 / ray->dist;
 }
 
 void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 {
 	rad		anglestep;
 	rad		rayangle;
-	float	scale;
+	//float	scale;
 	int		x;
 
 	x = 0;
@@ -116,12 +111,13 @@ void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 	anglestep = pov->fov / SCREEN_X;
 	while (x < SCREEN_X)
 	{
+		pov->rays->line_x = x;
 		//printf("\ncasting ray with angle: %fPi, column: %d, player position: x:%f, y:%f\n", rayangle / PI, i, pov->pos.x, pov->pos.y);
 		pov->rays->end_pos = find_wall(cube, map, pov, round_rad(rayangle));
 		pov->rays->wall_ori = find_wall_ori(cube, pov->rays->end_pos, map, round_rad(rayangle));
 		//printf("found wall on x:%f, y:%f, ori_wall |%c|\n", pov->rays->end_pos.x, pov->rays->end_pos.y, pov->rays->wall_ori);
-		scale = calc_scale_vert_line(pov, pov->rays);
-		print_line(cube, pov->rays, scale, x);
+		calc_scale_vert_line(pov, pov->rays);
+		print_line(cube, pov->rays);
 		//fill_col(cube, pov, i, pov->rays->end_pos, rayangle);
 		rayangle += anglestep;
 		pov->rays++;

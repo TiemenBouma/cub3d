@@ -1,7 +1,8 @@
-NO ./pics/greystone.png
-SO ./pics/bluestone.png
-WE ./pics/colorstone.png
-EA ./pics/mossy.png
+NO ./pics/wall_grey1024.png
+SO ./pics/wall_blue1024.png
+WE ./pics/wall_wood1024.png
+EA ./pics/wall_moss1024.png
+
 
 
 F 22,140,72

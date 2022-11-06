@@ -43,9 +43,11 @@ typedef	struct s_axis
 
 typedef struct s_ray
 {
+	int		line_x;
+	double	dist;
+	double	scale;
 	char	wall_ori;
 	rad		rayangle;
-	float	dist;
 	t_axis	end_pos;
 }	t_ray;
 
@@ -137,7 +139,7 @@ void	init_structs(t_vars *vars, char **argv);
 void printmap(char **map);
 int demo_scaling(mlx_t *mlx, t_cube *cube);
 
-int	print_line(t_cube *cube, t_ray *ray, double scale, int vert_line);
+int	print_line(t_cube *cube, t_ray *ray);
 
 //RAYCASTING
 void	find_playpos(t_cube *cube, t_pov *pov);

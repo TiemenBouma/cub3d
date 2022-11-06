@@ -15,36 +15,42 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	vars->gamecycle++;
 	if (vars->gamecycle % 10 == 0)
 	{
-		printf("FPS %d\n", (int)(1 / vars->mlx->delta_time));
+		printf("DEUBG: FPS %d\n", (int)(1 / vars->mlx->delta_time));
+		printf("DEBUG: x %f y %f\n", vars->pov->pos.x, vars->pov->pos.y);
 	}
 	//printf("Gamecycle: %d\n", vars->gamecycle);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
 	{
-		int y = (int)(vars->pov->pos.y + (0.2 * sin(vars->pov->facing)));
-		int x = (int)(vars->pov->pos.x + (0.2 * cos(vars->pov->facing)));
+		int y = (int)(vars->pov->pos.y + (0.21 * sin(vars->pov->facing)));
+		int x = (int)(vars->pov->pos.x + (0.21 * cos(vars->pov->facing)));
 	//	printf("DEBUG: MAP c %c\n", vars->cube->map[y][x]);
 	//	printf("DEBUG: delta x = %d, delta y = %d\n", x, y);
 		if (vars->cube->map[y][x] != '1')
 		{
-			vars->pov->pos.x += 0.1 * cos(vars->pov->facing);
-			vars->pov->pos.y += 0.1 * sin(vars->pov->facing);
+			vars->pov->pos.x += 0.2 * cos(vars->pov->facing);
+			vars->pov->pos.y += 0.2 * sin(vars->pov->facing);
 		}
-		else{
+		else if (vars->cube->map[y][(int)vars->pov->pos.x] != '1')
+			vars->pov->pos.y += 0.2 * sin(vars->pov->facing);
+		else if (vars->cube->map[(int)vars->pov->pos.y][x] != '1')
+			vars->pov->pos.x += 0.2 * cos(vars->pov->facing);
+		else
+		{
 			printf("hit wall\n");
 		}
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
 	{
-		int y = (int)(vars->pov->pos.y - (0.2 * sin(vars->pov->facing)));
-		int x = (int)(vars->pov->pos.x - (0.2 * cos(vars->pov->facing)));
+		int y = (int)(vars->pov->pos.y - (0.21 * sin(vars->pov->facing)));
+		int x = (int)(vars->pov->pos.x - (0.21 * cos(vars->pov->facing)));
 	//	printf("DEBUG: MAP c %c\n", vars->cube->map[y][x]);
 		//printf("DEBUG: delta x = %d, delta y = %d\n", x, y);
 		if (vars->cube->map[y][x] != '1')
 		{
-			vars->pov->pos.x -= 0.1 * cos(vars->pov->facing);
-			vars->pov->pos.y -= 0.1 * sin(vars->pov->facing);
+			vars->pov->pos.x -= 0.2 * cos(vars->pov->facing);
+			vars->pov->pos.y -= 0.2 * sin(vars->pov->facing);
 		}
 		else{
 			printf("hit wall\n");
@@ -52,12 +58,12 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 	{
-		vars->pov->facing -= 0.03 * PI;
+		vars->pov->facing -= 0.05 * PI;
 		//cast_rays(vars->cube, vars->cube->map, vars->pov);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 	{
-		vars->pov->facing += 0.03 * PI;
+		vars->pov->facing += 0.05 * PI;
 	}
 	cast_rays(vars->cube, vars->cube->map, vars->pov);
 	mlx_image_to_window(vars->mlx, vars->cube->g_img_DEMO, 0, 0);
