@@ -104,13 +104,13 @@ void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 
 	x = 0;
 	//map++;
-	pov->rays = malloc(sizeof(t_ray) * (SCREEN_X + 1));
+	pov->rays = malloc(sizeof(t_ray) * (cube->window_x + 1));
 	if (pov->rays == NULL)
 		error_msg_exit("Error: malloc failure in cast_rays.\n", 1);
 	ray_ptr = pov->rays;
 	rayangle = pov->facing - (0.5 * pov->fov);
-	anglestep = pov->fov / SCREEN_X;
-	while (x < SCREEN_X)
+	anglestep = pov->fov / cube->window_x;
+	while (x < cube->window_x)
 	{
 		pov->rays->line_x = x;
 		//printf("\ncasting ray with angle: %fPi, column: %d, player position: x:%f, y:%f\n", rayangle / PI, i, pov->pos.x, pov->pos.y);

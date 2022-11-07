@@ -40,11 +40,11 @@ int get_color_put_pixel(t_put_line *line, int pixel_y, int scaled_pixel_height)
 	double		ratio;
 
 	ratio = (double)pixel_y / (double)scaled_pixel_height;
-//middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);
+//middle = calc_middle_offset(scaled_pixel_height, cube->window_y);
 	pixel_in_tex = get_pixel(line, ratio);
 	color = get_rgba(line->texture->pixels[pixel_in_tex], line->texture->pixels[pixel_in_tex + 1], line->texture->pixels[pixel_in_tex + 2], line->texture->pixels[pixel_in_tex + 3]);
 	
-	//if (line->middle + pixel_y > 0 && line->middle + pixel_y < SCREEN_Y)
+	//if (line->middle + pixel_y > 0 && line->middle + pixel_y < cube->window_y)
 		mlx_put_pixel(line->img, line->vert_line, line->middle  + pixel_y, color);
 	return (0);
 }
@@ -79,8 +79,8 @@ int calc_texture_line(mlx_texture_t *texture, t_ray *ray)
 int	print_line(t_cube *cube, t_ray *ray)
 {
 	t_put_line	line;
-	u_int32_t	pixel_y;
-	u_int32_t	scaled_pixel_height;
+	int	pixel_y;
+	int	scaled_pixel_height;
 
 	pixel_y = 0;
 	line.img = cube->g_img_DEMO;
@@ -91,10 +91,10 @@ int	print_line(t_cube *cube, t_ray *ray)
 	// if (ray->line_x == SCREEN_X / 2)
 	// 	printf("DEBUG: texture_line = %d scale: %f dist = %f\n", line.texture_line, ray->scale, ray->dist);
 	scaled_pixel_height = (int)line.texture->height * line.scale;
-	line.middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);
+	line.middle = calc_middle_offset(scaled_pixel_height, cube->window_y);
 	while (pixel_y < scaled_pixel_height)
 	{
-		if (line.middle + pixel_y > 0 && line.middle + pixel_y < SCREEN_Y)
+		if (line.middle + pixel_y > 0 && line.middle + pixel_y < cube->window_y)
 			get_color_put_pixel(&line, pixel_y, scaled_pixel_height);
 		pixel_y++;
 	}

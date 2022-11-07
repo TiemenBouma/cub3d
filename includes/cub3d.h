@@ -8,8 +8,8 @@
 #include <math.h>
 #include <stdbool.h>
 
-#define SCREEN_X 2000
-#define SCREEN_Y 1000
+#define SCREEN_X 1000
+#define SCREEN_Y 500
 #define PI 3.141592653589793
 #define XRES 100
 #define YRES 100
@@ -132,6 +132,7 @@ int	game_loop_mlx(t_vars *vars);
 
 //INIT MLX
 mlx_t	*init_mlx_stuff(t_cube *cube);
+void	make_floor_ceilling(mlx_t *mlx, t_cube *cube);
 
 //INIT STRUCTS
 void	init_structs(t_vars *vars, char **argv);

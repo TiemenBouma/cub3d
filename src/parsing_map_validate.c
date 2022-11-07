@@ -49,6 +49,8 @@ void check_tile(t_cube *cube, int x, int y)
 		cube->player_y = y;
 		recursive_map_check(cube, x, y);
 	}
+	else
+		error_msg_exit("Error:  Invalid map.\n", 1);
 }
 
 int	recursive_map_check(t_cube *cube, int x, int y)

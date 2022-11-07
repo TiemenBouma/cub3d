@@ -59,13 +59,13 @@ void	make_floor_ceilling(mlx_t *mlx, t_cube *cube)
 	floor_color = get_rgba(cube->floor_rgb[0] ,cube->floor_rgb[1] , cube->floor_rgb[2] ,255);
 	ceilling_color = get_rgba(cube->ceilling_rgb[0] ,cube->ceilling_rgb[1] , cube->ceilling_rgb[2] ,255);
 	
-	cube->g_img_floor = mlx_new_image(mlx, SCREEN_X, SCREEN_Y / 2);
-	cube->g_img_ceilling = mlx_new_image(mlx, SCREEN_X, SCREEN_Y / 2);
+	cube->g_img_floor = mlx_new_image(mlx, cube->window_x, cube->window_y / 2);
+	cube->g_img_ceilling = mlx_new_image(mlx, cube->window_x, cube->window_y / 2);
 
-	put_pixel_loop(cube->g_img_floor, SCREEN_X, SCREEN_Y / 2, floor_color);
-	put_pixel_loop(cube->g_img_ceilling, SCREEN_X, SCREEN_Y / 2, ceilling_color);
+	put_pixel_loop(cube->g_img_floor, cube->window_x, cube->window_y / 2, floor_color);
+	put_pixel_loop(cube->g_img_ceilling, cube->window_x, cube->window_y / 2, ceilling_color);
 	
-	mlx_image_to_window(mlx, cube->g_img_floor, 0, SCREEN_Y / 2);
+	mlx_image_to_window(mlx, cube->g_img_floor, 0, cube->window_y / 2);
 	mlx_image_to_window(mlx, cube->g_img_ceilling, 0, 0);
 }
 

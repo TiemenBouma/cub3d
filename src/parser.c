@@ -77,12 +77,19 @@ int	parse_elements(t_cube *cube, t_file *file)
 		if (line == NULL)
 			error_msg_exit("Error: Initialisation file not correct.\n", 1);
 		if (line[0] == '\0')
+		{
+			free(line);
 			continue ;
+		}
 		split = ft_split(line, ' ');
 		if (split == NULL)
 			error_msg_exit("Error: Split error", 1);
 		else if (split[0] == NULL)
+		{
+			free(line);
+			free_double_ptr(split);
 			continue ;
+		}
 		else if (split[1] == NULL)
 			error_msg_exit("Error: no valid Element.\n", 1);
 		else if (ft_strncmp(split[0], "NO", 3) == 0)

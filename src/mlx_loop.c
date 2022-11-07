@@ -11,7 +11,7 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	//(void)keydata;
 	vars = param;
 	mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
-	vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, SCREEN_X, SCREEN_Y);
+	vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, vars->cube->window_x, vars->cube->window_y);
 	vars->gamecycle++;
 	if (vars->gamecycle % 10 == 0)
 	{
@@ -75,11 +75,23 @@ void	hook( void *param)//mlx_key_data_t keydata,
 
 }
 
+void resize_hook(int32_t width, int32_t height, void* param)
+{
+	t_vars	*vars;
+
+	vars = param;
+	vars->cube->window_x = width;
+	vars->cube->window_y = height;
+	make_floor_ceilling(vars->mlx, vars->cube);
+	cast_rays(vars->cube, vars->cube->map, vars->pov);
+}
+
 int	game_loop_mlx(t_vars *vars)
 {
 	if (!vars->mlx)
 		exit(EXIT_FAILURE);
 	//mlx_key_hook(vars->mlx, hook, vars);
+	mlx_resize_hook(vars->mlx, &resize_hook, vars);
 	mlx_loop_hook(vars->mlx, &hook, vars);
 	mlx_loop(vars->mlx);
 	mlx_terminate(vars->mlx);
