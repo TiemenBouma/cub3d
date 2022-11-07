@@ -84,6 +84,8 @@ void resize_hook(int32_t width, int32_t height, void* param)
 	vars->cube->window_y = height;
 	make_floor_ceilling(vars->mlx, vars->cube);
 	cast_rays(vars->cube, vars->cube->map, vars->pov);
+	vars->pov->fov = PI * (0.6 * (double)(vars->cube->window_x / 1024));
+	printf("DEBUG: resize %d %d\n", width, height);
 }
 
 int	game_loop_mlx(t_vars *vars)
