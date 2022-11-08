@@ -107,7 +107,7 @@ int	game_loop_mlx(t_vars *vars)
 	if (!vars->mlx)
 		exit(EXIT_FAILURE);
 	//mlx_key_hook(vars->mlx, hook, vars);
-	mlx_resize_hook(vars->mlx, &resize_hook, vars);
+	//mlx_resize_hook(vars->mlx, &resize_hook, vars);
 	mlx_loop_hook(vars->mlx, &hook, vars);
 	mlx_loop(vars->mlx);
 	mlx_terminate(vars->mlx);
