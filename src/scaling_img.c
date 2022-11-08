@@ -76,7 +76,7 @@ int calc_texture_line(mlx_texture_t *texture, t_ray *ray)
 	return ((int)(texture->width * temp));
 }
 
-int	print_line(t_cube *cube, t_ray *ray)
+int	print_line(t_cube *cube, t_ray *ray, u_int32_t projected_slice_height)
 {
 	t_put_line	line;
 	u_int32_t	pixel_y;
@@ -91,11 +91,11 @@ int	print_line(t_cube *cube, t_ray *ray)
 	// if (ray->line_x == SCREEN_X / 2)
 	// 	printf("DEBUG: texture_line = %d scale: %f dist = %f\n", line.texture_line, ray->scale, ray->dist);
 	scaled_pixel_height = (int)line.texture->height * line.scale;
-	line.middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);
-	while (pixel_y < scaled_pixel_height)
+	line.middle = calc_middle_offset(projected_slice_height, SCREEN_Y);
+	while (pixel_y < projected_slice_height)//scaled_pixel_height)
 	{
 		if (line.middle + pixel_y > 0 && line.middle + pixel_y < SCREEN_Y)
-			get_color_put_pixel(&line, pixel_y, scaled_pixel_height);
+			get_color_put_pixel(&line, pixel_y, projected_slice_height);
 		pixel_y++;
 	}
 	return (0);

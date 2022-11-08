@@ -85,22 +85,29 @@ t_axis	find_wall(t_cube *cube, char **map, t_pov *pov, rad angle)
 	xraycast = x_raycast(cube, d, stdd, pov->pos, angle, map);
 	yraycast = y_raycast(cube, d, stdd, pov->pos, angle, map);
 	if (cmp_rays(xraycast, yraycast, pov->pos) == X)
-		return (xraycast);
-	return (yraycast);
+		return (xraycast - stdd.x);
+	return (yraycast - std.y);
 }
 
-void calc_scale_vert_line(t_pov *pov, t_ray *ray)
+u_int32_t calc_scale_vert_line(t_pov *pov, t_ray *ray, rad rayangle)
 {
+	double	temp;
+	int		projected_slice_height;
+
 	ray->dist = sqrt(pow(ray->end_pos.y - pov->pos.y, 2) + pow(ray->end_pos.x - pov->pos.x, 2));
-	ray->scale = 1 / ray->dist;
+	//temp = cos(rayangle - pov->facing) * ray->dist;
+	//projected_slice_height = 1024 / ray->dist * ((SCREEN_X / 2) / tan(pov->fov / 2));
+	//ray->scale = 1 / ray->dist;
+	return (projected_slice_height);
 }
 
 void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 {
 	rad		anglestep;
 	rad		rayangle;
-	t_ray		*ray_ptr;
+	t_ray	*ray_ptr;
 	int		x;
+	u_int32_t		projected_slice_height;
 
 	x = 0;
 	//map++;
@@ -117,8 +124,8 @@ void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 		pov->rays->end_pos = find_wall(cube, map, pov, round_rad(rayangle));
 		pov->rays->wall_ori = find_wall_ori(cube, pov->rays->end_pos, map, round_rad(rayangle));
 		//printf("found wall on x:%f, y:%f, ori_wall |%c|\n", pov->rays->end_pos.x, pov->rays->end_pos.y, pov->rays->wall_ori);
-		calc_scale_vert_line(pov, pov->rays);
-		print_line(cube, pov->rays);
+		projected_slice_height = calc_scale_vert_line(pov, pov->rays, rayangle);
+		print_line(cube, pov->rays, projected_slice_height);
 		//fill_col(cube, pov, i, pov->rays->end_pos, rayangle);
 		rayangle += anglestep;
 		pov->rays++;
