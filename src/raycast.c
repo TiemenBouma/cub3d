@@ -85,19 +85,51 @@ t_axis	find_wall(t_cube *cube, char **map, t_pov *pov, rad angle)
 	xraycast = x_raycast(cube, d, stdd, pov->pos, angle, map);
 	yraycast = y_raycast(cube, d, stdd, pov->pos, angle, map);
 	if (cmp_rays(xraycast, yraycast, pov->pos) == X)
-		return (xraycast - stdd.x);
-	return (yraycast - std.y);
+		return (xraycast);
+	return (yraycast);
 }
 
+double ft_abs (double i)
+{
+	if (i < 0)
+	{
+		i = -i;
+		//printf("min i = %f\n\n", i);
+		return (i);
+	}
+	else
+	{
+		//printf(" i = %f\n\n", i);
+		return (i);
+	}
+
+}
+
+double func(double dist)
+{
+	double temp;
+
+	//printf("DEBUG: temp func dist = %f\n\n", dist);
+	if (dist > 10)
+		return (0);
+	temp = dist / 10;
+	//printf("DEBUG: temp func scale1 = %f\n\n", temp);
+	temp = ft_abs(temp - 1);
+	//printf("DEBUG: temp func scale2= %f\n\n", temp);
+	return temp;
+}
 u_int32_t calc_scale_vert_line(t_pov *pov, t_ray *ray, rad rayangle)
 {
-	double	temp;
+	//double	temp;
 	int		projected_slice_height;
+	(void)rayangle;
 
 	ray->dist = sqrt(pow(ray->end_pos.y - pov->pos.y, 2) + pow(ray->end_pos.x - pov->pos.x, 2));
 	//temp = cos(rayangle - pov->facing) * ray->dist;
 	//projected_slice_height = 1024 / ray->dist * ((SCREEN_X / 2) / tan(pov->fov / 2));
 	//ray->scale = 1 / ray->dist;
+	projected_slice_height = (int)(func(ray->dist) * 1024);
+	//printf("DEBUG: pro_slise h = %d\n\n", projected_slice_height);
 	return (projected_slice_height);
 }
 
