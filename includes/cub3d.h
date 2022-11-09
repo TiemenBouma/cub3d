@@ -146,8 +146,8 @@ void	find_playpos(t_cube *cube, t_pov *pov);
 void	cast_rays(t_cube *cube, char **map, t_pov *pov);
 float	ft_fmod(float f, bool exclude_zero);
 float	round_rad(rad rad);
-//int	print_line(t_cube *cube, t_ray *ray);
-int	print_line(t_cube *cube, t_ray *ray, u_int32_t projected_slice_height);
+int	print_line(t_cube *cube, t_ray *ray);
+//int	print_line(t_cube *cube, t_ray *ray, u_int32_t projected_slice_height);
 
 //Raycastigng checks
 //char	find_wall_ori(t_axis ray, char **map, rad angle);
