@@ -96,13 +96,15 @@ void calc_scale_vert_line(t_pov *pov, t_ray *ray, rad rayangle)
 	(void)rayangle;
 
 	ray->dist = sqrt(pow(ray->end_pos.y - pov->pos.y, 2) + pow(ray->end_pos.x - pov->pos.x, 2));
-	ray->dist = cos(rayangle - pov->facing) * ray->dist;
+	ray->dist = cos(pov->facing - rayangle) * ray->dist;
 	//projected_slice_height = 1024 / ray->dist * ((SCREEN_X / 2) / tan(pov->fov / 2));
-	ray->scale = 1 / ray->dist;
+	ray->scale = (1 / ray->dist);
 	//projected_slice_height = (int)(func(ray->dist) * 1024);
 	//printf("DEBUG: pro_slise h = %d\n\n", projected_slice_height);
 	//return (projected_slice_height);
 }
+
+
 
 void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 {
@@ -128,6 +130,7 @@ void	cast_rays(t_cube *cube, char **map, t_pov *pov)
 		pov->rays->wall_ori = find_wall_ori(cube, pov->rays->end_pos, map, round_rad(rayangle));
 		//printf("found wall on x:%f, y:%f, ori_wall |%c|\n", pov->rays->end_pos.x, pov->rays->end_pos.y, pov->rays->wall_ori);
 		calc_scale_vert_line(pov, pov->rays, rayangle);
+
 		print_line(cube, pov->rays);
 		//fill_col(cube, pov, i, pov->rays->end_pos, rayangle);
 		rayangle += anglestep;

@@ -45,6 +45,10 @@ int get_color_put_pixel(t_put_line *line, int pixel_y, int scaled_pixel_height)
 	color = get_rgba(line->texture->pixels[pixel_in_tex], line->texture->pixels[pixel_in_tex + 1], line->texture->pixels[pixel_in_tex + 2], line->texture->pixels[pixel_in_tex + 3]);
 	
 	//if (line->middle + pixel_y > 0 && line->middle + pixel_y < SCREEN_Y)
+	//DEBUG----------
+	if ((line->texture_line >= 0 && line->texture_line < 5))
+		mlx_put_pixel(line->img, line->vert_line, line->middle  + pixel_y, 0xFF0000FF);
+	else
 		mlx_put_pixel(line->img, line->vert_line, line->middle  + pixel_y, color);
 	return (0);
 }

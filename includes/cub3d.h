@@ -8,7 +8,7 @@
 #include <math.h>
 #include <stdbool.h>
 
-#define SCREEN_X 2000
+#define SCREEN_X 1000
 #define SCREEN_Y 1000
 #define PI 3.141592653589793
 #define XRES 100
@@ -154,6 +154,11 @@ int	print_line(t_cube *cube, t_ray *ray);
 char	find_wall_ori(t_cube *cube, t_axis ray, char **map, rad angle);
 bool	check_if_hit(t_cube *cube, t_axis ray, rad angle, char **map);
 //bool	check_if_hit(t_axis ray, rad angle, char **map);
+
+
+
+//TEST
+void func(t_vars *vars, t_pov *pov);
 
 
 #endif

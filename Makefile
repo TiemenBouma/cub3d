@@ -14,7 +14,8 @@ OBJFILES :=	obj/main.o \
 		obj/raycast.o \
 		obj/raycast_checks.o \
 		obj/parsing_player_pos.o \
-		obj/raycast_utils.o
+		obj/raycast_utils.o \
+		obj/DEMO_ray.o
 CFLAGS := -Werror -Wextra -Wall -fsanitize=address -g3
 DEBUG := 
 CC := gcc
