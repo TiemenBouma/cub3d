@@ -17,6 +17,8 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	{
 		printf("DEUBG: FPS %d\n", (int)(1 / vars->mlx->delta_time));
 		printf("DEBUG: x %f y %f\n", vars->pov->pos.x, vars->pov->pos.y);
+		printf("DEBUG: x %f y %f\n", vars->cube->pov->rays[0]., vars->pov->pos.y);
+
 	}
 	//printf("Gamecycle: %d\n", vars->gamecycle);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
