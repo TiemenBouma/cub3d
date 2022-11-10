@@ -143,7 +143,27 @@ void func(t_vars *vars, t_pov *pov)
 				perp_wall_dist = (sidedist_x - delta_dist_x);//sidedist_x;//
 			else
 				perp_wall_dist =(sidedist_y - delta_dist_y); //sidedist_y;//
-			
+
+			double wallx = 0; //where exactly the wall was hit
+			if (wall_side == 0)
+				wallx = pov->dir_y + perp_wall_dist * raydir_y;
+			else
+				wallx = pov->dir_x + perp_wall_dist * raydir_x;
+
+			int	wall_ori = 0;
+			if (wall_side == 0 && delta_dist_x >= 0)
+				wall_ori = 'E';
+			else if (wall_side == 0 && delta_dist_x < 0)
+				wall_ori = 'W';
+			else if (wall_side == 1 && delta_dist_y >= 0)
+				wall_ori = 'S';
+			else if (wall_side == 1 && delta_dist_y < 0)
+				wall_ori = 'N';
+
+			double scale;
+			scale = 1 / perp_wall_dist;
+
+			print_line(vars->cube, wallx, wall_ori, scale, x);
       		//Calculate height of line to draw on screen			
 			int lineHeight = (int)(SCREEN_Y / perp_wall_dist);//????????
 
@@ -172,7 +192,8 @@ void func(t_vars *vars, t_pov *pov)
 				color = 0x880000ff;
 			//mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
 			//vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, 1000, 1000);
-			verLine(vars->cube->g_img_DEMO, x, drawStart, drawEnd, color);
+
+			// verLine(vars->cube->g_img_DEMO, x, drawStart, drawEnd, color);
 
 			//printf("DEBUG: while x = %d, w = %d\n\n", x, w);
 			x++;

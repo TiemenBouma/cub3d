@@ -152,7 +152,8 @@ void	find_playpos(t_cube *cube, t_pov *pov);
 void	cast_rays(t_cube *cube, char **map, t_pov *pov);
 float	ft_fmod(float f, bool exclude_zero);
 float	round_rad(rad rad);
-int	print_line(t_cube *cube, t_ray *ray);
+int	print_line(t_cube *cube, double wallx, char wall_ori, double scale, int	col);
+// int	print_line(t_cube *cube, t_ray *ray);
 //int	print_line(t_cube *cube, t_ray *ray, u_int32_t projected_slice_height);
 
 //Raycastigng checks
@@ -161,7 +162,8 @@ char	find_wall_ori(t_cube *cube, t_axis ray, char **map, rad angle);
 bool	check_if_hit(t_cube *cube, t_axis ray, rad angle, char **map);
 //bool	check_if_hit(t_axis ray, rad angle, char **map);
 
-
+//DDA
+double ft_abs (double i);
 
 //TEST
 void func(t_vars *vars, t_pov *pov);
