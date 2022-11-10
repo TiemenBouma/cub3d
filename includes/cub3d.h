@@ -53,7 +53,13 @@ typedef struct s_ray
 
 typedef struct s_pov
 {
-	t_axis	pos;
+	//t_axis	pos;
+	double dir_x;
+	double dir_y;
+	double pos_x;
+	double pos_y;
+	double	plane_x;
+	double	plane_y;
 	rad		facing; //RAD
 	rad		fov; //RAD
 	t_ray	*rays;// awalys the screen width
@@ -159,6 +165,6 @@ bool	check_if_hit(t_cube *cube, t_axis ray, rad angle, char **map);
 
 //TEST
 void func(t_vars *vars, t_pov *pov);
-
+void print_map(char **map);
 
 #endif

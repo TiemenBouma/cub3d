@@ -11,7 +11,6 @@ OBJFILES :=	obj/main.o \
 		obj/parsing_map_validate.o \
 		obj/testing.o \
 		obj/scaling_img.o \
-		obj/raycast.o \
 		obj/raycast_checks.o \
 		obj/parsing_player_pos.o \
 		obj/raycast_utils.o \

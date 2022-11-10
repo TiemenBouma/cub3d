@@ -92,7 +92,7 @@ void	set_map_array(t_cube *cube, t_file *file)
 		line = get_line(file);
 		ft_memcpy(cube->map[i] + 1, line, ft_strlen(line));
 		ft_memcpy(cube->cpy_map[i] + 1, line, ft_strlen(line));
-		//printf("memcpy = %s\n", cube->map[i]);
+		// printf("memcpy = %s\n", cube->map[i] + 1);
 		free(line);
 		i++;
 	}
@@ -112,8 +112,8 @@ int	parse_map_element(t_cube *cube, t_file *file)
 	cube->map_length++;
 	cube->map_width++;
 	//printf("DEBUG1\n");
-	//printmap(cube->map);
-	//printmap(cube->cpy_map);
+	// print_map(cube->map);
+	// print_map(cube->cpy_map);
 	
 
 	validate_map(cube);

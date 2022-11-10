@@ -13,11 +13,16 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
 	vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, SCREEN_X, SCREEN_Y);
 	vars->gamecycle++;
-	if (vars->gamecycle % 10 == 0)
+
+	double moveSpeed = vars->mlx->delta_time * 5.0; //the constant value is in squares/second
+    double rotSpeed = vars->mlx->delta_time * 3.0; //the constant value is in radians/second
+	if (vars->gamecycle % 1000 == 0)
 	{
+		printf("DEUBG: delta time %f\n", (vars->mlx->delta_time));
 		printf("DEUBG: FPS %d\n", (int)(1 / vars->mlx->delta_time));
-		printf("DEBUG: x %f y %f\n", vars->pov->pos.x, vars->pov->pos.y);
-		//printf("DEBUG: x %f y %f\n", vars->cube->pov->rays[0]., vars->pov->pos.y);
+		printf("DEBUG: x %f y %f\n", vars->pov->pos_x, vars->pov->pos_y);
+		printf("DEBUG: movespeed %f rotspeed %f\n", moveSpeed, rotSpeed);
+		//printf("DEBUG: x %f y %f\n", vars->cube->pov->rays[0]., vars->pov->pos_y);
 
 	}
 	//printf("Gamecycle: %d\n", vars->gamecycle);
@@ -25,19 +30,10 @@ void	hook( void *param)//mlx_key_data_t keydata,
 		mlx_close_window(vars->mlx);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
 	{
-		int y = (int)(vars->pov->pos.y + (0.11 * sin(vars->pov->facing)));
-		int x = (int)(vars->pov->pos.x + (0.11 * cos(vars->pov->facing)));
-	//	printf("DEBUG: MAP c %c\n", vars->cube->map[y][x]);
-	//	printf("DEBUG: delta x = %d, delta y = %d\n", x, y);
-		if (vars->cube->map[y][x] != '1')
-		{
-			vars->pov->pos.x += 0.1 * cos(vars->pov->facing);
-			vars->pov->pos.y += 0.1 * sin(vars->pov->facing);
-		}
-		else if (vars->cube->map[y][(int)vars->pov->pos.x] != '1')
-			vars->pov->pos.y += 0.1 * sin(vars->pov->facing);
-		else if (vars->cube->map[(int)vars->pov->pos.y][x] != '1')
-			vars->pov->pos.x += 0.1 * cos(vars->pov->facing);
+		if(vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed)] != '1') 
+			vars->pov->pos_x += vars->pov->dir_x * moveSpeed;
+		if(vars->cube->map[(int)(vars->pov->pos_y + vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x)] != '1') 
+			vars->pov->pos_y += vars->pov->dir_y * moveSpeed;
 		else
 		{
 			printf("hit wall\n");
@@ -45,19 +41,10 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
 	{
-		int y = (int)(vars->pov->pos.y - (0.11 * sin(vars->pov->facing)));
-		int x = (int)(vars->pov->pos.x - (0.11 * cos(vars->pov->facing)));
-	//	printf("DEBUG: MAP c %c\n", vars->cube->map[y][x]);
-		//printf("DEBUG: delta x = %d, delta y = %d\n", x, y);
-		if (vars->cube->map[y][x] != '1')
-		{
-			vars->pov->pos.x -= 0.1 * cos(vars->pov->facing);
-			vars->pov->pos.y -= 0.1 * sin(vars->pov->facing);
-		}
-		else if (vars->cube->map[y][(int)vars->pov->pos.x] != '1')
-			vars->pov->pos.y -= 0.1 * sin(vars->pov->facing);
-		else if (vars->cube->map[(int)vars->pov->pos.y][x] != '1')
-			vars->pov->pos.x -= 0.1 * cos(vars->pov->facing);
+		if(vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed)] != '1') 
+			vars->pov->pos_x -= vars->pov->dir_x * moveSpeed;
+		if(vars->cube->map[(int)(vars->pov->pos_y - vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x)] != '1') 
+			vars->pov->pos_y -= vars->pov->dir_y * moveSpeed;
 		else
 		{
 			printf("hit wall\n");
@@ -65,97 +52,39 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 	{
-		vars->pov->facing -= 0.03 * PI;
-		//cast_rays(vars->cube, vars->cube->map, vars->pov);
+		//both camera direction and camera plane must be rotated
+		double oldDirX = vars->pov->dir_x;
+		vars->pov->dir_x = vars->pov->dir_x * cos(rotSpeed) - vars->pov->dir_y * sin(rotSpeed);
+		vars->pov->dir_y = oldDirX * sin(rotSpeed) + vars->pov->dir_y * cos(rotSpeed);
+		double oldPlaneX = vars->pov->plane_x;
+		vars->pov->plane_x = vars->pov->plane_x * cos(rotSpeed) - vars->pov->plane_y * sin(rotSpeed);
+		vars->pov->plane_y = oldPlaneX * sin(rotSpeed) + vars->pov->plane_y * cos(rotSpeed);
+		printf("plane x %f, plane y %f\n\n", vars->pov->plane_x, vars->pov->plane_y);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 	{
-		vars->pov->facing += 0.03 * PI;
+      //both camera direction and camera plane must be rotated
+    double oldDirX = vars->pov->dir_x;
+    vars->pov->dir_x = vars->pov->dir_x * cos(-rotSpeed) - vars->pov->dir_y * sin(-rotSpeed);
+    vars->pov->dir_y = oldDirX * sin(-rotSpeed) + vars->pov->dir_y * cos(-rotSpeed);
+    double oldPlaneX = vars->pov->plane_x;
+    vars->pov->plane_x = vars->pov->plane_x * cos(-rotSpeed) - vars->pov->plane_y * sin(-rotSpeed);
+    vars->pov->plane_y = oldPlaneX * sin(-rotSpeed) + vars->pov->plane_y * cos(-rotSpeed);
+	printf("plane x %f, plane y %f\n\n", vars->pov->plane_x, vars->pov->plane_y);
 	}
 	func(vars, vars->pov);
 	//cast_rays(vars->cube, vars->cube->map, vars->pov);
 	mlx_image_to_window(vars->mlx, vars->cube->g_img_DEMO, 0, 0);
 
 }
-// void	hook( void *param)//mlx_key_data_t keydata,
-// {
-// 	t_vars	*vars;
-// 	//(void)keydata;
-// 	vars = param;
-// 	mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
-// 	vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, SCREEN_X, SCREEN_Y);
-// 	vars->gamecycle++;
-// 	if (vars->gamecycle % 10 == 0)
-// 	{
-// 		printf("DEUBG: FPS %d\n", (int)(1 / vars->mlx->delta_time));
-// 		printf("DEBUG: x %f y %f\n", vars->pov->pos.x, vars->pov->pos.y);
-// 		//printf("DEBUG: x %f y %f\n", vars->cube->pov->rays[0]., vars->pov->pos.y);
 
-// 	}
-// 	//printf("Gamecycle: %d\n", vars->gamecycle);
-// 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
-// 		mlx_close_window(vars->mlx);
-// 	if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
-// 	{
-// 		int y = (int)(vars->pov->pos.y + (0.11 * sin(vars->pov->facing)));
-// 		int x = (int)(vars->pov->pos.x + (0.11 * cos(vars->pov->facing)));
-// 	//	printf("DEBUG: MAP c %c\n", vars->cube->map[y][x]);
-// 	//	printf("DEBUG: delta x = %d, delta y = %d\n", x, y);
-// 		if (vars->cube->map[y][x] != '1')
-// 		{
-// 			vars->pov->pos.x += 0.1 * cos(vars->pov->facing);
-// 			vars->pov->pos.y += 0.1 * sin(vars->pov->facing);
-// 		}
-// 		else if (vars->cube->map[y][(int)vars->pov->pos.x] != '1')
-// 			vars->pov->pos.y += 0.1 * sin(vars->pov->facing);
-// 		else if (vars->cube->map[(int)vars->pov->pos.y][x] != '1')
-// 			vars->pov->pos.x += 0.1 * cos(vars->pov->facing);
-// 		else
-// 		{
-// 			printf("hit wall\n");
-// 		}
-// 	}
-// 	if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
-// 	{
-// 		int y = (int)(vars->pov->pos.y - (0.11 * sin(vars->pov->facing)));
-// 		int x = (int)(vars->pov->pos.x - (0.11 * cos(vars->pov->facing)));
-// 	//	printf("DEBUG: MAP c %c\n", vars->cube->map[y][x]);
-// 		//printf("DEBUG: delta x = %d, delta y = %d\n", x, y);
-// 		if (vars->cube->map[y][x] != '1')
-// 		{
-// 			vars->pov->pos.x -= 0.1 * cos(vars->pov->facing);
-// 			vars->pov->pos.y -= 0.1 * sin(vars->pov->facing);
-// 		}
-// 		else if (vars->cube->map[y][(int)vars->pov->pos.x] != '1')
-// 			vars->pov->pos.y -= 0.1 * sin(vars->pov->facing);
-// 		else if (vars->cube->map[(int)vars->pov->pos.y][x] != '1')
-// 			vars->pov->pos.x -= 0.1 * cos(vars->pov->facing);
-// 		else
-// 		{
-// 			printf("hit wall\n");
-// 		}
-// 	}
-// 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
-// 	{
-// 		vars->pov->facing -= 0.03 * PI;
-// 		//cast_rays(vars->cube, vars->cube->map, vars->pov);
-// 	}
-// 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
-// 	{
-// 		vars->pov->facing += 0.03 * PI;
-// 	}
-// 	cast_rays(vars->cube, vars->cube->map, vars->pov);
-// 	mlx_image_to_window(vars->mlx, vars->cube->g_img_DEMO, 0, 0);
-
-// }
-
-int	game_loop_mlx(t_vars *vars)
+int    game_loop_mlx(t_vars *vars)
 {
-	if (!vars->mlx)
-		exit(EXIT_FAILURE);
-	//mlx_key_hook(vars->mlx, hook, vars);
-	mlx_loop_hook(vars->mlx, &hook, vars);
-	mlx_loop(vars->mlx);
-	mlx_terminate(vars->mlx);
-	return (EXIT_SUCCESS);
+       if (!vars->mlx)
+               exit(EXIT_FAILURE);
+       //mlx_key_hook(vars->mlx, hook, vars);
+       mlx_loop_hook(vars->mlx, &hook, vars);
+       mlx_loop(vars->mlx);
+       mlx_terminate(vars->mlx);
+       return (EXIT_SUCCESS);
 }

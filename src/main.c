@@ -56,11 +56,13 @@ int main(int argc, char **argv)
 	}
 	vars.cube = &cube;
 	vars.file = &file;
+	vars.pov = &pov;
 	init_structs(&vars, argv);
 	parsing(&cube, &file);
+	pov.pos_x = cube.player_x;
+	pov.pos_y = cube.player_y;
 	mlx = init_mlx_stuff(&cube);
-	find_playpos(&cube, &pov);
-	vars.pov = &pov;
+	//find_playpos(&cube, &pov);
 	//cube.g_img_DEMO = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
 	//cast_rays(&cube, cube.map, &pov);
 	//mlx_image_to_window(mlx, cube.g_img_DEMO, 0, 0);

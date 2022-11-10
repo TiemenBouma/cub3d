@@ -20,7 +20,7 @@ static double	calc_facing(char player)
 void	find_playpos(t_cube *cube, t_pov *pov)
 {
 	pov->fov = 0.25 * PI;
-	pov->pos.x = cube->player_x + 0.5;
-	pov->pos.y = cube->player_y + 0.5;
+	pov->pos_x = cube->player_x + 0.5;
+	pov->pos_y = cube->player_y + 0.5;
 	pov->facing = calc_facing(cube->map[cube->player_y][ cube->player_x]);
 }

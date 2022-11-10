@@ -61,3 +61,13 @@ int	free_double_ptr(char **ptr)
 	free(ptr);
 	return (0);
 }
+
+void print_map(char **map)
+{
+	int i = 0;
+	while (map[i])
+	{
+		printf("DEBUG:%s\n", map[i] + 1);
+		i++;
+	}
+}

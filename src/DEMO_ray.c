@@ -27,41 +27,8 @@ void verLine(mlx_image_t *img, int x, int drawStart, int drawEnd, int color)
 
 void func(t_vars *vars, t_pov *pov)
 {
-	//char 	**map;
 	(void)pov;
-	int map[mapWidth][mapHeight]=
-	{
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-	};
-	double	pos_x = 3;
-	double	pos_y = 3;
-	double	dir_x = -1;
-	double	dir_y = 0;
-	double	plane_x = 0;
-	double	plane_y = 0.66;
+
 	int		x;
 	int		w;
 
@@ -85,24 +52,23 @@ void func(t_vars *vars, t_pov *pov)
 	int drawEnd;
 
 	int color;
-	//mlx_t mlx;
-	//mlx_image_t *img; 
 
 	x = 0;
 	w = SCREEN_X;
-	while (1)
-	{
+
 		while (x < w)
 		{
 			camera_x = 2 * x / (double) w - 1;
-			raydir_x = dir_x + plane_x * camera_x;
-			raydir_y = dir_y + plane_y * camera_x;
+			raydir_x = pov->dir_x + pov->plane_x * camera_x;
+			raydir_y = pov->dir_y + pov->plane_y * camera_x;
+			//printf("raydirx = %f, raydir y = %f\n\n", raydir_x, raydir_y);
+			//usleep(10000);
 
-			map_x = (int)pos_x;
-			map_y = (int)pos_y;
+			map_x = (int)pov->pos_x;
+			map_y = (int)pov->pos_y;
 
-			sidedist_x = 0;
-			sidedist_y = 0;
+			// sidedist_x = 0;
+			// sidedist_y = 0;
 
 			if (raydir_x == 0)
 				delta_dist_x = 1e30;
@@ -113,31 +79,31 @@ void func(t_vars *vars, t_pov *pov)
 			else
 				delta_dist_y = ft_abs(1 / raydir_y);
 
-			perp_wall_dist = 0;
-			step_x = 0;
-			step_y = 0;
+			// perp_wall_dist = 0;
+			// step_x = 0;
+			// step_y = 0;
 			hit = 0;
 			wall_side = 0;
 
 			if ( raydir_x < 0)
 			{
 				step_x = -1;
-				sidedist_x = (pos_x - map_x) * delta_dist_x;
+				sidedist_x = (pov->pos_x - map_x) * delta_dist_x;
 			}
 			else
 			{
 				step_x = 1;
-				sidedist_x = (map_x + 1.0 - pos_x) * delta_dist_x;
+				sidedist_x = (map_x + 1.0 - pov->pos_x) * delta_dist_x;
 			}
 			if ( raydir_y < 0)
 			{
 				step_y = -1;
-				sidedist_y = (pos_y - map_y) * delta_dist_y;
+				sidedist_y = (pov->pos_y - map_y) * delta_dist_y;
 			}
 			else
 			{
 				step_y = 1;
-				sidedist_y = (map_y + 1.0 - pos_y) * delta_dist_y;
+				sidedist_y = (map_y + 1.0 - pov->pos_y) * delta_dist_y;
 			}
 			while (hit == 0)
 			{
@@ -153,9 +119,10 @@ void func(t_vars *vars, t_pov *pov)
 					map_y += step_y;
 					wall_side = 1;
 				}
-				if (map[map_x][map_y] > 0)
+				// print_map(vars->cube->map);
+				// printf("mapx %d, mapy = %d\n", map_x, map_y);
+				if (vars->cube->map[map_y][map_x] == '1')
 				{
-
 					// printf("DEBUG: while map = %d\n\n", map[map_x][map_y]);
 					hit = 1;
 				}
@@ -176,7 +143,8 @@ void func(t_vars *vars, t_pov *pov)
 			int lineHeight = (int)(SCREEN_Y / perp_wall_dist);//????????
 
       		//calculate lowest and highest pixel to fill in current stripe
-	  		drawStart = -lineHeight / 2 + SCREEN_Y / 2;
+			//printf("lineh %d, -lineh %d\n\n", lineHeight, -lineHeight);
+	  		drawStart = SCREEN_Y / 2 - lineHeight / 2;
 			if(drawStart < 0)
 				drawStart = 0;
 			drawEnd = lineHeight / 2 + SCREEN_Y / 2;
@@ -185,27 +153,26 @@ void func(t_vars *vars, t_pov *pov)
 
 			//CHOOSE WALL TEXTURE or COLOR
 			//color = 0xff0000ff;
-			switch(map[map_x][map_y])
+			switch(vars->cube->map[map_y][map_x])
 			{
 				case 1:  color = 0xff0000ff;    break; //red
 				case 2:  color = 0x00ff00ff;  break; //green
 				case 3:  color = 0x0000ffff;   break; //blue
 				case 4:  color = 0xffffffff;  break; //white
-				default: color = 0xffff00ff; break; //yellow
+				default: color = 0x888800ff; break; //yellow
 			}
 
 			//give x and y sides different brightness
 			if(wall_side == 1)
-				color = color / 2;
-			mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
-			vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, 1000, 1000);
+				color = 0x880000ff;
+			//mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
+			//vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, 1000, 1000);
 			verLine(vars->cube->g_img_DEMO, x, drawStart, drawEnd, color);
 
-			printf("DEBUG: while x = %d, w = %d\n\n", x, w);
+			//printf("DEBUG: while x = %d, w = %d\n\n", x, w);
 			x++;
 		}
 		//return (img);
-	}
 
 }
 

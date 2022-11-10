@@ -33,9 +33,21 @@ void	init_file_struct(t_file *file, char **argv)
 	file->start_line_map = 0;
 }
 
+void	init_pov_struct(t_pov *pov)
+{
+	pov->pos_x = 3;
+	pov->pos_y = 3;
+	pov->dir_x = -1;
+	pov->dir_y = 0;
+	pov->plane_x = 0;
+	pov->plane_y = 0.66;
+
+}
+
 void	init_structs(t_vars *vars, char **argv)
 {
 	vars->gamecycle = 0;
 	init_cube_struct(vars->cube);
 	init_file_struct(vars->file, argv);
+	init_pov_struct(vars->pov);
 }
