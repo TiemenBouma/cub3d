@@ -8,7 +8,7 @@
 #define mapWidth 24
 #define mapHeight 24
 
-int ft_abs (int i)
+double ft_abs (double i)
 {
   return i < 0 ? -i : i;
 }
@@ -20,7 +20,10 @@ void verLine(mlx_image_t *img, int x, int drawStart, int drawEnd, int color)
 	i = 0;
 	while (i + drawStart < drawEnd)
 	{
-		mlx_put_pixel(img, x, drawStart + i, color);
+		if (x == SCREEN_X / 2)
+			mlx_put_pixel(img, x, drawStart + i, 0xff0000ff);
+		else
+			mlx_put_pixel(img, x, drawStart + i, color);
 		i++;
 	}
 }
@@ -58,7 +61,8 @@ void func(t_vars *vars, t_pov *pov)
 
 		while (x < w)
 		{
-			camera_x = 2 * x / (double) w - 1;
+			camera_x = 2 * x / (double) w - 1; //range beween -1 and 1;
+			//printf("DEBUG: x = %d w = %d camara_x = %f\n", x, w, camera_x);
 			raydir_x = pov->dir_x + pov->plane_x * camera_x;
 			raydir_y = pov->dir_y + pov->plane_y * camera_x;
 			//printf("raydirx = %f, raydir y = %f\n\n", raydir_x, raydir_y);
@@ -78,6 +82,7 @@ void func(t_vars *vars, t_pov *pov)
 				delta_dist_y = 1e30;
 			else
 				delta_dist_y = ft_abs(1 / raydir_y);
+			//printf("raydir_x %f delta x %f, raydir_y %f delta y %f\n", raydir_x, delta_dist_x, raydir_y, delta_dist_y);
 
 			// perp_wall_dist = 0;
 			// step_x = 0;
@@ -135,9 +140,9 @@ void func(t_vars *vars, t_pov *pov)
 			//steps, but we subtract deltaDist once because one step more into the wall was taken above.
 
 			if(wall_side == 0)
-				perp_wall_dist = (sidedist_x - delta_dist_x);
+				perp_wall_dist = (sidedist_x - delta_dist_x);//sidedist_x;//
 			else
-				perp_wall_dist = (sidedist_y - delta_dist_y);
+				perp_wall_dist =(sidedist_y - delta_dist_y); //sidedist_y;//
 			
       		//Calculate height of line to draw on screen			
 			int lineHeight = (int)(SCREEN_Y / perp_wall_dist);//????????

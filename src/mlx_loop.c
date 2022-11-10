@@ -60,6 +60,7 @@ void	hook( void *param)//mlx_key_data_t keydata,
 		vars->pov->plane_x = vars->pov->plane_x * cos(rotSpeed) - vars->pov->plane_y * sin(rotSpeed);
 		vars->pov->plane_y = oldPlaneX * sin(rotSpeed) + vars->pov->plane_y * cos(rotSpeed);
 		printf("plane x %f, plane y %f\n\n", vars->pov->plane_x, vars->pov->plane_y);
+		printf("dir x %f, dir y %f\n\n", vars->pov->dir_x, vars->pov->dir_y);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 	{
