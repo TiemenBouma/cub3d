@@ -96,12 +96,14 @@ int	print_line(t_cube *cube, double wallx, char wall_ori, double scale, int	col)
 	// 	printf("DEBUG: texture_line = %d scale: %f dist = %f\n", line.texture_line, ray->scale, ray->dist);
 	scaled_pixel_height = (int)(line.texture->height * line.scale);
 	line.middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);
+	// printf("before pixel loop\n");
 	while (pixel_y < scaled_pixel_height)//scaled_pixel_height)
 	{
 		if (line.middle + pixel_y > 0 && line.middle + pixel_y < SCREEN_Y)
 			get_color_put_pixel(&line, pixel_y, scaled_pixel_height);
 		pixel_y++;
 	}
+	// printf("after pixel loop\n");
 	return (0);
 }
 // int	print_line(t_cube *cube, t_ray *ray)

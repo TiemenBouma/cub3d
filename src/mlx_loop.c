@@ -30,9 +30,15 @@ void	hook( void *param)//mlx_key_data_t keydata,
 		mlx_close_window(vars->mlx);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
 	{
-		if(vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed)] != '1') 
+		if(vars->cube->map[(int)(vars->pov->pos_y + 0.1)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y - 0.1)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed + 0.1)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed - 0.1)] != '1') 
 			vars->pov->pos_x += vars->pov->dir_x * moveSpeed;
-		if(vars->cube->map[(int)(vars->pov->pos_y + vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x)] != '1') 
+		if(vars->cube->map[(int)(vars->pov->pos_y + vars->pov->dir_y * moveSpeed + 0.1)][(int)(vars->pov->pos_x)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y + vars->pov->dir_y * moveSpeed - 0.1)][(int)(vars->pov->pos_x)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y + vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x + 0.1)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y + vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x - 0.1)] != '1') 
 			vars->pov->pos_y += vars->pov->dir_y * moveSpeed;
 		else
 		{
@@ -41,9 +47,15 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
 	{
-		if(vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed)] != '1') 
+		if(vars->cube->map[(int)(vars->pov->pos_y + 0.1)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y - 0.1)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed + 0.1)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed - 0.1)] != '1') 
 			vars->pov->pos_x -= vars->pov->dir_x * moveSpeed;
-		if(vars->cube->map[(int)(vars->pov->pos_y - vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x)] != '1') 
+		if(vars->cube->map[(int)(vars->pov->pos_y - vars->pov->dir_y * moveSpeed + 0.1)][(int)(vars->pov->pos_x)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y - vars->pov->dir_y * moveSpeed - 0.1)][(int)(vars->pov->pos_x)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y - vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x + 0.1)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y - vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x - 0.1)] != '1') 
 			vars->pov->pos_y -= vars->pov->dir_y * moveSpeed;
 		else
 		{
@@ -59,6 +71,7 @@ void	hook( void *param)//mlx_key_data_t keydata,
 		double oldPlaneX = vars->pov->plane_x;
 		vars->pov->plane_x = vars->pov->plane_x * cos(rotSpeed) - vars->pov->plane_y * sin(rotSpeed);
 		vars->pov->plane_y = oldPlaneX * sin(rotSpeed) + vars->pov->plane_y * cos(rotSpeed);
+		printf("currently on map[%d][%d]: %c\n", (int)(vars->pov->pos_y), (int)(vars->pov->pos_x), vars->cube->map[(int)vars->pov->pos_y][(int)vars->pov->pos_x]);
 		printf("plane x %f, plane y %f\n\n", vars->pov->plane_x, vars->pov->plane_y);
 		printf("dir x %f, dir y %f\n\n", vars->pov->dir_x, vars->pov->dir_y);
 	}

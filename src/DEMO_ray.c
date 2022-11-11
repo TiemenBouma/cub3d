@@ -70,6 +70,7 @@ void func(t_vars *vars, t_pov *pov)
 
 			map_x = (int)pov->pos_x;
 			map_y = (int)pov->pos_y;
+			
 
 			// sidedist_x = 0;
 			// sidedist_y = 0;
@@ -89,6 +90,7 @@ void func(t_vars *vars, t_pov *pov)
 			// step_y = 0;
 			hit = 0;
 			wall_side = 0;
+
 
 			if ( raydir_x < 0)
 			{
@@ -110,6 +112,7 @@ void func(t_vars *vars, t_pov *pov)
 				step_y = 1;
 				sidedist_y = (map_y + 1.0 - pov->pos_y) * delta_dist_y;
 			}
+			// printf("sidedistx: %f, sidedisty: %f\n", sidedist_x, sidedist_y);
 			while (hit == 0)
 			{
 				if (sidedist_x < sidedist_y)
@@ -132,6 +135,7 @@ void func(t_vars *vars, t_pov *pov)
 					hit = 1;
 				}
 			}
+			// printf("map[17[18]: %c\n", vars->cube->map[map_y][map_x]);
 			//Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
 			//hit to the camera plane. Euclidean to center camera point would give fisheye effect!
 			//This can be computed as (mapX - posX + (1 - stepX) / 2) / rayDirX for side == 0, or same formula with Y
@@ -146,9 +150,9 @@ void func(t_vars *vars, t_pov *pov)
 
 			double wallx = 0; //where exactly the wall was hit
 			if (wall_side == 0)
-				wallx = pov->dir_y + perp_wall_dist * raydir_y;
+				wallx = pov->pos_y + perp_wall_dist * raydir_y;
 			else
-				wallx = pov->dir_x + perp_wall_dist * raydir_x;
+				wallx = pov->pos_x + perp_wall_dist * raydir_x;
 
 			int	wall_ori = 0;
 			if (wall_side == 0 && delta_dist_x >= 0)
@@ -163,6 +167,7 @@ void func(t_vars *vars, t_pov *pov)
 			double scale;
 			scale = 1 / perp_wall_dist;
 
+			// printf("wallx: %f\n", wallx);
 			print_line(vars->cube, wallx, wall_ori, scale, x);
       		//Calculate height of line to draw on screen			
 			int lineHeight = (int)(SCREEN_Y / perp_wall_dist);//????????
