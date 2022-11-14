@@ -86,6 +86,7 @@ int	print_line(t_cube *cube, double wallx, char wall_ori, double scale, int	col)
 	u_int32_t	pixel_y;
 	u_int32_t	scaled_pixel_height;
 
+
 	pixel_y = 0;
 	line.img = cube->g_img_DEMO;
 	line.texture = set_texture(cube, wall_ori);
@@ -97,12 +98,17 @@ int	print_line(t_cube *cube, double wallx, char wall_ori, double scale, int	col)
 	scaled_pixel_height = (int)(line.texture->height * line.scale);
 	line.middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);
 	// printf("before pixel loop\n");
+
+							//sleep(5);
 	while (pixel_y < scaled_pixel_height)//scaled_pixel_height)
 	{
+							//printf("DEBUG: WHILELOOP printfline\n");
+
 		if (line.middle + pixel_y > 0 && line.middle + pixel_y < SCREEN_Y)
 			get_color_put_pixel(&line, pixel_y, scaled_pixel_height);
 		pixel_y++;
 	}
+
 	// printf("after pixel loop\n");
 	return (0);
 }

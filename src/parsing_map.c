@@ -69,9 +69,26 @@ void map_malloc(t_cube *cube, char ***map)
 	}
 }
 
+int is_player(char *line)
+{
+	char *c;
+	c = NULL;
+	if (ft_strchr(line, 'N'))
+		c = ft_strchr(line, 'N');
+	else if (ft_strchr(line, 'E'))
+		c = ft_strchr(line, 'E');
+	else if (ft_strchr(line, 'S'))
+		c = ft_strchr(line, 'S');
+	else if (ft_strchr(line, 'W'))
+		c = ft_strchr(line, 'W');
+	return (c - line);
+
+}
+
 void	set_map_array(t_cube *cube, t_file *file)
 {
 	int	i;
+	//int c;
 	char	*line;
 
 	i = 0;
@@ -90,6 +107,12 @@ void	set_map_array(t_cube *cube, t_file *file)
 	while (i < cube->map_length + 1)
 	{
 		line = get_line(file);
+		if (is_player(line) > 0)
+		{
+			cube->player_x = is_player(line) + 1;
+			cube->player_y = i;
+			// printf("DEBUG: x = %d, y = %d\n", cube->player_x, cube->player_y);
+		}
 		ft_memcpy(cube->map[i] + 1, line, ft_strlen(line));
 		ft_memcpy(cube->cpy_map[i] + 1, line, ft_strlen(line));
 		// printf("memcpy = %s\n", cube->map[i] + 1);
@@ -111,10 +134,6 @@ int	parse_map_element(t_cube *cube, t_file *file)
 	set_map_array(cube, file);
 	cube->map_length++;
 	cube->map_width++;
-	//printf("DEBUG1\n");
-	// print_map(cube->map);
-	// print_map(cube->cpy_map);
-	
 
 	validate_map(cube);
 	//printmap(cube);

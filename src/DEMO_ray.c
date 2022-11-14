@@ -20,6 +20,8 @@ void verLine(mlx_image_t *img, int x, int drawStart, int drawEnd, int color)
 	i = 0;
 	while (i + drawStart < drawEnd)
 	{
+
+
 		if (x == SCREEN_X / 2)
 			mlx_put_pixel(img, x, drawStart + i, 0xff0000ff);
 		else
@@ -61,6 +63,8 @@ void func(t_vars *vars, t_pov *pov)
 
 		while (x < w)
 		{
+
+
 			camera_x = 2 * x / (double) w - 1; //range beween -1 and 1;
 			//printf("DEBUG: x = %d w = %d camara_x = %f\n", x, w, camera_x);
 			raydir_x = pov->dir_x + pov->plane_x * camera_x;
@@ -115,6 +119,8 @@ void func(t_vars *vars, t_pov *pov)
 			// printf("sidedistx: %f, sidedisty: %f\n", sidedist_x, sidedist_y);
 			while (hit == 0)
 			{
+
+
 				if (sidedist_x < sidedist_y)
 				{
 					sidedist_x +=delta_dist_x;
@@ -131,7 +137,7 @@ void func(t_vars *vars, t_pov *pov)
 				// printf("mapx %d, mapy = %d\n", map_x, map_y);
 				if (vars->cube->map[map_y][map_x] == '1')
 				{
-					// printf("DEBUG: while map = %d\n\n", map[map_x][map_y]);
+					//printf("DEBUG: while map = %c\n\n", vars->cube->map[map_x][map_y]);
 					hit = 1;
 				}
 			}
@@ -167,7 +173,8 @@ void func(t_vars *vars, t_pov *pov)
 			double scale;
 			scale = 1 / perp_wall_dist;
 
-			// printf("wallx: %f\n", wallx);
+			// printf("DEBUG: scale: %f\n", scale);
+			// printf("DEBUG: prep_wall_dist = %f\n", perp_wall_dist);
 			print_line(vars->cube, wallx, wall_ori, scale, x);
       		//Calculate height of line to draw on screen			
 			int lineHeight = (int)(SCREEN_Y / perp_wall_dist);//????????

@@ -37,10 +37,10 @@ void	init_pov_struct(t_pov *pov)
 {
 	pov->pos_x = 3;
 	pov->pos_y = 3;
-	pov->dir_x = -1;
-	pov->dir_y = 0;
-	pov->plane_x = 0;
-	pov->plane_y = 0.66;
+	pov->dir_x = 0;
+	pov->dir_y = 1;
+	pov->plane_x = 0.66;
+	pov->plane_y = 0;
 
 }
 
