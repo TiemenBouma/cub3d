@@ -8,7 +8,7 @@
 #include <math.h>
 #include <stdbool.h>
 
-#define SCREEN_X 1000
+#define SCREEN_X 1400
 #define SCREEN_Y 1000
 #define PI 3.141592653589793
 #define XRES 100

@@ -14,8 +14,8 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, SCREEN_X, SCREEN_Y);
 	vars->gamecycle++;
 
-	double moveSpeed = vars->mlx->delta_time * 10.0; //the constant value is in squares/second
-    double rotSpeed = vars->mlx->delta_time * 5.0; //the constant value is in radians/second
+	double moveSpeed = vars->mlx->delta_time * 5.0; //the constant value is in squares/second
+    double rotSpeed = vars->mlx->delta_time * 3.0; //the constant value is in radians/second
 	if (vars->gamecycle % 50 == 0)
 	{
 		printf("STATUS: delta time %f\n", (vars->mlx->delta_time));
