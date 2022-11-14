@@ -59,14 +59,16 @@ int main(int argc, char **argv)
 	vars.pov = &pov;
 	init_structs(&vars, argv);
 	parsing(&cube, &file);
-	pov.pos_x = cube.player_x;
-	pov.pos_y = cube.player_y;
+	pov.pos_x = cube.player_x + 0.5;
+	pov.pos_y = cube.player_y + 0.5;
 	mlx = init_mlx_stuff(&cube);
+
 	//find_playpos(&cube, &pov);
 	//cube.g_img_DEMO = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
 	//cast_rays(&cube, cube.map, &pov);
 	//mlx_image_to_window(mlx, cube.g_img_DEMO, 0, 0);
 	vars.mlx = mlx;
+
 	game_loop_mlx(&vars);
 	free_all(&vars);
 	return (0);
