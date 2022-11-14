@@ -33,14 +33,67 @@ void	init_file_struct(t_file *file, char **argv)
 	file->start_line_map = 0;
 }
 
-void	init_pov_struct(t_pov *pov)
+void	set_dir_vector(char ori, double *dir_x, double *dir_y)
 {
-	pov->pos_x = 3;
-	pov->pos_y = 3;
-	pov->dir_x = -1;
-	pov->dir_y = 0;
-	pov->plane_x = 0;
-	pov->plane_y = 0.66;
+	if (ori == 'N')
+	{
+		*dir_x = 0;
+		*dir_y = -1;
+	}
+	else if (ori == 'E')
+	{
+		*dir_x = 1;
+		*dir_y = 0;
+	}
+	else if (ori == 'S')
+	{
+		*dir_x = 0;
+		*dir_y = 1;
+	}
+	else if (ori == 'E')
+	{
+		*dir_x = -1;
+		*dir_y = 0;
+	}
+}
+
+void	set_plane_vector(char ori, double *place_x, double *place_y)
+{
+	if (ori == 'N')
+	{
+		*place_x = 0.66;
+		*place_y = 0;
+	}
+	else if (ori == 'E')
+	{
+		*place_x = 0;
+		*place_y = -0.66;
+	}
+	else if (ori == 'S')
+	{
+		*place_x = -0.66;
+		*place_y = 0;
+	}
+	else if (ori == 'E')
+	{
+		*place_x = 0;
+		*place_y = 0.66;
+	}
+}
+
+void	init_pov_struct(t_pov *pov, char **map)
+{
+	int	coordinates[2];
+
+	start_location(map, coordinates);
+	pov->pos_x = coordinates[1];
+	pov->pos_y = coordinates[0];
+	set_dir_vector(map[(int)pov->pos_x][(int)pov->pos_y], &pov->dir_x, &pov->dir_y);
+	set_dir_vector(map[(int)pov->pos_x][(int)pov->pos_y], &pov->plane_x, &pov->plane_y);
+	// pov->dir_x = -1;
+	// pov->dir_y = 0;
+	// pov->plane_x = 0;
+	// pov->plane_y = 0.66;
 
 }
 
@@ -49,5 +102,5 @@ void	init_structs(t_vars *vars, char **argv)
 	vars->gamecycle = 0;
 	init_cube_struct(vars->cube);
 	init_file_struct(vars->file, argv);
-	init_pov_struct(vars->pov);
+	init_pov_struct(vars->pov, vars->cube->map);
 }
