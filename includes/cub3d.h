@@ -120,7 +120,7 @@ typedef struct s_vars
 
 //PARSING
 int	open_cub_file(t_file *file);
-int	parsing(t_cube *cube, t_file *file);
+int	parsing(t_vars *vars);
 int	parse_map_element(t_cube *cube, t_file *file);
 
 //PARSING VALIDATE MAP

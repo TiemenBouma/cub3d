@@ -114,13 +114,13 @@ int	parse_cub_file_lines(t_cube *cube, t_file *file)
 	return (0);
 }
 
-int	parsing(t_cube *cube, t_file *file)
+int	parsing(t_vars *vars)
 {
 
-	validate_file_name(file);
-	open_cub_file(file);
+	validate_file_name(vars->file);
+	open_cub_file(vars->file);
 	// printf("DEBUG:player count parsing %d\n", cube->player_count);
-	parse_cub_file_lines(cube, file);
+	parse_cub_file_lines(vars->cube, vars->file);
 	
 	return 0;
 }

@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 	vars.file = &file;
 	vars.pov = &pov;
 	init_structs(&vars, argv);
-	parsing(&cube, &file);
+	parsing(&vars);
 	pov.pos_x = cube.player_x + 0.5;
 	pov.pos_y = cube.player_y + 0.5;
 	mlx = init_mlx_stuff(&cube);
