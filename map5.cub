@@ -1,12 +1,12 @@
-NO ./pics/wall_grey1024.png
-SO ./pics/wall_blue1024.png
-WE ./pics/wall_wood1024.png
-EA ./pics/wall_moss1024.png
+NO ./pics/trees1024.png
+SO ./pics/gif/tree_texture.png
+WE ./pics/gif/tree_texture2.png
+EA ./pics/trees1024.png
 
 
 
-F 22,140,72
-C 66,135,245
+F 41,87,84
+C 41,87,84
 
 
 
