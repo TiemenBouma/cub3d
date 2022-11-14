@@ -29,7 +29,8 @@ void	hook( void *param)//mlx_key_data_t keydata,
 
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
+	//UP
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_W))
 	{
 		if(vars->cube->map[(int)(vars->pov->pos_y + 0.1)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed)] != '1'
 			&& vars->cube->map[(int)(vars->pov->pos_y - 0.1)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed)] != '1'
@@ -46,8 +47,8 @@ void	hook( void *param)//mlx_key_data_t keydata,
 			printf("hit wall\n");
 		}
 	}
-
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
+	//DOWN
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
 	{
 		if(vars->cube->map[(int)(vars->pov->pos_y + 0.1)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed)] != '1'
 			&& vars->cube->map[(int)(vars->pov->pos_y - 0.1)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed)] != '1'
@@ -64,7 +65,8 @@ void	hook( void *param)//mlx_key_data_t keydata,
 			printf("hit wall\n");
 		}
 	}
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
+	//LEFT
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = vars->pov->dir_x;
@@ -78,7 +80,8 @@ void	hook( void *param)//mlx_key_data_t keydata,
 		// printf("dir x %f, dir y %f\n\n", vars->pov->dir_x, vars->pov->dir_y);
 	}
 
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
+//RIGHT
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
 	{
       //both camera direction and camera plane must be rotated
     double oldDirX = vars->pov->dir_x;
