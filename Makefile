@@ -12,7 +12,7 @@ OBJFILES :=	obj/main.o \
 		obj/testing.o \
 		obj/scaling_img.o \
 		obj/raycast_checks.o \
-		obj/parsing_player_pos.o \
+		obj/setting_player_rotation.o \
 		obj/raycast_utils.o \
 		obj/DEMO_ray.o
 CFLAGS := -Werror -Wextra -Wall -fsanitize=address -g3
