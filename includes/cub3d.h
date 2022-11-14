@@ -169,4 +169,8 @@ double ft_abs (double i);
 void func(t_vars *vars, t_pov *pov);
 void print_map(char **map);
 
+//settting player rotation
+void	set_plane_vector(char ori, double *place_x, double *place_y);
+void	set_dir_vector(char ori, double *dir_x, double *dir_y);
+
 #endif

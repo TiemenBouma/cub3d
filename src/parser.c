@@ -121,6 +121,10 @@ int	parsing(t_vars *vars)
 	open_cub_file(vars->file);
 	// printf("DEBUG:player count parsing %d\n", cube->player_count);
 	parse_cub_file_lines(vars->cube, vars->file);
-	
+	// printf("player x: %d, player y: %d\n", vars->cube->player_x, vars->cube->player_y);
+	// printf("map: %c\n", vars->cube->map[vars->cube->player_y][vars->cube->player_x]);
+	set_dir_vector(vars->cube->map[(int)vars->cube->player_y][(int)vars->cube->player_x], &vars->pov->dir_x, &vars->pov->dir_y);
+	set_plane_vector(vars->cube->map[(int)vars->cube->player_y][(int)vars->cube->player_x], &vars->pov->plane_x, &vars->pov->plane_y);
+
 	return 0;
 }
