@@ -18,12 +18,12 @@ void	*ft_memset32(void *str, int32_t c, int32_t len)
 	return (ptr);
 }
 
-int get_rgba(int r, int g, int b, int a)
+int	get_rgba(int r, int g, int b, int a)
 {
-    return (r << 24 | g << 16 | b << 8 | a);
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int	error_msg_exit(char * msg, int exit_code)
+int	error_msg_exit(char *msg, int exit_code)
 {
 	ft_putstr_fd(msg, 2);
 	exit (exit_code);
@@ -39,7 +39,7 @@ char	*get_line(t_file *file)
 	line = get_next_line(file->file_fd);
 	if (line == NULL)
 		return (NULL);
-	while (line[i] != '\0'  && line[i] != '\n')
+	while (line[i] != '\0' && line[i] != '\n')
 		i++;
 	temp = ft_substr(line, 0, i);
 	if (temp == NULL)
@@ -60,14 +60,4 @@ int	free_double_ptr(char **ptr)
 	}
 	free(ptr);
 	return (0);
-}
-
-void print_map(char **map)
-{
-	int i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i] + 1);
-		i++;
-	}
 }

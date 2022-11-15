@@ -7,7 +7,7 @@
 
 char	*empty_line_read(t_file *file)
 {
-	int	i;
+	int		i;
 	char	*line;
 
 	i = 0;
@@ -31,7 +31,7 @@ char	*empty_line_read(t_file *file)
 int	calculate_map_length(t_cube *cube, t_file *file, char *line)
 {
 	int		temp_width;
-	// printf("DEBUG: mpa length BEGIN: %d\n", cube->map_length);
+
 	while (1)
 	{
 		if (line == NULL)
@@ -42,7 +42,6 @@ int	calculate_map_length(t_cube *cube, t_file *file, char *line)
 		if (temp_width > cube->map_width)
 			cube->map_width = temp_width;
 		cube->map_length++;
-		// printf("DEBUG: mpa length: %d\n", cube->map_length);
 		free(line);
 		line = get_line(file);
 	}
@@ -51,9 +50,9 @@ int	calculate_map_length(t_cube *cube, t_file *file, char *line)
 	return (0);
 }
 
-void map_malloc(t_cube *cube, char ***map)
+void	map_malloc(t_cube *cube, char ***map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	*map = ft_calloc(cube->map_length + 3, sizeof(char *));
@@ -69,7 +68,7 @@ void map_malloc(t_cube *cube, char ***map)
 	}
 }
 
-int is_player(char *line)
+int	is_player(char *line)
 {
 	if (ft_strchr(line, 'N'))
 		return (ft_strchr(line, 'N') - line);
@@ -80,59 +79,4 @@ int is_player(char *line)
 	else if (ft_strchr(line, 'W'))
 		return (ft_strchr(line, 'W') - line);
 	return (-1);
-
-}
-
-void	set_map_array(t_cube *cube, t_file *file)
-{
-	int	i;
-	//int c;
-	char	*line;
-
-	i = 0;
-	//map_malloc(cube);
-	map_malloc(cube, &cube->map);
-	map_malloc(cube, &cube->cpy_map);
-	while (i < file->start_line_map - 1)
-	{
-		line = get_next_line(file->file_fd);
-		free(line);
-		i++;
-	}
-	i = 1;
-	
-
-	while (i < cube->map_length + 1)
-	{
-		line = get_line(file);
-		if (is_player(line) > 0)
-		{
-			cube->player_x = is_player(line) + 1;
-			cube->player_y = i;
-			// printf("DEBUG: x = %d, y = %d\n", cube->player_x, cube->player_y);
-		}
-		ft_memcpy(cube->map[i] + 1, line, ft_strlen(line));
-		ft_memcpy(cube->cpy_map[i] + 1, line, ft_strlen(line));
-		// printf("memcpy = %s\n", cube->map[i] + 1);
-		free(line);
-		i++;
-	}
-		//printf("DEBUG\n");
-}
-
-
-int	parse_map_element(t_cube *cube, t_file *file)
-{
-	char	*line;
-
-	line = empty_line_read(file);
-	calculate_map_length(cube, file, line);
-	close(file->file_fd);
-	open_cub_file(file);
-	set_map_array(cube, file);
-	cube->map_length++;
-	cube->map_width++;
-	validate_map(cube);
-
-	return 0;
 }

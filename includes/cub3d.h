@@ -31,7 +31,7 @@ typedef struct s_put_line
 
 }	t_put_line;
 
-typedef	struct s_axis
+typedef struct s_axis
 {
 	float	x;
 	float	y;
@@ -90,12 +90,12 @@ typedef struct s_cube
 	mlx_image_t		*g_img_wall_ea;
 	mlx_image_t		*g_img_wall_so;
 	mlx_image_t		*g_img_wall_we;
-	mlx_image_t		*g_img_DEMO;
+	mlx_image_t		*g_img_demo;
 	mlx_texture_t	*texture_no_wall;
 	mlx_texture_t	*texture_ea_wall;
 	mlx_texture_t	*texture_so_wall;
 	mlx_texture_t	*texture_we_wall;
-	mlx_texture_t	*texture_DEMO;
+	mlx_texture_t	*texture_demo;
 	char			**map;
 	char			**cpy_map;
 	int				map_width;
@@ -125,6 +125,10 @@ typedef struct s_vars
 int		open_cub_file(t_file *file);
 int		parsing(t_vars *vars);
 int		parse_map_element(t_cube *cube, t_file *file);
+void	map_malloc(t_cube *cube, char ***map);
+int		calculate_map_length(t_cube *cube, t_file *file, char *line);
+char	*empty_line_read(t_file *file);
+int		is_player(char *line);
 
 //PARSING VALIDATE MAP
 void	validate_map(t_cube *cube);

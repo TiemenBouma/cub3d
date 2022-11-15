@@ -223,10 +223,10 @@ void func(t_vars *vars, t_pov *pov)
 			//give x and y sides different brightness
 			if(wall_side == 1)
 				color = 0x880000ff;
-			//mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
-			//vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, 1000, 1000);
+			//mlx_delete_image(vars->mlx, vars->cube->g_img_demo);
+			//vars->cube->g_img_demo = mlx_new_image(vars->mlx, 1000, 1000);
 
-			// verLine(vars->cube->g_img_DEMO, x, drawStart, drawEnd, color);
+			// verLine(vars->cube->g_img_demo, x, drawStart, drawEnd, color);
 
 			//printf("DEBUG: while x = %d, w = %d\n\n", x, w);
 			x++;
@@ -255,9 +255,9 @@ void func(t_vars *vars, t_pov *pov)
 // 	mlx = init_mlx_stuff(&cube);
 // 	find_playpos(&cube, &pov);
 // 	vars.pov = &pov;
-// 	//cube.g_img_DEMO = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
+// 	//cube.g_img_demo = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
 // 	//cast_rays(&cube, cube.map, &pov);
-// 	//mlx_image_to_window(mlx, cube.g_img_DEMO, 0, 0);
+// 	//mlx_image_to_window(mlx, cube.g_img_demo, 0, 0);
 // 	vars.mlx = mlx;
 // 	game_loop_mlx(&vars);
 // 	free_all(&vars);

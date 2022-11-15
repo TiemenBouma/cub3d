@@ -65,7 +65,7 @@ int	print_line(t_cube *cube, int col, t_ray *ray)
 	u_int32_t	scaled_pixel_height;
 
 	pixel_y = 0;
-	line.img = cube->g_img_DEMO;
+	line.img = cube->g_img_demo;
 	line.texture = set_texture(cube, ray->wall_ori);
 	line.scale = ray->scale;
 	line.vert_line = col;

@@ -25,16 +25,13 @@ void	delete_image(mlx_t *mlx, t_cube *cube)
 	if (cube->g_img_floor != NULL)
 	{
 		printf("DEBUG: DELETE IMG F\n");
-
 		mlx_delete_image(mlx, cube->g_img_floor);
 	}
-	if (cube->g_img_DEMO != NULL)
+	if (cube->g_img_demo != NULL)
 	{
 		printf("DEBUG: DELETE IMG DEMO\n");
-
-		mlx_delete_image(mlx, cube->g_img_DEMO);
+		mlx_delete_image(mlx, cube->g_img_demo);
 	}
-
 }
 
 void	free_all(t_vars *vars)

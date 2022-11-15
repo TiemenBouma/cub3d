@@ -64,6 +64,6 @@ mlx_t	*init_mlx_stuff(t_cube *cube)
 	mlx = mlx_init(cube->window_x, cube->window_y, "MLX42", true);
 	make_floor_ceilling(mlx, cube);
 	init_walls(cube, mlx);
-	cube->g_img_DEMO = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
+	cube->g_img_demo = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
 	return (mlx);
 }

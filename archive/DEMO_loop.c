@@ -10,8 +10,8 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	t_vars	*vars;
 	//(void)keydata;
 	vars = param;
-	mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
-	vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, SCREEN_X, SCREEN_Y);
+	mlx_delete_image(vars->mlx, vars->cube->g_img_demo);
+	vars->cube->g_img_demo = mlx_new_image(vars->mlx, SCREEN_X, SCREEN_Y);
 	vars->gamecycle++;
 
 	double moveSpeed = vars->mlx->delta_time * 5.0; //the constant value is in squares/second
@@ -70,6 +70,6 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	}
 	func(vars, vars->pov);
 	//cast_rays(vars->cube, vars->cube->map, vars->pov);
-	mlx_image_to_window(vars->mlx, vars->cube->g_img_DEMO, 0, 0);
+	mlx_image_to_window(vars->mlx, vars->cube->g_img_demo, 0, 0);
 
 }
