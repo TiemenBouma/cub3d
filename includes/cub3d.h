@@ -200,4 +200,12 @@ void print_map(char **map);
 void	set_plane_vector(char ori, double *place_x, double *place_y);
 void	set_dir_vector(char ori, double *dir_x, double *dir_y);
 
+//HOOKS
+void	hook_move_up(t_vars *vars, double moveSpeed);
+void	hook_move_down(t_vars *vars, double moveSpeed);
+void	hook_move_left(t_vars *vars, double moveSpeed, double dir_perp_x, double dir_perp_y);
+void	hook_move_right(t_vars *vars, double moveSpeed, double dir_perp_x, double dir_perp_y);
+void	hook_rotate_left(t_vars *vars, double rotSpeed);
+void	hook_rotate_right(t_vars *vars, double rotSpeed);
+
 #endif
