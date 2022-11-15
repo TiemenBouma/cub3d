@@ -16,6 +16,8 @@ void	hook( void *param)//mlx_key_data_t keydata,
 
 	double moveSpeed = vars->mlx->delta_time * 5.0; //the constant value is in squares/second
     double rotSpeed = vars->mlx->delta_time * 3.0; //the constant value is in radians/second
+	double	dir_perp_x = vars->pov->dir_y * -1;
+	double	dir_perp_y = vars->pov->dir_x;
 	if (vars->gamecycle % 50 == 0)
 	{
 		printf("STATUS: delta time %f\n", (vars->mlx->delta_time));
@@ -30,23 +32,7 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 	//UP
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_W))
-	{
-		if(vars->cube->map[(int)(vars->pov->pos_y + 0.1)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y - 0.1)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed + 0.1)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x + vars->pov->dir_x * moveSpeed - 0.1)] != '1') 
-			vars->pov->pos_x += vars->pov->dir_x * moveSpeed;
-		if(vars->cube->map[(int)(vars->pov->pos_y + vars->pov->dir_y * moveSpeed + 0.1)][(int)(vars->pov->pos_x)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y + vars->pov->dir_y * moveSpeed - 0.1)][(int)(vars->pov->pos_x)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y + vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x + 0.1)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y + vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x - 0.1)] != '1') 
-			vars->pov->pos_y += vars->pov->dir_y * moveSpeed;
-		else
-		{
-			printf("hit wall\n");
-		}
-	}
+	
 	//DOWN
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
 	{
@@ -65,8 +51,42 @@ void	hook( void *param)//mlx_key_data_t keydata,
 			printf("hit wall\n");
 		}
 	}
-	//LEFT
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
+	{
+		if(vars->cube->map[(int)(vars->pov->pos_y + 0.1)][(int)(vars->pov->pos_x - dir_perp_x * moveSpeed)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y - 0.1)][(int)(vars->pov->pos_x - dir_perp_x * moveSpeed)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x - dir_perp_x * moveSpeed + 0.1)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x - dir_perp_x * moveSpeed - 0.1)] != '1') 
+			vars->pov->pos_x -= dir_perp_x * moveSpeed;
+		if(vars->cube->map[(int)(vars->pov->pos_y - dir_perp_y * moveSpeed + 0.1)][(int)(vars->pov->pos_x)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y - dir_perp_y * moveSpeed - 0.1)][(int)(vars->pov->pos_x)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y - dir_perp_y * moveSpeed)][(int)(vars->pov->pos_x + 0.1)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y - dir_perp_y * moveSpeed)][(int)(vars->pov->pos_x - 0.1)] != '1') 
+			vars->pov->pos_y -= dir_perp_y * moveSpeed;
+		else
+		{
+			printf("hit wall\n");
+		}
+	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
+	{
+		if(vars->cube->map[(int)(vars->pov->pos_y + 0.1)][(int)(vars->pov->pos_x + dir_perp_x * moveSpeed)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y - 0.1)][(int)(vars->pov->pos_x + dir_perp_x * moveSpeed)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x + dir_perp_x * moveSpeed + 0.1)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x + dir_perp_x * moveSpeed - 0.1)] != '1') 
+			vars->pov->pos_x += dir_perp_x * moveSpeed;
+		if(vars->cube->map[(int)(vars->pov->pos_y + dir_perp_y * moveSpeed + 0.1)][(int)(vars->pov->pos_x)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y + dir_perp_y * moveSpeed - 0.1)][(int)(vars->pov->pos_x)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y + dir_perp_y * moveSpeed)][(int)(vars->pov->pos_x + 0.1)] != '1'
+			&& vars->cube->map[(int)(vars->pov->pos_y + dir_perp_y * moveSpeed)][(int)(vars->pov->pos_x - 0.1)] != '1') 
+			vars->pov->pos_y += dir_perp_y * moveSpeed;
+		else
+		{
+			printf("hit wall\n");
+		}
+	}
+	//LEFT rotate
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = vars->pov->dir_x;
@@ -80,8 +100,8 @@ void	hook( void *param)//mlx_key_data_t keydata,
 		// printf("dir x %f, dir y %f\n\n", vars->pov->dir_x, vars->pov->dir_y);
 	}
 
-//RIGHT
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
+//RIGHT reotate
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 	{
       //both camera direction and camera plane must be rotated
     double oldDirX = vars->pov->dir_x;
@@ -92,6 +112,8 @@ void	hook( void *param)//mlx_key_data_t keydata,
     vars->pov->plane_y = oldPlaneX * sin(-rotSpeed) + vars->pov->plane_y * cos(-rotSpeed);
 	// printf("plane x %f, plane y %f\n\n", vars->pov->plane_x, vars->pov->plane_y);
 	}
+
+	//LEFT
 
 	func(vars, vars->pov);
 	//cast_rays(vars->cube, vars->cube->map, vars->pov);
