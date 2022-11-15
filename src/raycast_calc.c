@@ -114,4 +114,6 @@ void	calc_wall_x(t_ray *ray, t_pov *pov)
 			ray->wall_x = pov->pos_y + ray->perp_wall_dist * ray->dir_y;
 		else
 			ray->wall_x = pov->pos_x + ray->perp_wall_dist * ray->dir_x;
+		//ray->wall_x *= -1;
+		//printf("DEBUG: wall_x = %f\n", ray->wall_x);
 }

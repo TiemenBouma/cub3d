@@ -1,7 +1,7 @@
-NO ./pics/trees1024.png
+NO ./pics/gif/tree_texture.png
 SO ./pics/gif/tree_texture.png
 WE ./pics/gif/tree_texture2.png
-EA ./pics/trees1024.png
+EA ./pics/gif/tree_texture.png
 
 
 

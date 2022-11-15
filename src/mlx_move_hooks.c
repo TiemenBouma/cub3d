@@ -57,7 +57,7 @@ void	hook_move_down(t_vars *vars, double moveSpeed)
 	}
 }
 
-void	hook_move_left(t_vars *vars, double moveSpeed,
+void	hook_move_right(t_vars *vars, double moveSpeed,
 			double perpx, double perpy)
 {
 	double	*posx;
@@ -67,7 +67,7 @@ void	hook_move_left(t_vars *vars, double moveSpeed,
 	posx = &vars->pov->pos_x;
 	posy = &vars->pov->pos_y;
 	map = vars->cube->map;
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
 	{
 		if (map[(int)(*posy + 0.1)][(int)(*posx + perpx * moveSpeed)] != '1'
 			&& map[(int)(*posy - 0.1)][(int)(*posx + perpx * moveSpeed)] != '1'
@@ -82,7 +82,7 @@ void	hook_move_left(t_vars *vars, double moveSpeed,
 	}
 }
 
-void	hook_move_right(t_vars *vars, double moveSpeed,
+void	hook_move_left(t_vars *vars, double moveSpeed,
 			double perpx, double perpy)
 {
 	double	*posx;
@@ -92,7 +92,7 @@ void	hook_move_right(t_vars *vars, double moveSpeed,
 	posx = &vars->pov->pos_x;
 	posy = &vars->pov->pos_y;
 	map = vars->cube->map;
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
 	{
 		if (map[(int)(*posy + 0.1)][(int)(*posx - perpx * moveSpeed)] != '1'
 			&& map[(int)(*posy - 0.1)][(int)(*posx - perpx * moveSpeed)] != '1'

@@ -18,7 +18,7 @@ void raycaster(t_vars *vars, t_pov *pov)
 	while (x < SCREEN_X)
 	{
 		camera_x = 2 * x / (double) SCREEN_X - 1; //range beween -1 and 1;
-		//camera_x *= -1;
+		camera_x *= -1;
 		calc_raydir(&ray, pov, camera_x);
 		//printf("DEBUG: x = %d w = %d camara_x = %f\n", x, w, camera_x);
 		//printf("raydirx = %f, raydir y = %f\n\n", ray.dir_x, ray.dir_y);

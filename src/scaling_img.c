@@ -92,7 +92,11 @@ int	print_line(t_cube *cube, int col, t_ray *ray)
 	line.texture = set_texture(cube, ray->wall_ori);
 	line.scale = ray->scale;
 	line.vert_line = col;
-	line.texture_line = line.texture->width * ft_abs(ft_fmod(ray->wall_x, 0));
+	if (ray->wall_ori == 'S' || ray->wall_ori == 'E')
+		line.texture_line = line.texture->width * ft_abs(1 - ft_fmod(ray->wall_x, 0));
+	else
+		line.texture_line = line.texture->width * ft_abs(ft_fmod(ray->wall_x, 0));
+
 	// if (ray->line_x == SCREEN_X / 2)
 	// 	printf("DEBUG: texture_line = %d scale: %f dist = %f\n", line.texture_line, ray->scale, ray->dist);
 	scaled_pixel_height = (int)(line.texture->height * line.scale);
