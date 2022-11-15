@@ -9,12 +9,10 @@ OBJFILES :=	obj/main.o \
 		obj/parsing_map.o \
 		obj/init_structs.o \
 		obj/parsing_map_validate.o \
-		obj/testing.o \
 		obj/scaling_img.o \
-		obj/raycast_checks.o \
 		obj/setting_player_rotation.o \
 		obj/raycast_utils.o \
-		obj/DEMO_ray.o
+		obj/raycast.o
 CFLAGS := -Werror -Wextra -Wall -fsanitize=address -g3
 DEBUG := 
 CC := gcc

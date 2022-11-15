@@ -160,15 +160,36 @@ void func(t_vars *vars, t_pov *pov)
 			else
 				wallx = pov->pos_x + perp_wall_dist * raydir_x;
 
+			// which wall is hit
 			int	wall_ori = 0;
-			if (wall_side == 0 && delta_dist_x >= 0)
-				wall_ori = 'E';
-			else if (wall_side == 0 && delta_dist_x < 0)
-				wall_ori = 'W';
-			else if (wall_side == 1 && delta_dist_y >= 0)
-				wall_ori = 'S';
-			else if (wall_side == 1 && delta_dist_y < 0)
-				wall_ori = 'N';
+			if (raydir_x >= 0 && raydir_y >= 0)		//quadrant 1
+			{
+				if (wall_side == 0)
+					wall_ori = 'N';
+				else
+					wall_ori = 'E';
+			}
+			else if (raydir_x >= 0 && raydir_y < 0)	//quadrant 2
+			{
+				if (wall_side == 0)
+					wall_ori = 'N';
+				else
+					wall_ori = 'W';
+			}
+			else if (raydir_x < 0 && raydir_y < 0)	//quadrant 3
+			{
+				if (wall_side == 0)
+					wall_ori = 'S';
+				else
+					wall_ori = 'W';
+			}
+			else 									//quadrant 4
+			{
+				if (wall_side == 0)
+					wall_ori = 'S';
+				else
+					wall_ori = 'E';
+			}
 
 			double scale;
 			scale = 1 / perp_wall_dist;
@@ -177,7 +198,7 @@ void func(t_vars *vars, t_pov *pov)
 			// printf("DEBUG: prep_wall_dist = %f\n", perp_wall_dist);
 			print_line(vars->cube, wallx, wall_ori, scale, x);
       		//Calculate height of line to draw on screen			
-			int lineHeight = (int)(SCREEN_Y / perp_wall_dist);//????????
+			int lineHeight = (int)(SCREEN_Y / perp_wall_dist);
 
       		//calculate lowest and highest pixel to fill in current stripe
 			//printf("lineh %d, -lineh %d\n\n", lineHeight, -lineHeight);
