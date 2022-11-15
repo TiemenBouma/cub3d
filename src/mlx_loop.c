@@ -30,90 +30,16 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	//printf("Gamecycle: %d\n", vars->gamecycle);
 
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
+	{
+		// system("leaks cube");
 		mlx_close_window(vars->mlx);
-	//UP
-	
-	//DOWN
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
-	{
-		if(vars->cube->map[(int)(vars->pov->pos_y + 0.1)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y - 0.1)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed + 0.1)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x - vars->pov->dir_x * moveSpeed - 0.1)] != '1') 
-			vars->pov->pos_x -= vars->pov->dir_x * moveSpeed;
-		if(vars->cube->map[(int)(vars->pov->pos_y - vars->pov->dir_y * moveSpeed + 0.1)][(int)(vars->pov->pos_x)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y - vars->pov->dir_y * moveSpeed - 0.1)][(int)(vars->pov->pos_x)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y - vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x + 0.1)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y - vars->pov->dir_y * moveSpeed)][(int)(vars->pov->pos_x - 0.1)] != '1') 
-			vars->pov->pos_y -= vars->pov->dir_y * moveSpeed;
-		else
-		{
-			printf("hit wall\n");
-		}
 	}
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
-	{
-		if(vars->cube->map[(int)(vars->pov->pos_y + 0.1)][(int)(vars->pov->pos_x - dir_perp_x * moveSpeed)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y - 0.1)][(int)(vars->pov->pos_x - dir_perp_x * moveSpeed)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x - dir_perp_x * moveSpeed + 0.1)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x - dir_perp_x * moveSpeed - 0.1)] != '1') 
-			vars->pov->pos_x -= dir_perp_x * moveSpeed;
-		if(vars->cube->map[(int)(vars->pov->pos_y - dir_perp_y * moveSpeed + 0.1)][(int)(vars->pov->pos_x)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y - dir_perp_y * moveSpeed - 0.1)][(int)(vars->pov->pos_x)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y - dir_perp_y * moveSpeed)][(int)(vars->pov->pos_x + 0.1)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y - dir_perp_y * moveSpeed)][(int)(vars->pov->pos_x - 0.1)] != '1') 
-			vars->pov->pos_y -= dir_perp_y * moveSpeed;
-		else
-		{
-			printf("hit wall\n");
-		}
-	}
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
-	{
-		if(vars->cube->map[(int)(vars->pov->pos_y + 0.1)][(int)(vars->pov->pos_x + dir_perp_x * moveSpeed)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y - 0.1)][(int)(vars->pov->pos_x + dir_perp_x * moveSpeed)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x + dir_perp_x * moveSpeed + 0.1)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y)][(int)(vars->pov->pos_x + dir_perp_x * moveSpeed - 0.1)] != '1') 
-			vars->pov->pos_x += dir_perp_x * moveSpeed;
-		if(vars->cube->map[(int)(vars->pov->pos_y + dir_perp_y * moveSpeed + 0.1)][(int)(vars->pov->pos_x)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y + dir_perp_y * moveSpeed - 0.1)][(int)(vars->pov->pos_x)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y + dir_perp_y * moveSpeed)][(int)(vars->pov->pos_x + 0.1)] != '1'
-			&& vars->cube->map[(int)(vars->pov->pos_y + dir_perp_y * moveSpeed)][(int)(vars->pov->pos_x - 0.1)] != '1') 
-			vars->pov->pos_y += dir_perp_y * moveSpeed;
-		else
-		{
-			printf("hit wall\n");
-		}
-	}
-	//LEFT rotate
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
-	{
-		//both camera direction and camera plane must be rotated
-		double oldDirX = vars->pov->dir_x;
-		vars->pov->dir_x = vars->pov->dir_x * cos(rotSpeed) - vars->pov->dir_y * sin(rotSpeed);
-		vars->pov->dir_y = oldDirX * sin(rotSpeed) + vars->pov->dir_y * cos(rotSpeed);
-		double oldPlaneX = vars->pov->plane_x;
-		vars->pov->plane_x = vars->pov->plane_x * cos(rotSpeed) - vars->pov->plane_y * sin(rotSpeed);
-		vars->pov->plane_y = oldPlaneX * sin(rotSpeed) + vars->pov->plane_y * cos(rotSpeed);
-		// printf("currently on map[%d][%d]: %c\n", (int)(vars->pov->pos_y), (int)(vars->pov->pos_x), vars->cube->map[(int)vars->pov->pos_y][(int)vars->pov->pos_x]);
-		// printf("plane x %f, plane y %f\n\n", vars->pov->plane_x, vars->pov->plane_y);
-		// printf("dir x %f, dir y %f\n\n", vars->pov->dir_x, vars->pov->dir_y);
-	}
-
-//RIGHT reotate
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
-	{
-      //both camera direction and camera plane must be rotated
-    double oldDirX = vars->pov->dir_x;
-    vars->pov->dir_x = vars->pov->dir_x * cos(-rotSpeed) - vars->pov->dir_y * sin(-rotSpeed);
-    vars->pov->dir_y = oldDirX * sin(-rotSpeed) + vars->pov->dir_y * cos(-rotSpeed);
-    double oldPlaneX = vars->pov->plane_x;
-    vars->pov->plane_x = vars->pov->plane_x * cos(-rotSpeed) - vars->pov->plane_y * sin(-rotSpeed);
-    vars->pov->plane_y = oldPlaneX * sin(-rotSpeed) + vars->pov->plane_y * cos(-rotSpeed);
-	// printf("plane x %f, plane y %f\n\n", vars->pov->plane_x, vars->pov->plane_y);
-	}
-
-	//LEFT
+	hook_move_up(vars, moveSpeed);
+	hook_move_down(vars, moveSpeed);
+	hook_move_left(vars, moveSpeed, dir_perp_x, dir_perp_y);
+	hook_move_right(vars, moveSpeed, dir_perp_x, dir_perp_y);
+	hook_rotate_left(vars, rotSpeed);
+	hook_rotate_right(vars, rotSpeed);
 
 	raycaster(vars, vars->pov);
 	//cast_rays(vars->cube, vars->cube->map, vars->pov);

@@ -12,7 +12,9 @@ OBJFILES :=	obj/main.o \
 		obj/scaling_img.o \
 		obj/setting_player_rotation.o \
 		obj/raycast_utils.o \
-		obj/raycast.o
+		obj/raycast.o \
+		obj/mlx_move_hooks.o \
+		obj/mlx_rotate_hooks.o
 CFLAGS := -Werror -Wextra -Wall -fsanitize=address -g3
 DEBUG := 
 CC := gcc
