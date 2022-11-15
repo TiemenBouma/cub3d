@@ -208,4 +208,11 @@ void	hook_move_right(t_vars *vars, double moveSpeed, double dir_perp_x, double d
 void	hook_rotate_left(t_vars *vars, double rotSpeed);
 void	hook_rotate_right(t_vars *vars, double rotSpeed);
 
+//raycast_texture
+int	calc_middle_offset(int img_length, int screen_y);
+int	get_pixel(t_put_line *line, double ratio);
+
+int	open_cub_file(t_file *file);
+int	validate_file_name(t_file *file);
+
 #endif

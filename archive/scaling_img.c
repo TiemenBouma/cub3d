@@ -1,6 +1,3 @@
-//dest_pixel [x,y] = src_pixel [x * x_scale_factor, y * y_scale_factor]
- //dest_pixel [x,y] = src_pixel [x * x_scale_factor, y * y_scale_factor]
-
 #include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 #include <math.h>
@@ -8,16 +5,14 @@
 
 #include <stdio.h>
 
-
 int	calc_middle_offset(int img_length, int screen_y)
 {
-	int offset;
-	
+	int	offset;
+
 	img_length /= 2;
 	screen_y /= 2;
 	offset = screen_y - img_length;
-
-	return offset;
+	return (offset);
 }
 
 int	get_pixel(t_put_line *line, double ratio)
@@ -32,31 +27,29 @@ int	get_pixel(t_put_line *line, double ratio)
 	return (sum);
 }
 
-int get_color_put_pixel(t_put_line *line, int pixel_y, int scaled_pixel_height)
+int	get_color_put_pixel(t_put_line *line, int pixel_y, int scaled_pixel_height)
 {
 	u_int32_t	color;
-	//int			middle;
 	int			pixel_in_tex;
 	double		ratio;
 
 	ratio = (double)pixel_y / (double)scaled_pixel_height;
-//middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);
 	pixel_in_tex = get_pixel(line, ratio);
-	color = get_rgba(line->texture->pixels[pixel_in_tex], line->texture->pixels[pixel_in_tex + 1], line->texture->pixels[pixel_in_tex + 2], line->texture->pixels[pixel_in_tex + 3]);
-	
-	//if (line->middle + pixel_y > 0 && line->middle + pixel_y < SCREEN_Y)
-	//DEBUG----------
+	color = get_rgba(line->texture->pixels[pixel_in_tex],
+			line->texture->pixels[pixel_in_tex + 1],
+			line->texture->pixels[pixel_in_tex + 2],
+			line->texture->pixels[pixel_in_tex + 3]);
 	if ((line->texture_line >= 0 && line->texture_line < 5))
-		mlx_put_pixel(line->img, line->vert_line, line->middle  + pixel_y, 0xFF0000FF);
+		mlx_put_pixel(line->img, line->vert_line, line->middle
+			+ pixel_y, 0xFF0000FF);
 	else
-		mlx_put_pixel(line->img, line->vert_line, line->middle  + pixel_y, color);
+		mlx_put_pixel(line->img, line->vert_line, line->middle
+			+ pixel_y, color);
 	return (0);
 }
 
-
-mlx_texture_t *set_texture(t_cube *cube, char wall_ori)
+mlx_texture_t	*set_texture(t_cube *cube, char wall_ori)
 {
-
 	if (wall_ori == 'N')
 		return (cube->texture_no_wall);
 	else if (wall_ori == 'E')
@@ -69,9 +62,9 @@ mlx_texture_t *set_texture(t_cube *cube, char wall_ori)
 	return (NULL);
 }
 
-int calc_texture_line(mlx_texture_t *texture, t_ray *ray)
+int	calc_texture_line(mlx_texture_t *texture, t_ray *ray)
 {
-	double temp;
+	double	temp;
 
 	if (ray->wall_ori == 'N' || ray->wall_ori == 'S')
 		temp = ft_fmod(ray->end_pos.x, 0);
@@ -80,39 +73,36 @@ int calc_texture_line(mlx_texture_t *texture, t_ray *ray)
 	return ((int)(texture->width * temp));
 }
 
+int	set_texture_line(t_ray *ray, int width)
+{
+	int	texture_line;
+
+	if (ray->wall_ori == 'S' || ray->wall_ori == 'E')
+		texture_line = width * ft_abs(1 - ft_fmod(ray->wall_x, 0));
+	else
+		texture_line = width * ft_abs(ft_fmod(ray->wall_x, 0));
+	return (texture_line);
+}
+
 int	print_line(t_cube *cube, int col, t_ray *ray)
 {
 	t_put_line	line;
 	u_int32_t	pixel_y;
 	u_int32_t	scaled_pixel_height;
 
-
 	pixel_y = 0;
 	line.img = cube->g_img_DEMO;
 	line.texture = set_texture(cube, ray->wall_ori);
 	line.scale = ray->scale;
 	line.vert_line = col;
-	if (ray->wall_ori == 'S' || ray->wall_ori == 'E')
-		line.texture_line = line.texture->width * ft_abs(1 - ft_fmod(ray->wall_x, 0));
-	else
-		line.texture_line = line.texture->width * ft_abs(ft_fmod(ray->wall_x, 0));
-
-	// if (ray->line_x == SCREEN_X / 2)
-	// 	printf("DEBUG: texture_line = %d scale: %f dist = %f\n", line.texture_line, ray->scale, ray->dist);
+	line.texture_line = set_texture_line(ray, line.texture->width);
 	scaled_pixel_height = (int)(line.texture->height * line.scale);
 	line.middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);
-	// printf("before pixel loop\n");
-
-							//sleep(5);
-	while (pixel_y < scaled_pixel_height)//scaled_pixel_height)
+	while (pixel_y < scaled_pixel_height)
 	{
-							//printf("DEBUG: WHILELOOP printfline\n");
-
 		if (line.middle + pixel_y > 0 && line.middle + pixel_y < SCREEN_Y)
 			get_color_put_pixel(&line, pixel_y, scaled_pixel_height);
 		pixel_y++;
 	}
-
-	// printf("after pixel loop\n");
 	return (0);
 }

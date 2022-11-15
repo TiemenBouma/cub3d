@@ -1,6 +1,7 @@
 NAME := cube
 OBJFILES :=	obj/main.o \
-		obj/parser.o \
+		obj/parsing.o \
+		obj/parsing_utils.o \
 		obj/utils.o \
 		obj/mlx_loop.o \
 		obj/mlx_init.o \
@@ -9,13 +10,14 @@ OBJFILES :=	obj/main.o \
 		obj/parsing_map.o \
 		obj/init_structs.o \
 		obj/parsing_map_validate.o \
-		obj/scaling_img.o \
 		obj/setting_player_rotation.o \
 		obj/raycast_utils.o \
 		obj/raycast.o \
 		obj/raycast_calc.o \
 		obj/mlx_move_hooks.o \
-		obj/mlx_rotate_hooks.o
+		obj/mlx_rotate_hooks.o \
+		obj/raycast_texture_line.o \
+		obj/raycast_texture_line2.o 
 CFLAGS := -Werror -Wextra -Wall -fsanitize=address -g3
 DEBUG := 
 CC := gcc
