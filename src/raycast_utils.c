@@ -26,3 +26,11 @@ float ft_fmod(float f, bool exclude_zero)
 		f = 1;
 	return (f);
 }
+
+double ft_abs (double i)
+{
+	if (i < 0)
+		return (-i);
+	else
+		return (i);
+}
