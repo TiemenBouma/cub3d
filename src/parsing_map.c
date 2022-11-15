@@ -71,17 +71,15 @@ void map_malloc(t_cube *cube, char ***map)
 
 int is_player(char *line)
 {
-	char *c;
-	c = NULL;
 	if (ft_strchr(line, 'N'))
-		c = ft_strchr(line, 'N');
+		return (ft_strchr(line, 'N') - line);
 	else if (ft_strchr(line, 'E'))
-		c = ft_strchr(line, 'E');
+		return (ft_strchr(line, 'E') - line);
 	else if (ft_strchr(line, 'S'))
-		c = ft_strchr(line, 'S');
+		return (ft_strchr(line, 'S') - line);
 	else if (ft_strchr(line, 'W'))
-		c = ft_strchr(line, 'W');
-	return (c - line);
+		return (ft_strchr(line, 'W') - line);
+	return (-1);
 
 }
 
@@ -134,9 +132,7 @@ int	parse_map_element(t_cube *cube, t_file *file)
 	set_map_array(cube, file);
 	cube->map_length++;
 	cube->map_width++;
-
 	validate_map(cube);
-	//printmap(cube);
 
 	return 0;
 }

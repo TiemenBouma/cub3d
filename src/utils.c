@@ -67,7 +67,7 @@ void print_map(char **map)
 	int i = 0;
 	while (map[i])
 	{
-		printf("DEBUG:%s\n", map[i] + 1);
+		printf("%s\n", map[i] + 1);
 		i++;
 	}
 }

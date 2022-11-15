@@ -77,12 +77,19 @@ int	parse_elements(t_cube *cube, t_file *file)
 		if (line == NULL)
 			error_msg_exit("Error: Initialisation file not correct.\n", 1);
 		if (line[0] == '\0')
+		{
+			free(line);
 			continue ;
+		}
 		split = ft_split(line, ' ');
 		if (split == NULL)
 			error_msg_exit("Error: Split error", 1);
 		else if (split[0] == NULL)
+		{
+			free_double_ptr(split);
+			free(line);
 			continue ;
+		}
 		else if (split[1] == NULL)
 			error_msg_exit("Error: no valid Element.\n", 1);
 		else if (ft_strncmp(split[0], "NO", 3) == 0)
@@ -95,7 +102,7 @@ int	parse_elements(t_cube *cube, t_file *file)
 			cube->we = ft_strdup(split[1]);
 		else if (ft_strncmp(split[0], "F", 2) == 0 && cube->floor_rgb[0] == -1)
 			set_rgb(split[1], cube->floor_rgb);
-		else if (ft_strncmp(split[0], "C", 2) == 0)
+		else if (ft_strncmp(split[0], "C", 2) == 0 && cube->ceilling_rgb[0] == -1)
 			set_rgb(split[1], cube->ceilling_rgb);
 		else
 			error_msg_exit("Error: No element found.\n", 1);
@@ -110,6 +117,7 @@ int	parse_elements(t_cube *cube, t_file *file)
 int	parse_cub_file_lines(t_cube *cube, t_file *file)
 {
 	parse_elements(cube, file);
+		
 	parse_map_element(cube, file);
 	return (0);
 }
