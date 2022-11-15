@@ -24,6 +24,107 @@ void calc_raydir(t_ray *ray, t_pov *pov, double camera_x)
 	ray->dir_y = pov->dir_y + pov->plane_y * camera_x;
 }
 
+void calc_delta_dist(t_ray *ray)
+{
+	if (ray->dir_x == 0)
+		ray->delta_dist_x = 1e30;
+	else
+		ray->delta_dist_x = ft_abs(1 / ray->dir_x);
+	if (ray->dir_y == 0)
+		ray->delta_dist_y = 1e30;
+	else
+		ray->delta_dist_y = ft_abs(1 / ray->dir_y);
+}
+
+void calc_side_dist(t_ray *ray, char **map)
+{
+	int	hit;
+	
+	hit = 0;
+	while (hit == 0)
+	{
+		if (ray->sidedist_x < ray->sidedist_y)
+		{
+			ray->sidedist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
+			ray->wall_side = 0;
+		}
+		else
+		{
+			ray->sidedist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
+			ray->wall_side = 1;
+		}
+		if (map[ray->map_y][ray->map_x] == '1')
+			hit = 1;
+	}
+}
+
+void calc_initial_side_dist(t_ray *ray, t_pov *pov)
+{
+	if ( ray->dir_x < 0)
+	{
+		ray->step_x = -1;
+		ray->sidedist_x = (pov->pos_x - ray->map_x) * ray->delta_dist_x;
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->sidedist_x = (ray->map_x + 1.0 - pov->pos_x) * ray->delta_dist_x;
+	}
+	if ( ray->dir_y < 0)
+	{
+		ray->step_y = -1;
+		ray->sidedist_y = (pov->pos_y - ray->map_y) * ray->delta_dist_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->sidedist_y = (ray->map_y + 1.0 - pov->pos_y) * ray->delta_dist_y;
+	}
+}
+
+void	calc_perp_wall_dist(t_ray *ray)
+{
+	if(ray->wall_side == 0)
+		ray->perp_wall_dist = (ray->sidedist_x - ray->delta_dist_x);
+	else
+		ray->perp_wall_dist =(ray->sidedist_y - ray->delta_dist_y);
+
+}
+
+void	calc_wall_ori(t_ray *ray)
+{
+	if (ray->dir_x >= 0 && ray->dir_y >= 0)		//quadrant 1
+	{
+		if (ray->wall_side == 0)
+			ray->wall_ori = 'N';
+		else
+			ray->wall_ori = 'E';
+	}
+	else if (ray->dir_x >= 0 && ray->dir_y < 0)	//quadrant 2
+	{
+		if (ray->wall_side == 0)
+			ray->wall_ori = 'N';
+		else
+			ray->wall_ori = 'W';
+	}
+	else if (ray->dir_x < 0 && ray->dir_y < 0)	//quadrant 3
+	{
+		if (ray->wall_side == 0)
+			ray->wall_ori = 'S';
+		else
+			ray->wall_ori = 'W';
+	}
+	else 									//quadrant 4
+	{
+		if (ray->wall_side == 0)
+			ray->wall_ori = 'S';
+		else
+			ray->wall_ori = 'E';
+	}
+}
+
 int raycaster()
 {
 
@@ -64,89 +165,23 @@ void func(t_vars *vars, t_pov *pov)
 
 		while (x < w)
 		{
-
-
 			camera_x = 2 * x / (double) w - 1; //range beween -1 and 1;
 			calc_raydir(&ray, pov, camera_x);
 			//printf("DEBUG: x = %d w = %d camara_x = %f\n", x, w, camera_x);
-			
 			//printf("raydirx = %f, raydir y = %f\n\n", ray.dir_x, ray.dir_y);
 			//usleep(10000);
+			ray.map_x = (int)pov->pos_x;
+			ray.map_y = (int)pov->pos_y;
+			calc_delta_dist(&ray);
 
-			map_x = (int)pov->pos_x;
-			map_y = (int)pov->pos_y;
-			
-
-			// sidedist_x = 0;
-			// sidedist_y = 0;
-
-			if (ray.dir_x == 0)
-				delta_dist_x = 1e30;
-			else
-				delta_dist_x = ft_abs(1 / ray.dir_x);
-			if (ray.dir_y == 0)
-				delta_dist_y = 1e30;
-			else
-				delta_dist_y = ft_abs(1 / ray.dir_y);
 			//printf("ray.dir_x %f delta x %f, ray.dir_y %f delta y %f\n", ray.dir_x, delta_dist_x, ray.dir_y, delta_dist_y);
+			calc_initial_side_dist(&ray, pov);
+			calc_side_dist(&ray, vars->cube->map);
+			calc_perp_wall_dist(&ray);
 
-			// perp_wall_dist = 0;
-			// step_x = 0;
-			// step_y = 0;
-			hit = 0;
-			wall_side = 0;
-
-
-			if ( ray.dir_x < 0)
-			{
-				step_x = -1;
-				sidedist_x = (pov->pos_x - map_x) * delta_dist_x;
-			}
-			else
-			{
-				step_x = 1;
-				sidedist_x = (map_x + 1.0 - pov->pos_x) * delta_dist_x;
-			}
-			if ( ray.dir_y < 0)
-			{
-				step_y = -1;
-				sidedist_y = (pov->pos_y - map_y) * delta_dist_y;
-			}
-			else
-			{
-				step_y = 1;
-				sidedist_y = (map_y + 1.0 - pov->pos_y) * delta_dist_y;
-			}
 			// printf("sidedistx: %f, sidedisty: %f\n", sidedist_x, sidedist_y);
-			while (hit == 0)
-			{
+			calc_wall_ori(&ray);
 
-
-				if (sidedist_x < sidedist_y)
-				{
-					sidedist_x +=delta_dist_x;
-					map_x += step_x;
-					wall_side = 0;
-				}
-				else
-				{
-					sidedist_y += delta_dist_y;
-					map_y += step_y;
-					wall_side = 1;
-				}
-				// print_map(vars->cube->map);
-				// printf("mapx %d, mapy = %d\n", map_x, map_y);
-				if (vars->cube->map[map_y][map_x] == '1')
-				{
-					//printf("DEBUG: while map = %c\n\n", vars->cube->map[map_x][map_y]);
-					hit = 1;
-				}
-			}
-
-			if(wall_side == 0)
-				perp_wall_dist = (sidedist_x - delta_dist_x);
-			else
-				perp_wall_dist =(sidedist_y - delta_dist_y);
 
 			double wallx = 0; //where exactly the wall was hit
 			if (wall_side == 0)
@@ -156,34 +191,7 @@ void func(t_vars *vars, t_pov *pov)
 
 			// which wall is hit
 			int	wall_ori = 0;
-			if (ray.dir_x >= 0 && ray.dir_y >= 0)		//quadrant 1
-			{
-				if (wall_side == 0)
-					wall_ori = 'N';
-				else
-					wall_ori = 'E';
-			}
-			else if (ray.dir_x >= 0 && ray.dir_y < 0)	//quadrant 2
-			{
-				if (wall_side == 0)
-					wall_ori = 'N';
-				else
-					wall_ori = 'W';
-			}
-			else if (ray.dir_x < 0 && ray.dir_y < 0)	//quadrant 3
-			{
-				if (wall_side == 0)
-					wall_ori = 'S';
-				else
-					wall_ori = 'W';
-			}
-			else 									//quadrant 4
-			{
-				if (wall_side == 0)
-					wall_ori = 'S';
-				else
-					wall_ori = 'E';
-			}
+			
 
 			double scale;
 			scale = 1 / perp_wall_dist;

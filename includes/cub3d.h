@@ -49,10 +49,16 @@ typedef struct s_ray
 	double sidedist_y;
 	double	delta_dist_x;
 	double	delta_dist_y;
+	int		step_x;
+	int		step_y;
+	int		map_x;
+	int		map_y;
+
+	int		wall_side;
 
 	double	perp_wall_dist;
 	double	scale;
-	char	wall_ori;
+	int		wall_ori;
 	double	dist;
 	t_axis	end_pos;
 	int		line_x;
