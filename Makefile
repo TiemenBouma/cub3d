@@ -15,7 +15,8 @@ OBJFILES :=	obj/main.o \
 		obj/raycast.o \
 		obj/raycast_calc.o \
 		obj/mlx_move_hooks.o \
-		obj/mlx_rotate_hooks.o
+		obj/mlx_rotate_hooks.o \
+		obj/raycast_calc_walls.o
 CFLAGS := -Werror -Wextra -Wall -fsanitize=address -g3
 DEBUG := 
 CC := gcc

@@ -1,8 +1,4 @@
-#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
-#include "../includes/libft/libft.h"
-#include <stdlib.h>
-#include <stdbool.h>
 
 float	round_rad(rad rad)
 {
@@ -13,7 +9,7 @@ float	round_rad(rad rad)
 	return (rad);
 }
 
-float ft_fmod(float f, bool exclude_zero)
+float	ft_fmod(float f, bool exclude_zero)
 {
 	while (f <= -1 || f >= 1)
 	{
@@ -27,7 +23,7 @@ float ft_fmod(float f, bool exclude_zero)
 	return (f);
 }
 
-double ft_abs (double i)
+double	ft_abs(double i)
 {
 	if (i < 0)
 		return (-i);
