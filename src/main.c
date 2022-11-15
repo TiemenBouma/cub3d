@@ -21,21 +21,37 @@ void delete_textures(t_cube *cube)
 void delete_image(mlx_t *mlx, t_cube *cube)
 {
 	if (cube->g_img_ceilling != NULL)
+	{
+		printf("DEBUG: DELETE IMG C\n");
 		mlx_delete_image(mlx, cube->g_img_ceilling);
+	}
 	if (cube->g_img_floor != NULL)
+	{
+		printf("DEBUG: DELETE IMG F\n");
+
 		mlx_delete_image(mlx, cube->g_img_floor);
+	}
 	if (cube->g_img_DEMO != NULL)
+	{
+		printf("DEBUG: DELETE IMG DEMO\n");
+
 		mlx_delete_image(mlx, cube->g_img_DEMO);
+	}
 
 }
 
 void free_all(t_vars *vars)
 {
 	free_double_ptr(vars->cube->map);
+	printf("DEBUG free\n");
 	free_double_ptr(vars->cube->cpy_map);
-	delete_image(vars->mlx, vars->cube);
+	printf("DEBUG free1\n");
+	//delete_image(vars->mlx, vars->cube);
+	printf("DEBUG free2\n");
 	delete_textures(vars->cube);
+	printf("DEBUG free3\n");
 	free(vars->cube->no);
+	printf("DEBUG free4\n");
 	free(vars->cube->ea);
 	free(vars->cube->so);
 	free(vars->cube->we);
@@ -70,7 +86,9 @@ int main(int argc, char **argv)
 	vars.mlx = mlx;
 
 	game_loop_mlx(&vars);
+	printf("DEBUG main\n");
 	free_all(&vars);
+	printf("DEBUG main2\n");
 	return (0);
 }
 // int main(int argc, char **argv)

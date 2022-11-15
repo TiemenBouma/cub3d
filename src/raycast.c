@@ -36,7 +36,7 @@ void raycaster(t_vars *vars, t_pov *pov)
 		calc_wall_x(&ray, pov);
 		ray.scale = 1 / ray.perp_wall_dist;
 
-		// printf("DEBUG: scale: %f\n", scale);
+		//printf("DEBUG: \n");
 		// printf("DEBUG: prep_wall_dist = %f\n", perp_wall_dist);
 		print_line(vars->cube, x, &ray);
 		x++;

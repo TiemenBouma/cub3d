@@ -16,8 +16,7 @@ OBJFILES :=	obj/main.o \
 		obj/raycast_calc.o \
 		obj/mlx_move_hooks.o \
 		obj/mlx_rotate_hooks.o
-CFLAGS := -Werror -Wextra -Wall 
-#-fsanitize=address -g3
+CFLAGS := -Werror -Wextra -Wall -fsanitize=address -g3
 DEBUG := 
 CC := gcc
 LIBFT := includes/libft/libft.a
