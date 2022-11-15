@@ -80,7 +80,7 @@ int calc_texture_line(mlx_texture_t *texture, t_ray *ray)
 	return ((int)(texture->width * temp));
 }
 
-int	print_line(t_cube *cube, double wallx, char wall_ori, double scale, int	col)
+int	print_line(t_cube *cube, int col, t_ray *ray)
 {
 	t_put_line	line;
 	u_int32_t	pixel_y;
@@ -89,10 +89,10 @@ int	print_line(t_cube *cube, double wallx, char wall_ori, double scale, int	col)
 
 	pixel_y = 0;
 	line.img = cube->g_img_DEMO;
-	line.texture = set_texture(cube, wall_ori);
-	line.scale = scale;
+	line.texture = set_texture(cube, ray->wall_ori);
+	line.scale = ray->scale;
 	line.vert_line = col;
-	line.texture_line = line.texture->width * ft_abs(ft_fmod(wallx, 0));
+	line.texture_line = line.texture->width * ft_abs(ft_fmod(ray->wall_x, 0));
 	// if (ray->line_x == SCREEN_X / 2)
 	// 	printf("DEBUG: texture_line = %d scale: %f dist = %f\n", line.texture_line, ray->scale, ray->dist);
 	scaled_pixel_height = (int)(line.texture->height * line.scale);

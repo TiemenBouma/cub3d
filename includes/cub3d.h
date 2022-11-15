@@ -59,6 +59,7 @@ typedef struct s_ray
 	double	perp_wall_dist;
 	double	scale;
 	int		wall_ori;
+	double	wall_x;
 	double	dist;
 	t_axis	end_pos;
 	int		line_x;
@@ -167,7 +168,7 @@ void	find_playpos(t_cube *cube, t_pov *pov);
 void	cast_rays(t_cube *cube, char **map, t_pov *pov);
 float	ft_fmod(float f, bool exclude_zero);
 float	round_rad(rad rad);
-int	print_line(t_cube *cube, double wallx, char wall_ori, double scale, int	col);
+int		print_line(t_cube *cube, int col, t_ray *ray);
 // int	print_line(t_cube *cube, t_ray *ray);
 //int	print_line(t_cube *cube, t_ray *ray, u_int32_t projected_slice_height);
 
@@ -181,7 +182,7 @@ bool	check_if_hit(t_cube *cube, t_axis ray, rad angle, char **map);
 double ft_abs (double i);
 
 //TEST
-void func(t_vars *vars, t_pov *pov);
+void raycaster(t_vars *vars, t_pov *pov);
 void print_map(char **map);
 
 //settting player rotation

@@ -115,7 +115,7 @@ void	hook( void *param)//mlx_key_data_t keydata,
 
 	//LEFT
 
-	func(vars, vars->pov);
+	raycaster(vars, vars->pov);
 	//cast_rays(vars->cube, vars->cube->map, vars->pov);
 	mlx_image_to_window(vars->mlx, vars->cube->g_img_DEMO, 0, 0);
 
