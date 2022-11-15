@@ -116,29 +116,25 @@ int	parse_elements(t_cube *cube, t_file *file)
 
 int	parse_cub_file_lines(t_cube *cube, t_file *file)
 {
-	printf("life switch\n");
 	parse_elements(cube, file);
-		
 	parse_map_element(cube, file);
 	return (0);
 }
 
 int	parsing(t_vars *vars)
 {
-	printf("stage figting\n");
+
 	validate_file_name(vars->file);
-	printf("ball blaster\n");
+
 	open_cub_file(vars->file);
-	printf("television binger\n");
+
 	// printf("DEBUG:player count parsing %d\n", cube->player_count);
 	parse_cub_file_lines(vars->cube, vars->file);
-	printf("drunk archeologist\n");
+
 	// printf("player x: %d, player y: %d\n", vars->cube->player_x, vars->cube->player_y);
 	// printf("map: %c\n", vars->cube->map[vars->cube->player_y][vars->cube->player_x]);
 	set_dir_vector(vars->cube->map[(int)vars->cube->player_y][(int)vars->cube->player_x], &vars->pov->dir_x, &vars->pov->dir_y);
-	printf("tiger nanny\n");
 	set_plane_vector(vars->cube->map[(int)vars->cube->player_y][(int)vars->cube->player_x], &vars->pov->plane_x, &vars->pov->plane_y);
-	printf("roman emperor\n");
 
 	return 0;
 }

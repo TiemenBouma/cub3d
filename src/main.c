@@ -48,10 +48,9 @@ void free_all(t_vars *vars)
 	printf("DEBUG free1\n");
 	//delete_image(vars->mlx, vars->cube);
 	printf("DEBUG free2\n");
-	delete_textures(vars->cube);
+	//delete_textures(vars->cube);
 	printf("DEBUG free3\n");
 	free(vars->cube->no);
-	printf("DEBUG free4\n");
 	free(vars->cube->ea);
 	free(vars->cube->so);
 	free(vars->cube->we);

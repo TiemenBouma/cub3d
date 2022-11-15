@@ -11,7 +11,7 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	//(void)keydata;
 	vars = param;
 	mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
-	vars->cube->g_img_DEMO = NULL;
+	//vars->cube->g_img_DEMO = NULL;
 	vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, SCREEN_X, SCREEN_Y);
 	vars->gamecycle++;
 
@@ -55,11 +55,8 @@ int    game_loop_mlx(t_vars *vars)
 	if (!vars->mlx)
 			exit(EXIT_FAILURE);
 	//mlx_key_hook(vars->mlx, hook, vars);
-
 	mlx_loop_hook(vars->mlx, &hook, vars);
-
 	mlx_loop(vars->mlx);
-	printf("DEBUG ELD LOOP\n");
 	mlx_terminate(vars->mlx);
 	return (EXIT_SUCCESS);
 }
