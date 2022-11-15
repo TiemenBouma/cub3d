@@ -13,33 +13,34 @@ double ft_abs (double i)
   return i < 0 ? -i : i;
 }
 
-void verLine(mlx_image_t *img, int x, int drawStart, int drawEnd, int color)
+char	determain_wall()
 {
-	int i;
-	
-	i = 0;
-	while (i + drawStart < drawEnd)
-	{
+	return (0);
+}
 
+void calc_raydir(t_ray *ray, t_pov *pov, double camera_x)
+{
+	ray->dir_x = pov->dir_x + pov->plane_x * camera_x;
+	ray->dir_y = pov->dir_y + pov->plane_y * camera_x;
+}
 
-		if (x == SCREEN_X / 2)
-			mlx_put_pixel(img, x, drawStart + i, 0xff0000ff);
-		else
-			mlx_put_pixel(img, x, drawStart + i, color);
-		i++;
-	}
+int raycaster()
+{
+
+	return (0);
 }
 
 void func(t_vars *vars, t_pov *pov)
 {
-	(void)pov;
+	t_ray	ray;
+	//(void)pov;
 
 	int		x;
 	int		w;
 
 	double camera_x;
-	double raydir_x;
-	double raydir_y;
+	//double ray.dir_x;
+	//double ray.dir_y;
 	int		map_x;
 	int		map_y;
 	double sidedist_x;
@@ -66,10 +67,10 @@ void func(t_vars *vars, t_pov *pov)
 
 
 			camera_x = 2 * x / (double) w - 1; //range beween -1 and 1;
+			calc_raydir(&ray, pov, camera_x);
 			//printf("DEBUG: x = %d w = %d camara_x = %f\n", x, w, camera_x);
-			raydir_x = pov->dir_x + pov->plane_x * camera_x;
-			raydir_y = pov->dir_y + pov->plane_y * camera_x;
-			//printf("raydirx = %f, raydir y = %f\n\n", raydir_x, raydir_y);
+			
+			//printf("raydirx = %f, raydir y = %f\n\n", ray.dir_x, ray.dir_y);
 			//usleep(10000);
 
 			map_x = (int)pov->pos_x;
@@ -79,15 +80,15 @@ void func(t_vars *vars, t_pov *pov)
 			// sidedist_x = 0;
 			// sidedist_y = 0;
 
-			if (raydir_x == 0)
+			if (ray.dir_x == 0)
 				delta_dist_x = 1e30;
 			else
-				delta_dist_x = ft_abs(1 / raydir_x);
-			if (raydir_y == 0)
+				delta_dist_x = ft_abs(1 / ray.dir_x);
+			if (ray.dir_y == 0)
 				delta_dist_y = 1e30;
 			else
-				delta_dist_y = ft_abs(1 / raydir_y);
-			//printf("raydir_x %f delta x %f, raydir_y %f delta y %f\n", raydir_x, delta_dist_x, raydir_y, delta_dist_y);
+				delta_dist_y = ft_abs(1 / ray.dir_y);
+			//printf("ray.dir_x %f delta x %f, ray.dir_y %f delta y %f\n", ray.dir_x, delta_dist_x, ray.dir_y, delta_dist_y);
 
 			// perp_wall_dist = 0;
 			// step_x = 0;
@@ -96,7 +97,7 @@ void func(t_vars *vars, t_pov *pov)
 			wall_side = 0;
 
 
-			if ( raydir_x < 0)
+			if ( ray.dir_x < 0)
 			{
 				step_x = -1;
 				sidedist_x = (pov->pos_x - map_x) * delta_dist_x;
@@ -106,7 +107,7 @@ void func(t_vars *vars, t_pov *pov)
 				step_x = 1;
 				sidedist_x = (map_x + 1.0 - pov->pos_x) * delta_dist_x;
 			}
-			if ( raydir_y < 0)
+			if ( ray.dir_y < 0)
 			{
 				step_y = -1;
 				sidedist_y = (pov->pos_y - map_y) * delta_dist_y;
@@ -141,42 +142,35 @@ void func(t_vars *vars, t_pov *pov)
 					hit = 1;
 				}
 			}
-			// printf("map[17[18]: %c\n", vars->cube->map[map_y][map_x]);
-			//Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
-			//hit to the camera plane. Euclidean to center camera point would give fisheye effect!
-			//This can be computed as (mapX - posX + (1 - stepX) / 2) / rayDirX for side == 0, or same formula with Y
-			//for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
-			//because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
-			//steps, but we subtract deltaDist once because one step more into the wall was taken above.
 
 			if(wall_side == 0)
-				perp_wall_dist = (sidedist_x - delta_dist_x);//sidedist_x;//
+				perp_wall_dist = (sidedist_x - delta_dist_x);
 			else
-				perp_wall_dist =(sidedist_y - delta_dist_y); //sidedist_y;//
+				perp_wall_dist =(sidedist_y - delta_dist_y);
 
 			double wallx = 0; //where exactly the wall was hit
 			if (wall_side == 0)
-				wallx = pov->pos_y + perp_wall_dist * raydir_y;
+				wallx = pov->pos_y + perp_wall_dist * ray.dir_y;
 			else
-				wallx = pov->pos_x + perp_wall_dist * raydir_x;
+				wallx = pov->pos_x + perp_wall_dist * ray.dir_x;
 
 			// which wall is hit
 			int	wall_ori = 0;
-			if (raydir_x >= 0 && raydir_y >= 0)		//quadrant 1
+			if (ray.dir_x >= 0 && ray.dir_y >= 0)		//quadrant 1
 			{
 				if (wall_side == 0)
 					wall_ori = 'N';
 				else
 					wall_ori = 'E';
 			}
-			else if (raydir_x >= 0 && raydir_y < 0)	//quadrant 2
+			else if (ray.dir_x >= 0 && ray.dir_y < 0)	//quadrant 2
 			{
 				if (wall_side == 0)
 					wall_ori = 'N';
 				else
 					wall_ori = 'W';
 			}
-			else if (raydir_x < 0 && raydir_y < 0)	//quadrant 3
+			else if (ray.dir_x < 0 && ray.dir_y < 0)	//quadrant 3
 			{
 				if (wall_side == 0)
 					wall_ori = 'S';
@@ -234,32 +228,3 @@ void func(t_vars *vars, t_pov *pov)
 		//return (img);
 
 }
-
-// int main(int argc, char **argv)
-// {
-// 	t_vars	vars;
-// 	t_cube	cube;
-// 	t_file	file;
-// 	mlx_t	*mlx;
-// 	t_pov	pov;
-
-// 	if (argc != 2)
-// 	{
-// 		ft_putstr_fd("Error: No file or more than 1 file specified.\n", 2);
-// 		exit (1);
-// 	}
-// 	vars.cube = &cube;
-// 	vars.file = &file;
-// 	init_structs(&vars, argv);
-// 	parsing(&cube, &file);
-// 	mlx = init_mlx_stuff(&cube);
-// 	find_playpos(&cube, &pov);
-// 	vars.pov = &pov;
-// 	//cube.g_img_DEMO = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
-// 	//cast_rays(&cube, cube.map, &pov);
-// 	//mlx_image_to_window(mlx, cube.g_img_DEMO, 0, 0);
-// 	vars.mlx = mlx;
-// 	game_loop_mlx(&vars);
-// 	free_all(&vars);
-// 	return (0);
-// }

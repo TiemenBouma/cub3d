@@ -43,12 +43,21 @@ typedef	struct s_axis
 
 typedef struct s_ray
 {
-	int		line_x;
-	double	dist;
+	double dir_x;
+	double dir_y;
+	double sidedist_x;
+	double sidedist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+
+	double	perp_wall_dist;
 	double	scale;
 	char	wall_ori;
-	rad		rayangle;
+	double	dist;
 	t_axis	end_pos;
+	int		line_x;
+	int		hit;
+
 }	t_ray;
 
 typedef struct s_pov
