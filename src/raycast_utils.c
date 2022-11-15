@@ -1,14 +1,5 @@
 #include "../includes/cub3d.h"
 
-float	round_rad(rad rad)
-{
-	while (rad < 0)
-		rad += 2 * PI;
-	while (rad > 2 * PI)
-		rad -= 2 * PI;
-	return (rad);
-}
-
 float	ft_fmod(float f, bool exclude_zero)
 {
 	while (f <= -1 || f >= 1)
