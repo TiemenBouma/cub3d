@@ -142,23 +142,23 @@ void func(t_vars *vars, t_pov *pov)
 	double camera_x;
 	//double ray.dir_x;
 	//double ray.dir_y;
-	int		map_x;
-	int		map_y;
-	double sidedist_x;
-	double sidedist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
+	// int		map_x;
+	// int		map_y;
+	// double sidedist_x;
+	// double sidedist_y;
+	// double	delta_dist_x;
+	// double	delta_dist_y;
 
-	double	perp_wall_dist;
-	int step_x;
-	int step_y;
-	int hit;
-	int wall_side;
+	// double	perp_wall_dist;
+	// int step_x;
+	// int step_y;
+	// int hit;
+	// int wall_side;
 
-	int drawStart;
-	int drawEnd;
+	// int drawStart;
+	// int drawEnd;
 
-	int color;
+	// int color;
 
 	x = 0;
 	w = SCREEN_X;
@@ -184,47 +184,47 @@ void func(t_vars *vars, t_pov *pov)
 
 
 			double wallx = 0; //where exactly the wall was hit
-			if (wall_side == 0)
-				wallx = pov->pos_y + perp_wall_dist * ray.dir_y;
+			if (ray.wall_side == 0)
+				wallx = pov->pos_y + ray.perp_wall_dist * ray.dir_y;
 			else
-				wallx = pov->pos_x + perp_wall_dist * ray.dir_x;
+				wallx = pov->pos_x + ray.perp_wall_dist * ray.dir_x;
 
 			// which wall is hit
-			int	wall_ori = 0;
-			
+			// int	wall_ori = 0;
+			// calc_wall_ori(&ray);
 
 			double scale;
-			scale = 1 / perp_wall_dist;
+			scale = 1 / ray.perp_wall_dist;
 
 			// printf("DEBUG: scale: %f\n", scale);
 			// printf("DEBUG: prep_wall_dist = %f\n", perp_wall_dist);
-			print_line(vars->cube, wallx, wall_ori, scale, x);
+			print_line(vars->cube, wallx, ray.wall_ori, scale, x);
       		//Calculate height of line to draw on screen			
-			int lineHeight = (int)(SCREEN_Y / perp_wall_dist);
+			// int lineHeight = (int)(SCREEN_Y / ray.perp_wall_dist);
 
-      		//calculate lowest and highest pixel to fill in current stripe
-			//printf("lineh %d, -lineh %d\n\n", lineHeight, -lineHeight);
-	  		drawStart = SCREEN_Y / 2 - lineHeight / 2;
-			if(drawStart < 0)
-				drawStart = 0;
-			drawEnd = lineHeight / 2 + SCREEN_Y / 2;
-			if(drawEnd >= SCREEN_Y)
-				drawEnd = SCREEN_Y - 1;
+      		// //calculate lowest and highest pixel to fill in current stripe
+			// //printf("lineh %d, -lineh %d\n\n", lineHeight, -lineHeight);
+	  		// drawStart = SCREEN_Y / 2 - lineHeight / 2;
+			// if(drawStart < 0)
+			// 	drawStart = 0;
+			// drawEnd = lineHeight / 2 + SCREEN_Y / 2;
+			// if(drawEnd >= SCREEN_Y)
+			// 	drawEnd = SCREEN_Y - 1;
 
-			//CHOOSE WALL TEXTURE or COLOR
-			//color = 0xff0000ff;
-			switch(vars->cube->map[map_y][map_x])
-			{
-				case 1:  color = 0xff0000ff;    break; //red
-				case 2:  color = 0x00ff00ff;  break; //green
-				case 3:  color = 0x0000ffff;   break; //blue
-				case 4:  color = 0xffffffff;  break; //white
-				default: color = 0x888800ff; break; //yellow
-			}
+			// //CHOOSE WALL TEXTURE or COLOR
+			// //color = 0xff0000ff;
+			// switch(vars->cube->map[map_y][map_x])
+			// {
+			// 	case 1:  color = 0xff0000ff;    break; //red
+			// 	case 2:  color = 0x00ff00ff;  break; //green
+			// 	case 3:  color = 0x0000ffff;   break; //blue
+			// 	case 4:  color = 0xffffffff;  break; //white
+			// 	default: color = 0x888800ff; break; //yellow
+			// }
 
-			//give x and y sides different brightness
-			if(wall_side == 1)
-				color = 0x880000ff;
+			// //give x and y sides different brightness
+			// if(wall_side == 1)
+			// 	color = 0x880000ff;
 			//mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
 			//vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, 1000, 1000);
 
