@@ -65,7 +65,7 @@ mlx_texture_t *set_texture(t_cube *cube, char wall_ori)
 		return (cube->texture_so_wall);
 	else if (wall_ori == 'W')
 		return (cube->texture_we_wall);
-	printf("\n\nDEBUG: set_texture: no texture set\n\n");
+	error_msg_exit("Error: set_texture: no texture set\n", 1);
 	return (NULL);
 }
 
@@ -112,43 +112,3 @@ int	print_line(t_cube *cube, int col, t_ray *ray)
 	// printf("after pixel loop\n");
 	return (0);
 }
-// int	print_line(t_cube *cube, t_ray *ray)
-// {
-// 	t_put_line	line;
-// 	u_int32_t	pixel_y;
-// 	u_int32_t	scaled_pixel_height;
-
-// 	pixel_y = 0;
-// 	line.img = cube->g_img_DEMO;
-// 	line.texture = set_texture(cube, ray);
-// 	line.scale = ray->scale;
-// 	line.vert_line = ray->line_x;
-// 	line.texture_line = calc_texture_line(line.texture, ray);
-// 	// if (ray->line_x == SCREEN_X / 2)
-// 	// 	printf("DEBUG: texture_line = %d scale: %f dist = %f\n", line.texture_line, ray->scale, ray->dist);
-// 	scaled_pixel_height = (int)(line.texture->height * line.scale);
-// 	line.middle = calc_middle_offset(scaled_pixel_height, SCREEN_Y);
-// 	while (pixel_y < scaled_pixel_height)//scaled_pixel_height)
-// 	{
-// 		if (line.middle + pixel_y > 0 && line.middle + pixel_y < SCREEN_Y)
-// 			get_color_put_pixel(&line, pixel_y, scaled_pixel_height);
-// 		pixel_y++;
-// 	}
-// 	return (0);
-// }
-
-// mlx_texture_t *set_texture(t_cube *cube, t_ray *ray)
-// {
-
-// 	if (ray->wall_ori == 'N')
-// 		return (cube->texture_no_wall);
-// 	else if (ray->wall_ori == 'E')
-// 		return (cube->texture_ea_wall);
-// 	else if (ray->wall_ori == 'S')
-// 		return (cube->texture_so_wall);
-// 	else if (ray->wall_ori == 'W')
-// 		return (cube->texture_we_wall);
-// 	printf("\n\nDEBUG: set_texture: no texture set\n\n");
-// 	return (NULL);
-// }
-

@@ -11,6 +11,7 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	//(void)keydata;
 	vars = param;
 	mlx_delete_image(vars->mlx, vars->cube->g_img_DEMO);
+	vars->cube->g_img_DEMO = NULL;
 	vars->cube->g_img_DEMO = mlx_new_image(vars->mlx, SCREEN_X, SCREEN_Y);
 	vars->gamecycle++;
 
@@ -29,11 +30,6 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	}
 	//printf("Gamecycle: %d\n", vars->gamecycle);
 
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
-	{
-		// system("leaks cube");
-		mlx_close_window(vars->mlx);
-	}
 	hook_move_up(vars, moveSpeed);
 	hook_move_down(vars, moveSpeed);
 	hook_move_left(vars, moveSpeed, dir_perp_x, dir_perp_y);
@@ -44,20 +40,26 @@ void	hook( void *param)//mlx_key_data_t keydata,
 	raycaster(vars, vars->pov);
 	//cast_rays(vars->cube, vars->cube->map, vars->pov);
 	mlx_image_to_window(vars->mlx, vars->cube->g_img_DEMO, 0, 0);
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
+	{
+		// system("leaks cube");
+		mlx_close_window(vars->mlx);
+		//exit (0);
+	}
 
 
 }
 
 int    game_loop_mlx(t_vars *vars)
 {
-       if (!vars->mlx)
-               exit(EXIT_FAILURE);
-       //mlx_key_hook(vars->mlx, hook, vars);
+	if (!vars->mlx)
+			exit(EXIT_FAILURE);
+	//mlx_key_hook(vars->mlx, hook, vars);
 
-       mlx_loop_hook(vars->mlx, &hook, vars);
+	mlx_loop_hook(vars->mlx, &hook, vars);
 
-       mlx_loop(vars->mlx);
-
-       mlx_terminate(vars->mlx);
-       return (EXIT_SUCCESS);
+	mlx_loop(vars->mlx);
+	printf("DEBUG ELD LOOP\n");
+	mlx_terminate(vars->mlx);
+	return (EXIT_SUCCESS);
 }

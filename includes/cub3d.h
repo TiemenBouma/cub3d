@@ -169,8 +169,19 @@ void	cast_rays(t_cube *cube, char **map, t_pov *pov);
 float	ft_fmod(float f, bool exclude_zero);
 float	round_rad(rad rad);
 int		print_line(t_cube *cube, int col, t_ray *ray);
-// int	print_line(t_cube *cube, t_ray *ray);
-//int	print_line(t_cube *cube, t_ray *ray, u_int32_t projected_slice_height);
+
+
+//RAYCASTING UTILS
+double ft_abs (double i);
+
+//RAYCASTING CALC
+void calc_raydir(t_ray *ray, t_pov *pov, double camera_x);
+void calc_delta_dist(t_ray *ray);
+void calc_side_dist(t_ray *ray, char **map);
+void calc_initial_side_dist(t_ray *ray, t_pov *pov);
+void	calc_perp_wall_dist(t_ray *ray);
+void	calc_wall_ori(t_ray *ray);
+void	calc_wall_x(t_ray *ray, t_pov *pov);
 
 //Raycastigng checks
 //char	find_wall_ori(t_axis ray, char **map, rad angle);
