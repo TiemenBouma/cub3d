@@ -21,7 +21,8 @@ OBJFILES :=	obj/main.o \
 		obj/raycast_texture_line2.o \
 		obj/print_map.o \
 		obj/parsing_map2.o
-CFLAGS := -Werror -Wextra -Wall -fsanitize=address -g3
+CFLAGS := -Werror -Wextra -Wall
+# -fsanitize=address -g3
 DEBUG := 
 CC := gcc
 LIBFT := includes/libft/libft.a

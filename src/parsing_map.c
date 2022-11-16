@@ -47,6 +47,7 @@ int	calculate_map_length(t_cube *cube, t_file *file, char *line)
 	}
 	if (cube->map_width < 3 || cube->map_length < 3)
 		error_msg_exit("Error: Map lenths not correct.\n", 1);
+	free(line);
 	return (0);
 }
 
