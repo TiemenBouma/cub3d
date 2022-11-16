@@ -29,6 +29,14 @@ int	set_rgb(char *str, int rgb[])
 	return (0);
 }
 
+void	set_element(char **split, char **cube_element)
+{
+	if (*cube_element != NULL)
+		error_msg_exit("Error: Duplicate element.\n", 1);
+	*cube_element = ft_strdup(split[1]);
+
+}
+
 int	lookup_element(t_cube *cube, char **split, char *line)
 {
 	if (split == NULL)
@@ -42,19 +50,19 @@ int	lookup_element(t_cube *cube, char **split, char *line)
 	else if (split[1] == NULL)
 		error_msg_exit("Error: no valid Element.\n", 1);
 	else if (ft_strncmp(split[0], "NO", 3) == 0)
-		cube->no = ft_strdup(split[1]);
+		set_element(split, &cube->no);
 	else if (ft_strncmp(split[0], "EA", 3) == 0)
-		cube->ea = ft_strdup(split[1]);
+		set_element(split, &cube->ea);
 	else if (ft_strncmp(split[0], "SO", 3) == 0)
-		cube->so = ft_strdup(split[1]);
+		set_element(split, &cube->so);
 	else if (ft_strncmp(split[0], "WE", 3) == 0)
-		cube->we = ft_strdup(split[1]);
-	else if (ft_strncmp(split[0], "F", 2) == 0 && cube->floor_rgb[0] == -1)
+		set_element(split, &cube->we);
+	else if (ft_strncmp(split[0], "F", 2) == 0)
 		set_rgb(split[1], cube->floor_rgb);
-	else if (ft_strncmp(split[0], "C", 2) == 0 && cube->ceilling_rgb[0] == -1)
+	else if (ft_strncmp(split[0], "C", 2) == 0)
 		set_rgb(split[1], cube->ceilling_rgb);
 	else
-		error_msg_exit("Error: No element found.\n", 1);
+		error_msg_exit("Error: no valid Element.\n", 1);
 	return (0);
 }
 
