@@ -26,6 +26,7 @@ void	hook( void *param)
 	hook_move_right(vars, move_speed, dir_perp_x, dir_perp_y);
 	hook_rotate_left(vars, rot_speed);
 	hook_rotate_right(vars, rot_speed);
+	hook_cursor_rotate(vars, rot_speed);
 	raycaster(vars, vars->pov);
 	mlx_image_to_window(vars->mlx, vars->cube->g_img_demo, 0, 0);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))

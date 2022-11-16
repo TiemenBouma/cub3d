@@ -1,4 +1,5 @@
 #include "../includes/MLX42/include/MLX42/MLX42.h"
+#include "../includes/MLX42/include/MLX42/MLX42_Input.h"
 #include "../includes/cub3d.h"
 #include <stdlib.h>
 

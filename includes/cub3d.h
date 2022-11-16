@@ -103,6 +103,8 @@ typedef struct s_cube
 	int				player_count;
 	int				player_x;
 	int				player_y;
+	int				cursorx;
+	int				cursory;
 }	t_cube;
 
 typedef struct s_file
@@ -193,6 +195,7 @@ void	hook_move_right(t_vars *vars, double moveSpeed,
 			double dir_perp_x, double dir_perp_y);
 void	hook_rotate_left(t_vars *vars, double rotSpeed);
 void	hook_rotate_right(t_vars *vars, double rotSpeed);
+void	hook_cursor_rotate(t_vars *vars, double rotSpeed);
 
 //raycast_texture
 int		calc_middle_offset(int img_length, int screen_y);
