@@ -2,32 +2,7 @@
 #include "../includes/libft/libft.h"
 #define ELEMENTS_COUNT 6
 
-int	set_rgb(char *str, int rgb[])
-{
-	char	**split;
-	int		i;
 
-	i = 0;
-	split = ft_split(str, ',');
-	if (split == NULL)
-		error_msg_exit("Error: Split error", 1);
-	while (split[i])
-		i++;
-	if (i != 3)
-		error_msg_exit("Error: Wrong RGB Color code.\n", 1);
-	rgb[0] = ft_atoi(split[0]);
-	rgb[1] = ft_atoi(split[1]);
-	rgb[2] = ft_atoi(split[2]);
-	free_double_ptr(split);
-	i = 0;
-	while (i < 3)
-	{
-		if (rgb[i] < 0 || rgb[i] > 255)
-			error_msg_exit("Error: Wrong RGB Color code.\n", 1);
-		i++;
-	}
-	return (0);
-}
 
 void	set_element(char **split, char **cube_element)
 {

@@ -136,6 +136,7 @@ typedef struct s_vars
 int	open_cub_file(t_file *file);
 int	parsing(t_vars *vars);
 int	parse_map_element(t_cube *cube, t_file *file);
+int	set_rgb(char *str, int rgb[]);
 
 //PARSING VALIDATE MAP
 void	validate_map(t_cube *cube);
