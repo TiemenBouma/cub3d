@@ -31,3 +31,44 @@ int	validate_file_name(t_file *file)
 	}
 	return (0);
 }
+
+void	map_malloc(t_cube *cube, char ***map)
+{
+	int	i;
+
+	i = 0;
+	*map = ft_calloc(cube->map_length + 3, sizeof(char *));
+	if (*map == NULL)
+		error_msg_exit("Error: Malloc error", 1);
+	(*map)[cube->map_length + 2] = NULL;
+	while (i < cube->map_length + 2)
+	{
+		(*map)[i] = ft_calloc(cube->map_width + 2, sizeof(char));
+		if ((*map)[i] == NULL)
+			error_msg_exit("Error: Malloc error", 1);
+		i++;
+	}
+}
+
+char	*empty_line_read_map(t_file *file)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	while (i < INT_MAX)
+	{
+		line = get_line(file);
+		file->start_line_map++;
+		if (line == NULL)
+			error_msg_exit("Error: No map in file.\n", 1);
+		if (line[0] == '\0')
+		{
+			i++;
+			free(line);
+		}
+		else
+			break ;
+	}
+	return (line);
+}

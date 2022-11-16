@@ -140,7 +140,9 @@ int	parsing(t_vars *vars);
 int	parse_map_element(t_cube *cube, t_file *file);
 
 //PARSING VALIDATE MAP
-void validate_map(t_cube *cube);
+void	validate_map(t_cube *cube);
+char	*empty_line_read_map(t_file *file);
+void	map_malloc(t_cube *cube, char ***map);
 
 //UTILS
 void	*ft_memset32(void *str, int32_t c, int32_t len);
