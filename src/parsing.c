@@ -98,7 +98,9 @@ int	parsing(t_vars *vars)
 	validate_file_name(vars->file);
 	open_cub_file(vars->file);
 	parse_cub_file_lines(vars->cube, vars->file);
-	set_dir_vector(vars->cube->map[(int)vars->cube->player_y][(int)vars->cube->player_x], &vars->pov->dir_x, &vars->pov->dir_y);
-	set_plane_vector(vars->cube->map[(int)vars->cube->player_y][(int)vars->cube->player_x], &vars->pov->plane_x, &vars->pov->plane_y);
-	return 0;
+	set_dir_vector(vars->cube->map[(int)vars->cube->player_y]
+	[(int)vars->cube->player_x], &vars->pov->dir_x, &vars->pov->dir_y);
+	set_plane_vector(vars->cube->map[(int)vars->cube->player_y]
+	[(int)vars->cube->player_x], &vars->pov->plane_x, &vars->pov->plane_y);
+	return (0);
 }
