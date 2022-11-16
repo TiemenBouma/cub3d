@@ -4,31 +4,6 @@
 
 int	recursive_map_check(t_cube *cube, int x, int y);
 
-void	start_location(char **map, int *cordinates)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (map[y])
-	{
-		x = 1;
-		while (map[y][x])
-		{
-			if (map[y][x] == '0')
-			{
-				cordinates[0] = y;
-				cordinates[1] = x;
-				return ;
-			}
-			x++;
-		}
-		y++;
-	}
-	cordinates[0] = y;
-	cordinates[1] = x;
-}
-
 void	check_tile(t_cube *cube, int x, int y)
 {
 	if (cube->cpy_map[y][x] == '\0')
@@ -62,7 +37,5 @@ void	validate_map(t_cube *cube)
 {
 	recursive_map_check(cube, cube->player_x, cube->player_y);
 	if (cube->player_count != 1)
-	{
 		error_msg_exit("Error: Wrong player count.\n", 1);
-	}
 }

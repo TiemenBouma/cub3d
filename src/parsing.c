@@ -2,31 +2,14 @@
 #include "../includes/libft/libft.h"
 #define ELEMENTS_COUNT 6
 
-int	set_rgb(char *str, int rgb[])
-{
-	char	**split;
-	int		i;
 
-	i = 0;
-	split = ft_split(str, ',');
-	if (split == NULL)
-		error_msg_exit("Error: Split error", 1);
-	while (split[i])
-		i++;
-	if (i != 3)
-		error_msg_exit("Error: Wrong RGB Color code.\n", 1);
-	rgb[0] = ft_atoi(split[0]);
-	rgb[1] = ft_atoi(split[1]);
-	rgb[2] = ft_atoi(split[2]);
-	free_double_ptr(split);
-	i = 0;
-	while (i < 3)
-	{
-		if (rgb[i] < 0 || rgb[i] > 255)
-			error_msg_exit("Error: Wrong RGB Color code.\n", 1);
-		i++;
-	}
-	return (0);
+
+void	set_element(char **split, char **cube_element)
+{
+	if (*cube_element != NULL)
+		error_msg_exit("Error: Duplicate element.\n", 1);
+	*cube_element = ft_strdup(split[1]);
+
 }
 
 int	lookup_element(t_cube *cube, char **split, char *line)
@@ -42,19 +25,19 @@ int	lookup_element(t_cube *cube, char **split, char *line)
 	else if (split[1] == NULL)
 		error_msg_exit("Error: no valid Element.\n", 1);
 	else if (ft_strncmp(split[0], "NO", 3) == 0)
-		cube->no = ft_strdup(split[1]);
+		set_element(split, &cube->no);
 	else if (ft_strncmp(split[0], "EA", 3) == 0)
-		cube->ea = ft_strdup(split[1]);
+		set_element(split, &cube->ea);
 	else if (ft_strncmp(split[0], "SO", 3) == 0)
-		cube->so = ft_strdup(split[1]);
+		set_element(split, &cube->so);
 	else if (ft_strncmp(split[0], "WE", 3) == 0)
-		cube->we = ft_strdup(split[1]);
-	else if (ft_strncmp(split[0], "F", 2) == 0 && cube->floor_rgb[0] == -1)
+		set_element(split, &cube->we);
+	else if (ft_strncmp(split[0], "F", 2) == 0)
 		set_rgb(split[1], cube->floor_rgb);
-	else if (ft_strncmp(split[0], "C", 2) == 0 && cube->ceilling_rgb[0] == -1)
+	else if (ft_strncmp(split[0], "C", 2) == 0)
 		set_rgb(split[1], cube->ceilling_rgb);
 	else
-		error_msg_exit("Error: No element found.\n", 1);
+		error_msg_exit("Error: no valid Element.\n", 1);
 	return (0);
 }
 
@@ -98,11 +81,9 @@ int	parsing(t_vars *vars)
 	validate_file_name(vars->file);
 	open_cub_file(vars->file);
 	parse_cub_file_lines(vars->cube, vars->file);
-	set_dir_vector(
-		vars->cube->map[(int)vars->cube->player_y][(int)vars->cube->player_x],
-		&vars->pov->dir_x, &vars->pov->dir_y);
-	set_plane_vector(
-		vars->cube->map[(int)vars->cube->player_y][(int)vars->cube->player_x],
-		&vars->pov->plane_x, &vars->pov->plane_y);
+	set_dir_vector(vars->cube->map[(int)vars->cube->player_y]
+	[(int)vars->cube->player_x], &vars->pov->dir_x, &vars->pov->dir_y);
+	set_plane_vector(vars->cube->map[(int)vars->cube->player_y]
+	[(int)vars->cube->player_x], &vars->pov->plane_x, &vars->pov->plane_y);
 	return (0);
 }

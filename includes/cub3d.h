@@ -105,6 +105,7 @@ typedef struct s_cube
 	int				player_y;
 	int				cursorx;
 	int				cursory;
+	int				has_player;
 }	t_cube;
 
 typedef struct s_file
@@ -127,13 +128,15 @@ typedef struct s_vars
 int		open_cub_file(t_file *file);
 int		parsing(t_vars *vars);
 int		parse_map_element(t_cube *cube, t_file *file);
-void	map_malloc(t_cube *cube, char ***map);
-int		calculate_map_length(t_cube *cube, t_file *file, char *line);
-char	*empty_line_read(t_file *file);
+int		set_rgb(char *str, int rgb[]);
 int		is_player(char *line);
+int		calculate_map_length(t_cube *cube, t_file *file, char *line);
+void	set_map_array(t_cube *cube, t_file *file);
 
 //PARSING VALIDATE MAP
 void	validate_map(t_cube *cube);
+char	*empty_line_read_map(t_file *file);
+void	map_malloc(t_cube *cube, char ***map);
 
 //UTILS
 void	*ft_memset32(void *str, int32_t c, int32_t len);

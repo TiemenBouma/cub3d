@@ -1,12 +1,12 @@
-NO ./pics/gif/tree_texture.png
-SO ./pics/gif/tree_texture.png
-WE ./pics/gif/tree_texture2.png
-EA ./pics/gif/tree_texture.png
+NO ./pics/wall_daisy.png
+SO ./pics/wall_daisy.png
+WE ./pics/wall_daisy.png
+EA ./pics/wall_daisy.png
 
 
 
-F 41,87,84
-C 41,87,84
+C 44,144,44
+F 44,30,130
 
 
 

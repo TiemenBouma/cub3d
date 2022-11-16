@@ -3,6 +3,8 @@
 #include "../includes/libft/libft.h"
 #include <stdlib.h>
 
+#include <stdio.h>
+
 void	delete_textures(t_cube *cube)
 {
 	if (cube->texture_no_wall != NULL)
@@ -15,29 +17,11 @@ void	delete_textures(t_cube *cube)
 		mlx_delete_texture(cube->texture_we_wall);
 }
 
-void	delete_image(mlx_t *mlx, t_cube *cube)
-{
-	if (cube->g_img_ceilling != NULL)
-	{
-		printf("DEBUG: DELETE IMG C\n");
-		mlx_delete_image(mlx, cube->g_img_ceilling);
-	}
-	if (cube->g_img_floor != NULL)
-	{
-		printf("DEBUG: DELETE IMG F\n");
-		mlx_delete_image(mlx, cube->g_img_floor);
-	}
-	if (cube->g_img_demo != NULL)
-	{
-		printf("DEBUG: DELETE IMG DEMO\n");
-		mlx_delete_image(mlx, cube->g_img_demo);
-	}
-}
-
 void	free_all(t_vars *vars)
 {
 	free_double_ptr(vars->cube->map);
 	free_double_ptr(vars->cube->cpy_map);
+	delete_textures(vars->cube);
 	free(vars->cube->no);
 	free(vars->cube->ea);
 	free(vars->cube->so);

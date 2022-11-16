@@ -27,7 +27,7 @@ DEBUG :=
 CC := gcc
 LIBFT := includes/libft/libft.a
 LIBMLX := includes/MLX42/libmlx42.a
-#MLXFLAGS := includes/MLX42/libmlx42.a -ldl -lglfw -pthread -lm -I /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
+# MLXFLAGS := includes/MLX42/libmlx42.a -ldl -lglfw -pthread -lm -I /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
 #MLXFLAGS := includes/MLX42/libmlx42.a -I -ldl -lglfw3 -pthread -lm
 # -ldl -lglfw (or -lglfw3) -pthread -lm
 

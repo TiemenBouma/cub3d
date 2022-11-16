@@ -5,39 +5,19 @@
 
 #include <stdio.h>
 
-char	*empty_line_read(t_file *file)
-{
-	int		i;
-	char	*line;
-
-	i = 0;
-	while (i < INT_MAX)
-	{
-		line = get_line(file);
-		file->start_line_map++;
-		if (line == NULL)
-			error_msg_exit("Error: No map in file.\n", 1);
-		if (line[0] == '\0')
-		{
-			i++;
-			free(line);
-		}
-		else
-			break ;
-	}
-	return (line);
-}
-
 int	calculate_map_length(t_cube *cube, t_file *file, char *line)
 {
-	int		temp_width;
+	int	temp_width;
 
 	while (1)
 	{
 		if (line == NULL)
 			break ;
 		if (line[0] == '\0')
+		{
+			free(line);
 			break ;
+		}
 		temp_width = ft_strlen(line);
 		if (temp_width > cube->map_width)
 			cube->map_width = temp_width;
@@ -51,24 +31,6 @@ int	calculate_map_length(t_cube *cube, t_file *file, char *line)
 	return (0);
 }
 
-void	map_malloc(t_cube *cube, char ***map)
-{
-	int	i;
-
-	i = 0;
-	*map = ft_calloc(cube->map_length + 3, sizeof(char *));
-	if (*map == NULL)
-		error_msg_exit("Error: Malloc error", 1);
-	(*map)[cube->map_length + 2] = NULL;
-	while (i < cube->map_length + 2)
-	{
-		(*map)[i] = ft_calloc(cube->map_width + 2, sizeof(char));
-		if ((*map)[i] == NULL)
-			error_msg_exit("Error: Malloc error", 1);
-		i++;
-	}
-}
-
 int	is_player(char *line)
 {
 	if (ft_strchr(line, 'N'))
@@ -80,4 +42,46 @@ int	is_player(char *line)
 	else if (ft_strchr(line, 'W'))
 		return (ft_strchr(line, 'W') - line);
 	return (-1);
+}
+
+char	*set_map_array2(t_cube *cube, t_file *file)
+{
+	int 	i;
+	char	*line;
+
+	i = 0;
+	map_malloc(cube, &cube->map);
+	map_malloc(cube, &cube->cpy_map);
+	while (i < file->start_line_map - 1)
+	{
+		line = get_next_line(file->file_fd);
+		free(line);
+		i++;
+	}
+	return (line);
+}
+
+void	set_map_array(t_cube *cube, t_file *file)
+{
+	int		i;
+	char	*line;
+
+	line = set_map_array2(cube, file);
+	i = 1;
+	while (i < cube->map_length + 1)
+	{
+		line = get_line(file);
+		if (is_player(line) > 0)
+		{
+			cube->player_x = is_player(line) + 1;
+			cube->player_y = i;
+			cube->has_player = 1;
+		}
+		ft_memcpy(cube->map[i] + 1, line, ft_strlen(line));
+		ft_memcpy(cube->cpy_map[i] + 1, line, ft_strlen(line));
+		free(line);
+		i++;
+	}
+	if (cube->has_player == 0)
+		error_msg_exit("Error: No player found.\n", 1);
 }
