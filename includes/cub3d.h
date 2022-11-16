@@ -85,13 +85,10 @@ typedef struct s_cube
 {
 	int		window_x;
 	int		window_y;
-	// int		res_x;
-	// int		res_y;
 	char	*no;
 	char	*so;
 	char	*we;
 	char	*ea;
-	//char	*s;
 	int		floor_rgb[3];
 	int		ceilling_rgb[3];
 
@@ -114,6 +111,7 @@ typedef struct s_cube
 	int		map_width;
 	int		map_length;
 	int		player_count;
+	int		has_player;
 	int		player_x;
 	int		player_y;
 }	t_cube;

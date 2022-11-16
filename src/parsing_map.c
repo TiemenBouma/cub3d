@@ -74,12 +74,15 @@ void	set_map_array(t_cube *cube, t_file *file)
 		{
 			cube->player_x = is_player(line) + 1;
 			cube->player_y = i;
+			cube->has_player = 1;
 		}
 		ft_memcpy(cube->map[i] + 1, line, ft_strlen(line));
 		ft_memcpy(cube->cpy_map[i] + 1, line, ft_strlen(line));
 		free(line);
 		i++;
 	}
+	if (cube->has_player == 0)
+		error_msg_exit("Error: No player found.\n", 1);
 }
 
 int	parse_map_element(t_cube *cube, t_file *file)

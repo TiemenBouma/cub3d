@@ -22,6 +22,7 @@ void	init_cube_struct(t_cube *cube)
 	cube->player_count = 0;
 	cube->player_x = 0;
 	cube->player_y = 0;
+	cube->has_player = 0;
 }
 
 void	init_file_struct(t_file *file, char **argv)
