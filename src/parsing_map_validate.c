@@ -6,7 +6,7 @@
 /*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 10:41:19 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 11:07:33 by tiemen        ########   odam.nl         */
+/*   Updated: 2022/11/17 13:32:59 by svos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,21 @@
 
 int	recursive_map_check(t_cube *cube, int x, int y);
 
+int	is_valid_char(char mapchar)
+{
+	if (mapchar == 'N'
+		|| mapchar == 'S'
+		|| mapchar == 'E'
+		|| mapchar == 'W'
+		|| mapchar == '1'
+		|| mapchar == '0')
+		return (1);
+	return (0);
+}
+
 void	check_tile(t_cube *cube, int x, int y)
 {
-	if (cube->cpy_map[y][x] == '\0')
+	if (is_valid_char(cube->cpy_map[y][x]) == 0)
 		error_msg_exit("Error:  Invalid map.\n", 1);
 	if (cube->cpy_map[y][x] == '0')
 	{
