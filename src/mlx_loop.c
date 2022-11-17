@@ -1,9 +1,21 @@
-#include "../includes/MLX42/include/MLX42/MLX42.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   mlx_loop.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:41:08 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 10:54:28 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 #include <stdlib.h>
-#include <time.h>
+//#include <time.h>
 
-#include <stdio.h>
+//#include <stdio.h>
 
 void	hook( void *param)
 {

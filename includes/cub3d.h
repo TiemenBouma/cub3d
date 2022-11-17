@@ -1,12 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   cub3d.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:43:55 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 10:49:29 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
 # include "MLX42/include/MLX42/MLX42.h"
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <math.h>
-# include <stdbool.h>
 # define SCREEN_X 1400
 # define SCREEN_Y 1000
 # define PI 3.141592653589793
@@ -139,7 +146,7 @@ char	*empty_line_read_map(t_file *file);
 void	map_malloc(t_cube *cube, char ***map);
 
 //UTILS
-void	*ft_memset32(void *str, int32_t c, int32_t len);
+//void	*ft_memset32(void *str, int32_t c, int32_t len);
 int		get_rgba(int r, int g, int b, int a);
 int		error_msg_exit(char *msg, int exit_code);
 char	*get_line(t_file *file);

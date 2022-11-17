@@ -1,5 +1,17 @@
-#include "../includes/MLX42/include/MLX42/MLX42.h"
-#include "../includes/MLX42/include/MLX42/MLX42_Input.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   mlx_init.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:41:05 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 10:53:33 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include "../includes/MLX42/include/MLX42/MLX42.h"
+//#include "../includes/MLX42/include/MLX42/MLX42_Input.h"
 #include "../includes/cub3d.h"
 #include <stdlib.h>
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   raycast_texture_line2.c                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:41:47 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 10:41:48 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 int	calc_middle_offset(int img_length, int screen_y)

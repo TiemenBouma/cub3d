@@ -1,22 +1,34 @@
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   utils.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:42:02 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 11:05:56 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include <stdlib.h>
 #include "../includes/libft/libft.h"
 #include "../includes/cub3d.h"
 #include "../includes/get_next_line/get_next_line.h"
 
-void	*ft_memset32(void *str, int32_t c, int32_t len)
-{
-	int32_t	i;
-	int32_t	*ptr;
+// void	*ft_memset32(void *str, int32_t c, int32_t len)
+// {
+// 	int32_t	i;
+// 	int32_t	*ptr;
 
-	ptr = (int32_t *)str;
-	i = 0;
-	while (i < len)
-	{
-		ptr[i] = (int32_t)c;
-		i++;
-	}
-	return (ptr);
-}
+// 	ptr = (int32_t *)str;
+// 	i = 0;
+// 	while (i < len)
+// 	{
+// 		ptr[i] = (int32_t)c;
+// 		i++;
+// 	}
+// 	return (ptr);
+// }
 
 int	get_rgba(int r, int g, int b, int a)
 {

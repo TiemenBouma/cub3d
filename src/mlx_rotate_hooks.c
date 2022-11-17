@@ -1,5 +1,18 @@
-#include "../includes/MLX42/include/MLX42/MLX42.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   mlx_rotate_hooks.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:41:15 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 10:46:02 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
+#include <math.h>
 
 void	rotate_right(t_pov *pov, double old_dir_x,
 			double old_plane_x, double rotSpeed)

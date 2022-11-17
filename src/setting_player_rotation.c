@@ -1,8 +1,20 @@
-#include "../includes/MLX42/include/MLX42/MLX42.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   setting_player_rotation.c                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:41:58 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 11:05:34 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
-#include "../includes/libft/libft.h"
-#include <stdlib.h>
-#include <stdbool.h>
+// #include "../includes/libft/libft.h"
+// #include <stdlib.h>
+// #include <stdbool.h>
 
 void	set_dir_vector(char ori, double *dir_x, double *dir_y)
 {

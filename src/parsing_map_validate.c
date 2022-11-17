@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parsing_map_validate.c                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:41:19 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 10:55:24 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
-#include "../includes/libft/libft.h"
-#include <stdio.h>
+//#include "../includes/libft/libft.h"
+//#include <stdio.h>
 
 int	recursive_map_check(t_cube *cube, int x, int y);
 

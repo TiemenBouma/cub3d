@@ -1,4 +1,16 @@
-#include "../includes/MLX42/include/MLX42/MLX42.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   mlx_move_hooks.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:41:12 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 10:54:54 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 
 void	hook_move_up(t_vars *vars, double moveSpeed)
@@ -14,7 +26,8 @@ void	hook_move_up(t_vars *vars, double moveSpeed)
 	dirx = &vars->pov->dir_x;
 	diry = &vars->pov->dir_y;
 	map = vars->cube->map;
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_W))
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_W)
+		|| mlx_is_key_down(vars->mlx, MLX_KEY_UP))
 	{
 		if (map[(int)(*posy + 0.1)][(int)(*posx + *dirx * moveSpeed)] != '1'
 			&& map[(int)(*posy - 0.1)][(int)(*posx + *dirx * moveSpeed)] != '1'
@@ -42,7 +55,8 @@ void	hook_move_down(t_vars *vars, double moveSpeed)
 	dirx = &vars->pov->dir_x;
 	diry = &vars->pov->dir_y;
 	map = vars->cube->map;
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_S)
+		|| mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
 	{
 		if (map[(int)(*posy + 0.1)][(int)(*posx - *dirx * moveSpeed)] != '1'
 			&& map[(int)(*posy - 0.1)][(int)(*posx - *dirx * moveSpeed)] != '1'

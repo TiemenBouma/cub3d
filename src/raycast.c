@@ -1,7 +1,19 @@
-#include "../includes/MLX42/include/MLX42/MLX42.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   raycast.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:41:54 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 11:05:19 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
-#include "../includes/libft/libft.h"
-#include <stdlib.h>
+//#include "../includes/libft/libft.h"
+//#include <stdlib.h>
 
 void	raycaster(t_vars *vars, t_pov *pov)
 {

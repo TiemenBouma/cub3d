@@ -1,9 +1,21 @@
-#include "../includes/MLX42/include/MLX42/MLX42.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:40:42 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 10:52:59 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
-#include "../includes/libft/libft.h"
+//#include "../includes/libft/libft.h"
 #include <stdlib.h>
 
-#include <stdio.h>
+//#include <stdio.h>
 
 void	delete_textures(t_cube *cube)
 {
@@ -37,10 +49,7 @@ int	main(int argc, char **argv)
 	t_pov	pov;
 
 	if (argc != 2)
-	{
-		ft_putstr_fd("Error: No file or more than 1 file specified.\n", 2);
-		exit (1);
-	}
+		error_msg_exit("Error: No file or more than 1 file specified.\n", 1);
 	vars.cube = &cube;
 	vars.file = &file;
 	vars.pov = &pov;

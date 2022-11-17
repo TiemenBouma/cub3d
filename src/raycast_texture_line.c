@@ -1,5 +1,18 @@
-#include "../includes/MLX42/include/MLX42/MLX42.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   raycast_texture_line.c                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/17 10:41:44 by tiemen        #+#    #+#                 */
+/*   Updated: 2022/11/17 11:04:59 by tiemen        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
+#include <stdlib.h>
 
 int	get_color_put_pixel(t_put_line *line, int pixel_y, int scaled_pixel_height)
 {
