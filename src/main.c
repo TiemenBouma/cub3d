@@ -6,16 +6,12 @@
 /*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 10:40:42 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 10:52:59 by tiemen        ########   odam.nl         */
+/*   Updated: 2022/11/17 11:07:03 by tiemen        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
-//#include "../includes/libft/libft.h"
 #include <stdlib.h>
-
-//#include <stdio.h>
 
 void	delete_textures(t_cube *cube)
 {

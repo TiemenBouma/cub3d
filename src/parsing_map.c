@@ -6,16 +6,12 @@
 /*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 10:41:23 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 11:03:01 by tiemen        ########   odam.nl         */
+/*   Updated: 2022/11/17 11:07:39 by tiemen        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include "../includes/libft/libft.h"
-// #include "../includes/get_next_line/get_next_line.h"
-// #include <unistd.h>
-
-// #include <stdio.h>
 
 int	calculate_map_length(t_cube *cube, t_file *file, char *line)
 {

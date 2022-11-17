@@ -6,11 +6,10 @@
 /*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 10:41:44 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 11:04:59 by tiemen        ########   odam.nl         */
+/*   Updated: 2022/11/17 11:07:58 by tiemen        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 #include <stdlib.h>
 

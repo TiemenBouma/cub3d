@@ -6,11 +6,10 @@
 /*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 10:41:12 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 10:54:54 by tiemen        ########   odam.nl         */
+/*   Updated: 2022/11/17 11:07:25 by tiemen        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../includes/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cub3d.h"
 
 void	hook_move_up(t_vars *vars, double moveSpeed)

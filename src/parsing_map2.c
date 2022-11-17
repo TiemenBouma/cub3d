@@ -6,13 +6,11 @@
 /*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 10:41:26 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 11:03:48 by tiemen        ########   odam.nl         */
+/*   Updated: 2022/11/17 11:07:47 by tiemen        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-//#include "../includes/libft/libft.h"
-//#include "../includes/get_next_line/get_next_line.h"
 #include <unistd.h>
 
 void	check_player(t_cube *cube, char *line, int i)
