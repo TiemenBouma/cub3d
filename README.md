@@ -1,6 +1,6 @@
 # cub3d
-Made by:            t-bouma and svos.
-program languages:  C
+Made by:            t-bouma and svos
+Program languages:  C
 
 Cub3d is a team schoolproject for Codam Collage.
 The idea was to make a raycasting game engine inspired on Wolfenstein 3d.
