@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parsing_map.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/17 10:41:23 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 11:30:25 by svos          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parsing_map.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/17 10:41:23 by tiemen            #+#    #+#             */
+/*   Updated: 2022/11/21 13:56:36 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int	calculate_map_length(t_cube *cube, t_file *file, char *line)
 		line = get_line(file);
 	}
 	if (cube->map_width < 3 || cube->map_length < 3)
-		error_msg_exit("Error: Map lenths not correct.\n", 1);
-	// free(line);
+		error_msg_exit("Error: Invalid map.\n", 1);
 	return (0);
 }
 
@@ -54,7 +53,7 @@ int	is_player(char *line)
 
 char	*set_map_array2(t_cube *cube, t_file *file)
 {
-	int 	i;
+	int		i;
 	char	*line;
 
 	i = 0;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parsing_map_validate.c                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/17 10:41:19 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 13:32:59 by svos          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parsing_map_validate.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/17 10:41:19 by tiemen            #+#    #+#             */
+/*   Updated: 2022/11/21 13:51:47 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_valid_char(char mapchar)
 void	check_tile(t_cube *cube, int x, int y)
 {
 	if (is_valid_char(cube->cpy_map[y][x]) == 0)
-		error_msg_exit("Error:  Invalid map.\n", 1);
+		error_msg_exit("Error: Invalid map.\n", 1);
 	if (cube->cpy_map[y][x] == '0')
 	{
 		cube->cpy_map[y][x] = '1';
@@ -57,6 +57,7 @@ int	recursive_map_check(t_cube *cube, int x, int y)
 
 void	validate_map(t_cube *cube)
 {
+	check_tile(cube, cube->player_x, cube->player_y);
 	recursive_map_check(cube, cube->player_x, cube->player_y);
 	if (cube->player_count != 1)
 		error_msg_exit("Error: Wrong player count.\n", 1);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_init.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/17 10:41:05 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 11:07:09 by tiemen        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_init.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/17 10:41:05 by tiemen            #+#    #+#             */
+/*   Updated: 2022/11/21 14:06:25 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ mlx_t	*init_mlx_stuff(t_cube *cube)
 {
 	mlx_t	*mlx;
 
-	mlx = mlx_init(cube->window_x, cube->window_y, "MLX42", true);
+	mlx = mlx_init(cube->window_x, cube->window_y, "Cub3d", true);
 	make_floor_ceilling(mlx, cube);
 	init_walls(cube, mlx);
-	cube->g_img_demo = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
+	cube->g_img_wall = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
 	return (mlx);
 }

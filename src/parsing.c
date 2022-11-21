@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parsing.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/17 10:41:33 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 10:41:34 by tiemen        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/17 10:41:33 by tiemen            #+#    #+#             */
+/*   Updated: 2022/11/21 13:38:15 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 #include "../includes/libft/libft.h"
 #define ELEMENTS_COUNT 6
 
-
-
 void	set_element(char **split, char **cube_element)
 {
 	if (*cube_element != NULL)
 		error_msg_exit("Error: Duplicate element.\n", 1);
 	*cube_element = ft_strdup(split[1]);
-
 }
 
 int	lookup_element(t_cube *cube, char **split, char *line)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/17 10:43:55 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 10:49:29 by tiemen        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/17 10:43:55 by tiemen            #+#    #+#             */
+/*   Updated: 2022/11/21 14:56:23 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_cube
 	mlx_image_t		*g_img_wall_ea;
 	mlx_image_t		*g_img_wall_so;
 	mlx_image_t		*g_img_wall_we;
-	mlx_image_t		*g_img_demo;
+	mlx_image_t		*g_img_wall;
 	mlx_texture_t	*texture_no_wall;
 	mlx_texture_t	*texture_ea_wall;
 	mlx_texture_t	*texture_so_wall;
@@ -124,7 +124,6 @@ typedef struct s_file
 
 typedef struct s_vars
 {
-	int				gamecycle;
 	t_cube			*cube;
 	mlx_t			*mlx;
 	t_file			*file;
@@ -146,7 +145,6 @@ char	*empty_line_read_map(t_file *file);
 void	map_malloc(t_cube *cube, char ***map);
 
 //UTILS
-//void	*ft_memset32(void *str, int32_t c, int32_t len);
 int		get_rgba(int r, int g, int b, int a);
 int		error_msg_exit(char *msg, int exit_code);
 char	*get_line(t_file *file);
@@ -161,17 +159,10 @@ mlx_t	*init_mlx_stuff(t_cube *cube);
 //INIT STRUCTS
 void	init_structs(t_vars *vars, char **argv);
 
-//TESTING
-void	printmap(char **map);
-int		demo_scaling(mlx_t *mlx, t_cube *cube);
-
-
 //RAYCASTING
-void	find_playpos(t_cube *cube, t_pov *pov);
-void	cast_rays(t_cube *cube, char **map, t_pov *pov);
 float	ft_fmod(float f, bool exclude_zero);
 int		print_line(t_cube *cube, int col, t_ray *ray);
-
+void	raycaster(t_vars *vars, t_pov *pov);
 
 //RAYCASTING UTILS
 double	ft_abs(double i);
@@ -184,13 +175,6 @@ void	calc_initial_side_dist(t_ray *ray, t_pov *pov);
 void	calc_perp_wall_dist(t_ray *ray);
 void	calc_wall_ori(t_ray *ray);
 void	calc_wall_x(t_ray *ray, t_pov *pov);
-
-//DDA
-double	ft_abs(double i);
-
-//TEST
-void	raycaster(t_vars *vars, t_pov *pov);
-void	print_map(char **map);
 
 //settting player rotation
 void	set_plane_vector(char ori, double *place_x, double *place_y);
@@ -210,7 +194,6 @@ void	hook_cursor_rotate(t_vars *vars, double rotSpeed);
 //raycast_texture
 int		calc_middle_offset(int img_length, int screen_y);
 int		get_pixel(t_put_line *line, double ratio);
-
 int		open_cub_file(t_file *file);
 int		validate_file_name(t_file *file);
 

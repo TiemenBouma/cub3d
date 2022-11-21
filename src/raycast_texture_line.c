@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   raycast_texture_line.c                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/17 10:41:44 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 11:07:58 by tiemen        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   raycast_texture_line.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/17 10:41:44 by tiemen            #+#    #+#             */
+/*   Updated: 2022/11/21 14:06:25 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	print_line(t_cube *cube, int col, t_ray *ray)
 	u_int32_t	scaled_pixel_height;
 
 	pixel_y = 0;
-	line.img = cube->g_img_demo;
+	line.img = cube->g_img_wall;
 	line.texture = set_texture(cube, ray->wall_ori);
 	line.scale = ray->scale;
 	line.vert_line = col;

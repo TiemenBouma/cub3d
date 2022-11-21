@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init_structs.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/17 10:40:54 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 10:45:12 by tiemen        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init_structs.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/17 10:40:54 by tiemen            #+#    #+#             */
+/*   Updated: 2022/11/21 14:50:28 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	init_file_struct(t_file *file, char **argv)
 
 void	init_structs(t_vars *vars, char **argv)
 {
-	vars->gamecycle = 0;
 	init_cube_struct(vars->cube);
 	init_file_struct(vars->file, argv);
 }
