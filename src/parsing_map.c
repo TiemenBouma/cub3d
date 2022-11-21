@@ -6,7 +6,7 @@
 /*   By: tiemen <tiemen@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 10:41:23 by tiemen        #+#    #+#                 */
-/*   Updated: 2022/11/17 11:07:39 by tiemen        ########   odam.nl         */
+/*   Updated: 2022/11/17 11:30:25 by svos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	calculate_map_length(t_cube *cube, t_file *file, char *line)
 	}
 	if (cube->map_width < 3 || cube->map_length < 3)
 		error_msg_exit("Error: Map lenths not correct.\n", 1);
-	free(line);
+	// free(line);
 	return (0);
 }
 
