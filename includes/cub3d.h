@@ -6,7 +6,7 @@
 /*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 10:43:55 by tiemen            #+#    #+#             */
-/*   Updated: 2022/11/21 14:56:23 by tbouma           ###   ########.fr       */
+/*   Updated: 2022/11/23 08:17:22 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,6 @@
 # define SCREEN_X 1400
 # define SCREEN_Y 1000
 # define PI 3.141592653589793
-# define XRES 100
-# define YRES 100
-# define X 0
-# define Y 1
-# define JUNC 2
-//#define XMAPRES 13
-//#define YMAPRES 6
 
 typedef struct s_put_line
 {
