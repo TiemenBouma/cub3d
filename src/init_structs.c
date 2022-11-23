@@ -6,7 +6,7 @@
 /*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 10:40:54 by tiemen            #+#    #+#             */
-/*   Updated: 2022/11/21 14:50:28 by tbouma           ###   ########.fr       */
+/*   Updated: 2022/11/23 11:01:17 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	init_cube_struct(t_cube *cube)
 	cube->player_count = 0;
 	cube->player_x = 0;
 	cube->player_y = 0;
-	cube->cursorx = 0;
-	cube->cursory = 0;
+	cube->cursorx = SCREEN_X / 2;
+	cube->cursory = SCREEN_Y / 2;
 	cube->has_player = 0;
 }
 
