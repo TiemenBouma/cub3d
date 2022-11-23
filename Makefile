@@ -1,4 +1,4 @@
-NAME := cube
+NAME := cub3D
 OBJFILES :=	obj/main.o \
 			obj/get_next_line_utils.o \
 			obj/get_next_line.o \

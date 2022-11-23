@@ -6,7 +6,7 @@
 /*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 10:41:05 by tiemen            #+#    #+#             */
-/*   Updated: 2022/11/23 07:56:15 by tbouma           ###   ########.fr       */
+/*   Updated: 2022/11/23 11:15:05 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ mlx_t	*init_mlx_stuff(t_cube *cube)
 	mlx_t	*mlx;
 
 	mlx = mlx_init(cube->window_x, cube->window_y, "Cub3d", true);
+	mlx_get_mouse_pos(mlx, &cube->cursorx, &cube->cursory);
 	make_floor_ceilling(mlx, cube);
 	init_walls(cube, mlx);
 	cube->g_img_wall = mlx_new_image(mlx, SCREEN_X, SCREEN_Y);
