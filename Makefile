@@ -21,12 +21,11 @@ OBJFILES :=	obj/main.o \
 			obj/setting_player_rotation.o \
 			obj/utils.o
 CFLAGS := -Werror -Wextra -Wall
-# -fsanitize=address -g3
-DEBUG := 
+DEBUG := -fsanitize=address -g3
 CC := gcc
 LIBFT := includes/libft/libft.a
 LIBMLX := includes/MLX42/libmlx42.a
-# MLXFLAGS := includes/MLX42/libmlx42.a -ldl -lglfw -pthread -lm -I /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
+MLXFLAGS_LINUX := includes/MLX42/libmlx42.a -ldl -lglfw -pthread -lm -I /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
 MLXFLAGS := -I include -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 all: $(LIBFT) $(LIBMLX) $(NAME)
 
