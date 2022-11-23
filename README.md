@@ -2,22 +2,22 @@
 Made by:            t-bouma and svos
 Program languages:  C
 
-Cub3d is a team schoolproject for Codam Collage.
-The idea was to make a raycasting game engine inspired on Wolfenstein 3d.
+Cub3d is a team schoolproject for Codam Coding College.
+The idea was to make a raycasting game engine inspired by Wolfenstein 3d.
 
 How it works:
 After downloading use the command "make" to compile the code into a executable.
-execute cube with a map file like "./cube map.cub". THe map file should have .cub extention.
+execute cub3D with a map file like "./cub3D map.cub". The map file should have a .cub extention.
 
 Once started you can move with WASD and mouse or arrow keys.
 
 Mapfile requierments:
 The file should hav 7 elements:
 NO, EA, SO, WE, F, C, and a map
-the windrirections should have a testure.png file. recomended pixels is 1024x1024.
+the winddirections should have a texture.png file. recommended pixels is 1024x1024.
 F = Floor. It has a rgb color code.
 C = Ceilling It has a rgb color code.
-map is a represennation of the world the player can move in. It has '1' for walls, '0' for walkable squares. and "N,S,W,E" for startposiotion and initial view angle.
+map is a represennation of the world the player can move in. It has '1' for walls, '0' for walkable squares. and "N,S,W,E" for startposition and initial view angle.
 
 Example map file:
 
