@@ -22,7 +22,7 @@ OBJFILES :=	obj/main.o \
 			obj/utils.o
 CFLAGS := -Werror -Wextra -Wall
 DEBUG := -fsanitize=address -g3
-CC := gcc
+CC := cc
 LIBFT := includes/libft/libft.a
 LIBMLX := includes/MLX42/libmlx42.a
 MLXFLAGS_LINUX := includes/MLX42/libmlx42.a -ldl -lglfw -pthread -lm -I /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
